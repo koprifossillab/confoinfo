@@ -1,19 +1,13 @@
 # HANDOFF
 
 **2026-10-08** · 1단계(범용 모델·자료 형식·화면·배포 틀) 코드 끝 · **아직 어디에도 안 떴다** ·
-저장소에 아직 못 밀었다. 이어서 할 사람은 여기부터.
+`main` 에 밀었고 CI(시험·이미지 굽기)가 통과했다. 이어서 할 사람은 여기부터.
 
 ## 0. admin 이 할 것 (2026-10-08 sclee)
 
 `sclee` 의 두 GitHub 계정과 sudo 없이는 못 하는 것들이다. **위에서부터 차례로.**
 
-1. **저장소 쓰기 권한.** `koprifossillab/confoinfo` 가 비어 있는데 `wetherilli`·`jikhanjung`
-   둘 다 `push: false` 이고 초대도 안 와 있다. `wetherilli` 에 Write 를 주면 로컬의 커밋이
-   그대로 올라간다 (원격은 이미 걸려 있다):
-
-   ```bash
-   cd ~/projects/confoinfo && git push -u origin main
-   ```
+1. ~~**저장소 쓰기 권한**~~ — 2026-10-08 초대를 받아 `wetherilli`·`jikhanjung` 둘 다 수락했고 `main` 을 밀었다.
 
 2. **`/srv/confoinfo` 를 만든다** (`/srv` 는 root 다):
 
@@ -53,7 +47,7 @@ STRATI 2026(발표 457 · 초록 607)이 들어 있다. 북마크·메모는 브
 | 뷰어 | Django 5.2 · 개발 서버로만 확인. 이미지는 이 머신에 `koprifossillab/confoinfo:v0.1.0-dev`(156 MB, 시험용) |
 | 학회 | `strati2026` 하나 (지난 학회). `docs/examples/` 의 가상 학회는 시험·본보기용 — 안 넣는다 |
 | 배포 | 틀만 있다 — `/srv/confoinfo` · nginx · Docker Hub 가 0절 |
-| 시험 | 27개 (`python web/manage.py test conference`) · CI 는 `main` 에 밀려야 돈다 |
+| 시험 | 27개 (`python web/manage.py test conference`) · CI 가 `main` 에서 돈다(첫 판 통과) |
 | 단계 | **1 끝 → 2(동기화) 는 P01 5절 ①② 를 정한 뒤** |
 
 ## 2. 화면

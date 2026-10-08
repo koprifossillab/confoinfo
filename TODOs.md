@@ -2,7 +2,6 @@
 
 ## 운영·바깥 (HANDOFF 0절)
 
-- 저장소 쓰기 권한 → `git push -u origin main`
 - `/srv/confoinfo` · nginx 조각 · Docker Hub 시크릿 → `v0.1.0` 태그 → `deploy.sh v0.1.0`
 - paleolab 첫 화면에 카드를 둘지 (ForGIA 는 `/srv/paleolab/index.html` 을 admin 이 갈았다)
 
