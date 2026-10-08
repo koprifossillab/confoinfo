@@ -1,14 +1,12 @@
 # HANDOFF
 
 **2026-10-08** · v0.2.0 · 정적 사이트(GitHub Pages)로 옮겼다([002](devlog/20261008_002_github-pages.md)) ·
-**Pages 가 아직 안 켜져 있다** — 그것만 되면 `https://koprifossillab.github.io/confoinfo/` 가 뜬다.
+**`https://koprifossillab.github.io/confoinfo/` 에 떠 있다** (2026-10-08 Pages 켬).
 이어서 할 사람은 여기부터.
 
 ## 0. admin 이 할 것
 
-1. **GitHub Pages 켜기** — `koprifossillab/confoinfo` → Settings → Pages → Build and deployment →
-   Source: **GitHub Actions**. 저장소 admin 만 된다(`wetherilli`·`jikhanjung` 은 Write 라 API 도 404).
-   켠 뒤 Actions 에서 "사이트" workflow 를 한 번 다시 돌리거나(Run workflow) `main` 에 아무거나 민다.
+없다. ~~GitHub Pages 켜기~~ — 2026-10-08 admin 이 Source 를 GitHub Actions 로 켰고, 첫 배포가 돌았다.
 
 ## 1. 한 줄 요약
 
@@ -21,7 +19,7 @@
 | 사이트 | `tools/build_site.sh` → `site/` (1,568개 파일 · 17 MB) · 링크 검사 · CI 가 `main` 에서 굽는다 |
 | 학회 | `strati2026` 하나 (지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
 | 시험 | 28개 (`python web/manage.py test conference`) |
-| 남은 것 | Pages 켜기(0절) · `TODOs.md` |
+| 남은 것 | `TODOs.md` |
 
 ## 2. 화면 (구운 경로)
 
