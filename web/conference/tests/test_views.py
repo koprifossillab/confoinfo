@@ -77,10 +77,33 @@ class ViewTests(TestCase):
         r = self.client.get("/testconf/session/S1/")
         self.assertContains(r, "Conveners: Kim Ex, Lee")
         self.assertContains(r, "- one<br>- two")
-        self.assertContains(r, '<span class="code-tag">O-1</span>')
+        self.assertContains(r, '<span class="code-tag" translate="no">O-1</span>')
         r = self.client.get("/testconf/session/S2/")
         self.assertEqual([a.key for a in r.context["extra"]], ["a2"])
         self.assertEqual([t.key for t in r.context["talks"]], ["t6", "t8"])
+
+    def test_translate_and_scholar(self):
+        r = self.client.get(f"/testconf/talk/{self.t['t1'].pk}/")
+        # 번역 상자와 넘길 글(제목·본문) · 사람 이름은 번역하지 않는다 (004)
+        self.assertContains(r, '<div class="xlate"></div>')
+        self.assertContains(r, 'class="detail-title" data-xlate')
+        self.assertContains(r, 'class="detail-abstract" data-xlate')
+        self.assertContains(r, 'class="detail-authors" translate="no"')
+        self.assertContains(r, '<html lang="en">')
+        # 제1저자이자 교신저자는 한 줄로 (005)
+        self.assertEqual(r.context["people"],
+                         [{"name": "Kim Ex", "roles": ["1st author", "corresponding"], "affiliation": ""}])
+        self.assertContains(r, "mauthors=Kim%20Ex")
+        self.assertContains(r, "scholar?q=author%3A%22Kim%20Ex%22")
+        # 초록 없는 기조 강연은 연사로, 직함·괄호는 뗀다
+        k = self.t["t5"]
+        k.speaker = "Prof. Keynote Person (Convener: Someone)"
+        k.save()
+        r = self.client.get(f"/testconf/talk/{k.pk}/")
+        self.assertEqual([p["name"] for p in r.context["people"]], ["Keynote Person"])
+        # 휴식에는 없다
+        r = self.client.get(f"/testconf/talk/{self.t['t7'].pk}/")
+        self.assertEqual(r.context["people"], [])
 
     def test_talk_and_abstract_detail(self):
         r = self.client.get(f"/testconf/talk/{self.t['t1'].pk}/")

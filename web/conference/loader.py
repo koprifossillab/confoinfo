@@ -23,8 +23,9 @@ from .models import Abstract, Conference, Room, Session, Talk
 FORMAT = "confoinfo/1"
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,39}$")
 TIME_RE = re.compile(r"^\d{1,2}:\d{2}$")
+LANG_RE = re.compile(r"^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$")
 
-CONF_FIELDS = ["short_name", "name", "start_date", "end_date", "timezone",
+CONF_FIELDS = ["short_name", "name", "start_date", "end_date", "timezone", "language",
                "venue", "url", "color", "lunch_at", "source"]
 
 
@@ -65,6 +66,8 @@ def validate(data):
             _date(conf.get(f))
         except ValueError:
             errors.append(f"conference.{f} 가 YYYY-MM-DD 가 아니다: {conf.get(f)!r}")
+    if conf.get("language") and not LANG_RE.match(conf["language"]):
+        errors.append(f"conference.language 가 BCP 47 꼴(en · ko · zh-CN)이 아니다: {conf['language']!r}")
     if conf.get("lunch_at") and not TIME_RE.match(conf["lunch_at"]):
         errors.append(f"conference.lunch_at 이 HH:MM 이 아니다: {conf['lunch_at']!r}")
 

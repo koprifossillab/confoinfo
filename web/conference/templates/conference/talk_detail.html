@@ -2,22 +2,22 @@
 {# strati2026 4972d35 congress/templates/congress/talk_detail.html 에서 왔다. 사진 칸은 2단계 #}
 {% block title %}{{ obj_title }} · {{ conf.short_name }}{% endblock %}
 {% block content %}
-<article class="detail">
+<article class="detail" data-xlate-scope>
   {% if talk %}
   <div class="detail-when">
-    {% if talk.code %}<span class="code-tag">{{ talk.code }}</span>{% endif %}
-    {% if talk.session %}<span class="badge">{{ talk.session.code }}</span>{% endif %}
+    {% if talk.code %}<span class="code-tag" translate="no">{{ talk.code }}</span>{% endif %}
+    {% if talk.session %}<span class="badge" translate="no">{{ talk.session.code }}</span>{% endif %}
     {{ talk.date|date:"D M j" }} · {{ talk.start|time:"H:i" }}{% if talk.end %}–{{ talk.end|time:"H:i" }}{% endif %}
     {% if talk.room %} · {{ talk.room.name }}{% if talk.room.floor %} ({{ talk.room.floor }}){% endif %}{% endif %}
     {% if talk.bookmarkable %}<button class="bm big" data-id="{{ talk.id }}" aria-label="bookmark">☆</button>{% endif %}
   </div>
   {% endif %}
 
-  <h1 class="detail-title">{{ obj_title }}</h1>
+  <h1 class="detail-title" data-xlate>{{ obj_title }}</h1>
 
   {% if session %}
   <a class="detail-session" href="{% url 'session_detail' conf.slug session.code %}">
-    <span class="badge">{{ session.code }}</span> {{ session.title|default:"(title TBD)" }}
+    <span class="badge" translate="no">{{ session.code }}</span> {{ session.title|default:"(title TBD)" }}
   </a>
   {% endif %}
 
@@ -33,24 +33,45 @@
   {% endif %}
 
   {% if abstract %}
-    <p class="detail-authors">{{ abstract.author_line }}</p>
+    <p class="detail-authors" translate="no">{{ abstract.author_line }}</p>
     {% if abstract.corresponding %}
-      <p class="detail-corr">✉ Corresponding: {{ abstract.corresponding|join:", " }}</p>
+      <p class="detail-corr" translate="no">✉ Corresponding: {{ abstract.corresponding|join:", " }}</p>
     {% endif %}
     {% if abstract.text %}
-      <div class="detail-abstract">{{ abstract.text|linebreaks }}</div>
+      <div class="detail-abstract" data-xlate>{{ abstract.text|linebreaks }}</div>
     {% endif %}
     {% if abstract.keywords %}
       <div class="kw">{% for k in abstract.keywords %}<span class="kwchip">{{ k }}</span>{% endfor %}</div>
     {% endif %}
     {% if abstract.affiliations %}
       <details class="affil"><summary>Affiliations</summary>
-        <ol>{% for a in abstract.affiliations %}<li>{{ a }}</li>{% endfor %}</ol>
+        <ol translate="no">{% for a in abstract.affiliations %}<li>{{ a }}</li>{% endfor %}</ol>
       </details>
     {% endif %}
   {% elif talk and talk.kind != "break" %}
-    {% if talk.speaker %}<p class="detail-authors">{{ talk.speaker }}</p>{% endif %}
+    {% if talk.speaker %}<p class="detail-authors" translate="no">{{ talk.speaker }}</p>{% endif %}
     {% if talk.kind == "talk" %}<p class="empty">No abstract linked for this talk.</p>{% endif %}
+  {% endif %}
+
+  {# 번역 사이트로 넘기는 링크 — 제목과 초록 본문(data-xlate)을 JS 가 모은다 (004) #}
+  <div class="xlate"></div>
+
+  {% if people %}
+  <section class="scholar">
+    <div class="note-h">📚 Earlier work on Google Scholar</div>
+    {% for p in people %}
+    <div class="scholar-row">
+      <span class="scholar-name" translate="no">{{ p.name }}</span>
+      <span class="scholar-role">{{ p.roles|join:" · " }}</span>
+      {% if p.affiliation %}<div class="scholar-aff" translate="no">{{ p.affiliation }}</div>{% endif %}
+      <div class="scholar-links">
+        <a href="https://scholar.google.com/citations?view_op=search_authors&amp;mauthors={{ p.name|urlencode:'' }}" target="_blank" rel="noopener">Profile</a>
+        <a href="https://scholar.google.com/scholar?q={{ 'author:"'|urlencode:'' }}{{ p.name|urlencode:'' }}{{ '"'|urlencode:'' }}" target="_blank" rel="noopener">Papers</a>
+      </div>
+    </div>
+    {% endfor %}
+    <p class="scholar-note">Searches by name — people with the same name may appear. Check the affiliation.</p>
+  </section>
   {% endif %}
 </article>
 {% endblock %}

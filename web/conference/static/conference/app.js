@@ -132,6 +132,77 @@
     setTimeout(() => URL.revokeObjectURL(a.href), 10000);
   }
 
+  // ── 번역 (004) ───────────────────────────────────────────────────────
+  // 서버가 없어 번역을 직접 하지 않는다. 글을 번역 사이트로 넘기는 링크만 만든다 —
+  // 키도 비용도 없다. 긴 초록은 사이트의 글자 수 한도에 걸려 문단 단위로 나눈다.
+  const LANGS = [["ko", "한국어"], ["ja", "日本語"], ["zh-CN", "中文(简体)"], ["zh-TW", "中文(繁體)"],
+                 ["vi", "Tiếng Việt"], ["th", "ไทย"], ["id", "Bahasa Indonesia"], ["en", "English"],
+                 ["es", "Español"], ["fr", "Français"], ["de", "Deutsch"], ["ru", "Русский"]];
+  // Papago 가 받는 언어 (Google 은 전부 받는다)
+  const PAPAGO = new Set(["ko", "ja", "zh-CN", "zh-TW", "vi", "th", "id", "en", "es", "fr", "de", "ru"]);
+  const SERVICES = [
+    { name: "Papago", limit: 3000, ok: l => PAPAGO.has(l),
+      url: (t, l) => "https://papago.naver.com/?sk=auto&tk=" + l + "&st=" + encodeURIComponent(t) },
+    { name: "Google", limit: 4500, ok: () => true,
+      url: (t, l) => "https://translate.google.com/?sl=auto&tl=" + l + "&op=translate&text=" + encodeURIComponent(t) },
+  ];
+  function xlateLang() {
+    const saved = getCfg().lang;
+    if (saved && LANGS.some(([c]) => c === saved)) return saved;
+    // 기기 언어. zh 는 간체·번체를 가른다
+    const nav = (navigator.language || "ko").toLowerCase();
+    if (nav.startsWith("zh")) return /tw|hk|hant/.test(nav) ? "zh-TW" : "zh-CN";
+    const base = nav.split("-")[0];
+    return LANGS.some(([c]) => c === base) ? base : "ko";
+  }
+  function chunks(text, limit) {              // 문단 경계로 limit 안쪽 토막들
+    const out = []; let cur = "";
+    text.split(/\n\s*\n/).forEach(p => {
+      while (p.length > limit) {              // 한 문단이 한도보다 길면 문장 경계로
+        const cut = Math.max(p.lastIndexOf(". ", limit), limit / 2);
+        if (cur) { out.push(cur); cur = ""; }
+        out.push(p.slice(0, cut + 1)); p = p.slice(cut + 1).trim();
+      }
+      if (cur && cur.length + p.length + 2 > limit) { out.push(cur); cur = ""; }
+      cur = cur ? cur + "\n\n" + p : p;
+    });
+    if (cur) out.push(cur);
+    return out;
+  }
+  // box 안에 언어 고르기 + 서비스별 링크를 그린다. text 는 넘길 글 전체
+  function renderXlate(box, text) {
+    const lang = xlateLang();
+    const opts = LANGS.map(([c, n]) => `<option value="${c}"${c === lang ? " selected" : ""}>${n}</option>`).join("");
+    let links = "";
+    SERVICES.filter(s => s.ok(lang)).forEach(s => {
+      const parts = chunks(text, s.limit);
+      links += `<span class="xlate-svc">${s.name}` + parts.map((t, i) =>
+        ` <a href="${esc(s.url(t, lang))}" target="_blank" rel="noopener">` +
+        (parts.length > 1 ? `${i + 1}/${parts.length}` : "Translate") + "</a>").join("") + "</span>";
+    });
+    box.innerHTML = `<span class="xlate-h">🌐 Translate to</span>
+      <select class="xlate-lang" aria-label="Translate to" translate="no">${opts}</select>${links}`;
+    box.querySelector("select").addEventListener("change", e => {
+      setCfg({ lang: e.target.value });
+      renderXlate(box, text);
+    });
+  }
+  // innerText 는 접힌 <details> 안에서 빈 글을 낸다 — 문단(<p>)을 textContent 로 모은다
+  function xlateText(el) {
+    const ps = el.querySelectorAll("p");
+    const parts = ps.length ? [...ps].map(p => p.textContent) : [el.textContent];
+    return parts.map(t => t.replace(/[ \t]+/g, " ").trim()).filter(Boolean).join("\n\n");
+  }
+  // [data-xlate] 를 단 요소들의 글을 문서 순서대로 모아 .xlate 상자마다 링크를 단다
+  function initXlate() {
+    document.querySelectorAll(".xlate").forEach(box => {
+      const scope = box.closest("[data-xlate-scope]") || document;
+      const text = [...scope.querySelectorAll("[data-xlate]")]
+        .map(xlateText).filter(Boolean).join("\n\n");
+      if (text) renderXlate(box, text); else box.remove();
+    });
+  }
+
   // ── 화면 도우미 ──────────────────────────────────────────────────────
   function esc(s) {
     return (s || "").replace(/[&<>"']/g, c => (
@@ -162,11 +233,13 @@
   document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.toggle("hide-breaks", !getCfg().breaks);
     refresh();
+    initXlate();
   });
 
   window.CONFO = Object.assign(window.CONFO || {}, {
     root: ROOT,
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
     getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
+    LANGS, xlateLang, chunks,
   });
 })();

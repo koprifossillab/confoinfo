@@ -10,6 +10,7 @@
 """
 import datetime as dt
 import json
+import re
 from collections import defaultdict
 
 from django.db.models import Count, Q
@@ -164,12 +165,52 @@ def program(request, slug, day=None):
     return render(request, "conference/program.html", ctx)
 
 
+_HONORIFIC = re.compile(r"^(Prof\.?|Professor|Dr\.?|Mr\.?|Ms\.?|Mrs\.?)\s+", re.I)
+
+
+def scholar_people(talk, abstract):
+    """Google Scholar 링크를 달 사람 — 제1저자와 교신저자 (005).
+
+    Scholar 는 API 가 없고 자동으로 긁는 것을 막아 목록을 가져오지 않는다. 이름으로 찾는
+    링크만 단다. 동명이인을 가를 수 있게 그 사람의 소속을 곁에 적는다.
+    [{name, roles: ["1st author", "corresponding"], affiliation}]
+    """
+    out = []
+
+    def add(name, role, affiliation=""):
+        name = _HONORIFIC.sub("", re.sub(r"\s*\(.*?\)", "", name or "")).strip(" ,;*")
+        if not name:
+            return
+        hit = next((p for p in out if p["name"].lower() == name.lower()), None)
+        if hit:
+            if role not in hit["roles"]:
+                hit["roles"].append(role)
+            hit["affiliation"] = hit["affiliation"] or affiliation
+        else:
+            out.append({"name": name, "roles": [role], "affiliation": affiliation})
+
+    def affil_of(author):
+        refs = author.get("affiliations") or []
+        affs = abstract.affiliations or []
+        return "; ".join(affs[r - 1] for r in refs if isinstance(r, int) and 0 < r <= len(affs))
+
+    if abstract and abstract.authors:
+        first = abstract.authors[0]
+        add(first.get("name"), "1st author", affil_of(first))
+        for a in abstract.authors:
+            if a.get("corresponding"):
+                add(a.get("name"), "corresponding", affil_of(a))
+    elif talk and talk.kind in ("talk", "plenary", "keynote", "poster"):
+        add(talk.speaker, "speaker")
+    return out
+
+
 def talk_detail(request, slug, pk):
     conf = _conf(slug)
     t = get_object_or_404(conf.talks.select_related("session", "abstract", "room"), pk=pk)
     return render(request, "conference/talk_detail.html",
                   {"conf": conf, "talk": t, "abstract": t.abstract, "session": t.session,
-                   "obj_title": t.title})
+                   "obj_title": t.title, "people": scholar_people(t, t.abstract)})
 
 
 def abstract_detail(request, slug, pk):
@@ -178,7 +219,7 @@ def abstract_detail(request, slug, pk):
     talk = a.talks.select_related("room", "session").first()
     return render(request, "conference/talk_detail.html",
                   {"conf": conf, "talk": talk, "abstract": a, "session": a.session,
-                   "obj_title": a.title})
+                   "obj_title": a.title, "people": scholar_people(talk, a)})
 
 
 def sessions(request, slug):

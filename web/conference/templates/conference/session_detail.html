@@ -1,10 +1,10 @@
 {% extends "conference/base.html" %}
 {% block title %}{{ session.code }} · {{ conf.short_name }}{% endblock %}
 {% block content %}
-<h1 class="page-h"><span class="badge">{{ session.code }}</span></h1>
+<h1 class="page-h"><span class="badge" translate="no">{{ session.code }}</span></h1>
 <p class="session-title">{{ session.title|default:"(title TBD)" }}</p>
 {% if session.conveners %}<p class="session-conveners">Conveners: {{ session.conveners }}</p>{% endif %}
-{% if session.description %}<details class="session-desc"><summary>About this session</summary>{{ session.description|linebreaks }}</details>{% endif %}
+{% if session.description %}<details class="session-desc" data-xlate-scope><summary>About this session</summary><div data-xlate>{{ session.description|linebreaks }}</div><div class="xlate"></div></details>{% endif %}
 
 {% if talks %}
 <h2 class="room-h">Oral program</h2>

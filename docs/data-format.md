@@ -25,6 +25,7 @@ python web/manage.py import_conference --check conferences/<slug>.json
     "start_date": "2026-06-28",        // YYYY-MM-DD. 첫 화면의 진행 중·다가올·지난 갈래
     "end_date": "2026-07-03",
     "timezone": "Asia/Shanghai",       // 필수. IANA 이름 — 프로그램의 시각은 전부 개최지 시각
+    "language": "en",                  // 제목·초록의 언어(BCP 47). 비면 en — 브라우저가 번역을 제안할지 정한다
     "venue": "Suzhou, China",
     "url": "https://www.strati2026.org/",
     "color": "#0d3b66",                // 머리글 색. 비면 기본 남색

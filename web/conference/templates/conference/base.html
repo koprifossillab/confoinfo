@@ -1,5 +1,5 @@
 {% load static %}<!doctype html>
-<html lang="en">
+<html lang="{{ conf.language|default:'en' }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -14,13 +14,13 @@
     <div class="appbar-inner">
       {% if conf %}
       <a href="{% url 'program' conf.slug %}" class="brand">
-        <span class="brand-main">{{ conf.short_name }} Program</span>
+        <span class="brand-main" translate="no">{{ conf.short_name }} Program</span>
         <span class="brand-sub"><span class="brand-unofficial">Unofficial</span> Planner
           <span class="brand-ver">· confoinfo v{{ version }}</span></span></a>
       <a href="{% url 'home' %}" class="appbar-gear" aria-label="All conferences" title="All conferences">🗂️</a>
       {% else %}
       <a href="{% url 'home' %}" class="brand">
-        <span class="brand-main">confoinfo</span>
+        <span class="brand-main" translate="no">confoinfo</span>
         <span class="brand-sub">Conference programs at a glance
           <span class="brand-ver">v{{ version }}</span></span></a>
       <a href="{% url 'settings' %}" class="appbar-gear" aria-label="Settings">⚙️</a>

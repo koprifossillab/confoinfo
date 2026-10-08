@@ -22,6 +22,12 @@ class ValidateTests(TestCase):
         for needle in ("format", "slug", "timezone", "start", "겹친다", "nope", "party"):
             self.assertIn(needle, joined)
 
+    def test_language(self):
+        self.assertEqual(validate(sample(language="zh-CN"))[0], [])
+        self.assertTrue(validate(sample(language="Korean"))[0])
+        load(sample(language="ko"))
+        self.assertEqual(Conference.objects.get().language, "ko")
+
     def test_reserved_slug(self):
         errors, _ = validate(sample(slug="search"))
         self.assertTrue(any("경로" in e for e in errors))

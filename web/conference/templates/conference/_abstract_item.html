@@ -3,9 +3,9 @@
   <div class="talk-body">
     <a class="talk-title" href="{% url 'abstract_detail' a.conference.slug a.id %}">{{ a.title }}</a>
     <div class="talk-meta">
-      {% if show_conf %}<span class="conf-tag">{{ a.conference.short_name }}</span>{% endif %}
-      {% if a.session and show_session %}<span class="badge">{{ a.session.code }}</span>{% endif %}
-      <span class="author">{{ a.author_line|truncatewords:6 }}</span>
+      {% if show_conf %}<span class="conf-tag" translate="no">{{ a.conference.short_name }}</span>{% endif %}
+      {% if a.session and show_session %}<span class="badge" translate="no">{{ a.session.code }}</span>{% endif %}
+      <span class="author" translate="no">{{ a.author_line|truncatewords:6 }}</span>
     </div>
   </div>
 </div>

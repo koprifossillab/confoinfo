@@ -1,5 +1,5 @@
 {# 휴식·점심 (표시 전용). 변수: b = {start, end, label} #}
 <div class="brk" data-start="{{ b.start|time:'H:i' }}" data-end="{{ b.end|time:'H:i' }}">
-  <div class="talk-time">{{ b.start|time:"H:i" }}–{{ b.end|time:"H:i" }}</div>
+  <div class="talk-time" translate="no">{{ b.start|time:"H:i" }}–{{ b.end|time:"H:i" }}</div>
   <div class="brk-label">{% if "lunch" in b.label|lower %}🍽️{% else %}☕{% endif %} {{ b.label }}</div>
 </div>

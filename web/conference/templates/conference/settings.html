@@ -8,6 +8,12 @@
       <small>Coffee breaks and lunch between talks, in Program and My Plan.</small></span>
     <input type="checkbox" id="cfg-breaks">
   </label>
+  <label class="setting">
+    <span class="setting-t">Translate to
+      <small>Language for the 🌐 Translate links on talks and sessions (Papago · Google).
+        To translate whole pages, use your browser's Translate menu.</small></span>
+    <select id="cfg-lang" class="xlate-lang" translate="no"></select>
+  </label>
 </div>
 <p class="settings-info">Bookmarks and notes are kept <b>on this device only</b> (browser storage).
   Nothing is sent to the server.</p>
@@ -19,6 +25,9 @@
   const cb = document.getElementById('cfg-breaks');
   cb.checked = CONFO.getCfg().breaks;
   cb.addEventListener('change', () => CONFO.setCfg({ breaks: cb.checked }));
+  const sel = document.getElementById('cfg-lang'), cur = CONFO.xlateLang();
+  sel.innerHTML = CONFO.LANGS.map(([c, n]) => `<option value="${c}"${c === cur ? ' selected' : ''}>${n}</option>`).join('');
+  sel.addEventListener('change', () => CONFO.setCfg({ lang: sel.value }));
   document.getElementById('reset').addEventListener('click', () => {
     if (!confirm('Clear all bookmarks and notes on this device?')) return;
     CONFO.resetLocal();

@@ -228,3 +228,20 @@ a { color: inherit; text-decoration: none; }
 .session-desc { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
   padding: 10px 14px; margin: 0 0 14px; font-size: 14px; }
 .session-desc summary { font-weight: 600; color: var(--navy); cursor: pointer; }
+
+/* 번역 링크 (004) · Google Scholar 링크 (005) */
+.xlate { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; margin: 12px 0 4px;
+  font-size: 12.5px; color: var(--muted); }
+.xlate-h { font-weight: 700; }
+.xlate-lang { border: 1px solid var(--line); border-radius: 8px; padding: 3px 6px; font-size: 12.5px;
+  background: var(--card); color: var(--ink); }
+.xlate-svc { white-space: nowrap; }
+.xlate a, .scholar-links a { color: var(--navy); font-weight: 700; text-decoration: underline; }
+.scholar { margin: 16px 0 4px; padding-top: 12px; border-top: 1px solid var(--line); }
+.scholar-row { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 8px 12px; margin-bottom: 6px; font-size: 13.5px; }
+.scholar-name { font-weight: 700; }
+.scholar-role { color: var(--muted); font-size: 12px; margin-left: 6px; }
+.scholar-aff { color: var(--muted); font-size: 12px; margin-top: 2px; }
+.scholar-links { display: flex; gap: 14px; margin-top: 4px; font-size: 13px; }
+.scholar-note { color: var(--muted); font-size: 11.5px; margin: 4px 2px; }

@@ -24,6 +24,8 @@ class Conference(models.Model):
     start_date = models.DateField(null=True, blank=True)
     end_date = models.DateField(null=True, blank=True)
     timezone = models.CharField(max_length=60, default="UTC")   # IANA 이름 — 개최지 시각
+    # 자료(제목·초록)의 언어. <html lang> 이 되어 브라우저가 번역을 제안할지 정한다 (004)
+    language = models.CharField(max_length=20, default="en")
     venue = models.CharField(max_length=200, blank=True)
     url = models.URLField(blank=True)
     color = models.CharField(max_length=20, blank=True)     # 머리글 색. 비면 기본
