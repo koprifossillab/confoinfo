@@ -1,35 +1,100 @@
 {% extends "conference/base.html" %}
+{% comment %} 설정 (005). 칸의 꼴은 GSM 의 설정 시트를 따랐다 — 이름 · 단추 묶음 · 도움말.
+   값은 전부 localStorage(confoinfo_cfg)에 있고 서버로 가지 않는다 {% endcomment %}
 {% block title %}Settings · confoinfo{% endblock %}
 {% block content %}
 <h1 class="page-h">Settings</h1>
-<div class="settings">
-  <label class="setting">
+
+<div class="field">
+  <label class="field-label" for="cfg-home">Default conference</label>
+  <select id="cfg-home" class="xlate-lang" translate="no">
+    <option value="">None — show the list</option>
+    {% for c in confs %}<option value="{{ c.slug }}">{{ c.short_name }}</option>{% endfor %}
+  </select>
+  <p class="hint">Open this conference directly when you visit confoinfo.
+    <b>‹ All</b> at the top left of a conference takes you back to the list.</p>
+</div>
+
+<h2 class="set-h">Look</h2>
+<div class="field">
+  <span class="field-label">Theme</span>
+  <div class="seg" data-look="theme">
+    <button type="button" data-v="auto">Auto</button>
+    <button type="button" data-v="light">Light</button>
+    <button type="button" data-v="dark">Dark</button>
+  </div>
+  <p class="hint">Auto follows your device's dark mode.</p>
+</div>
+<div class="field">
+  <span class="field-label">Font</span>
+  <div class="seg" data-look="font">
+    <button type="button" data-v="sans">Sans</button>
+    <button type="button" data-v="serif" style="font-family: var(--font-serif)">Serif</button>
+    <button type="button" data-v="system" style="font-family: var(--font-system)">System</button>
+  </div>
+  <p class="hint">Uses fonts already on your device — nothing is downloaded.</p>
+</div>
+<div class="field">
+  <label class="setting" style="padding: 0; border: none">
     <span class="setting-t">Show breaks
       <small>Coffee breaks and lunch between talks, in Program and My Plan.</small></span>
     <input type="checkbox" id="cfg-breaks">
   </label>
-  <label class="setting">
-    <span class="setting-t">Translate to
-      <small>Language for the 🌐 Translate links on talks and sessions (Papago · Google).
-        To translate whole pages, use your browser's Translate menu.</small></span>
-    <select id="cfg-lang" class="xlate-lang" translate="no"></select>
-  </label>
 </div>
-<p class="settings-info">Bookmarks and notes are kept <b>on this device only</b> (browser storage).
-  Nothing is sent to the server.</p>
-<button id="reset" class="reset-btn">Clear bookmarks &amp; notes on this device</button>
+
+<h2 class="set-h">Translate</h2>
+<div class="field">
+  <label class="field-label" for="cfg-lang">Translate to</label>
+  <select id="cfg-lang" class="xlate-lang" translate="no"></select>
+  <p class="hint">Language for the 🌐 Translate links on talks and sessions (Papago · Google).
+    To translate whole pages, use your browser's Translate menu.</p>
+</div>
+
+<h2 class="set-h">This device</h2>
+<div class="field">
+  <p class="hint" style="margin: 0 0 10px">Bookmarks, notes and these settings are kept <b>on this device only</b>
+    (browser storage). Nothing is sent to a server.</p>
+  <button id="reset" class="reset-btn">Clear bookmarks, notes &amp; settings</button>
+</div>
+
+{% if notes %}
+<h2 class="set-h">Release notes</h2>
+<div class="field notes">
+  <p class="hint" style="margin: 0">Release notes are written in Korean only. 판 이력은 한국어로만 적는다.</p>
+  {% for n in notes %}
+  <h4 translate="no">{% if n.version %}v{{ n.version }}{% else %}—{% endif %}<span class="note-date">{{ n.date }}</span></h4>
+  <p>{{ n.html|safe }}</p>
+  {% endfor %}
+</div>
+{% endif %}
 {% endblock %}
 {% block scripts %}
 <script>
 (function () {
+  const home = document.getElementById('cfg-home');
+  home.value = CONFO.getCfg().home || '';
+  if (home.selectedIndex < 0) home.value = '';             // 그 학회가 내려갔으면
+  home.addEventListener('change', () => CONFO.setCfg({ home: home.value }));
+
+  document.querySelectorAll('.seg[data-look]').forEach(seg => {
+    const key = seg.dataset.look;
+    const paint = v => seg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === v));
+    paint(CONFO.getLook(key));
+    seg.addEventListener('click', e => {
+      const b = e.target.closest('button'); if (!b) return;
+      CONFO.setLook(key, b.dataset.v); paint(b.dataset.v);
+    });
+  });
+
   const cb = document.getElementById('cfg-breaks');
   cb.checked = CONFO.getCfg().breaks;
   cb.addEventListener('change', () => CONFO.setCfg({ breaks: cb.checked }));
   const sel = document.getElementById('cfg-lang'), cur = CONFO.xlateLang();
   sel.innerHTML = CONFO.LANGS.map(([c, n]) => `<option value="${c}"${c === cur ? ' selected' : ''}>${n}</option>`).join('');
   sel.addEventListener('change', () => CONFO.setCfg({ lang: sel.value }));
+
   document.getElementById('reset').addEventListener('click', () => {
-    if (!confirm('Clear all bookmarks and notes on this device?')) return;
+    if (!confirm('Clear all bookmarks, notes and settings on this device?')) return;
     CONFO.resetLocal();
     location.reload();
   });

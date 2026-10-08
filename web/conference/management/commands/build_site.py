@@ -7,7 +7,8 @@ Django 시험 클라이언트로 경로마다 GET 해서 응답을 그대로 적
 서버와 하나다 — 그래서 **뷰는 요청과 무관해야 한다**(views.py 머리말). 슬래시로
 끝나는 경로는 `…/index.html`, 아니면 그 이름의 파일이 된다.
 
-끝에 구운 HTML 의 href·src 를 전부 따라가 파일이 있는지 본다. 하나라도 없으면 실패로
+끝에 구운 HTML 에 템플릿 문법이 새어 나왔는지(여러 줄 `{# #}`), href·src 를 전부 따라가
+파일이 있는지 본다. 하나라도 없으면 실패로
 끝낸다 — Pages 에 올라간 뒤 404 로 알게 되는 것보다 빌드에서 멈추는 것이 낫다.
 """
 import re
@@ -80,6 +81,13 @@ class Command(BaseCommand):
         (out / ".nojekyll").write_text("")
         self.stdout.write(f"{n}개 파일을 {out} 에 구웠다")
 
+        leaks = self._check_template_leaks(out)
+        if leaks:
+            for page, frag in leaks[:30]:
+                self.stderr.write(f"  ✗ {page}: 템플릿 문법이 그대로 나왔다 — {frag!r}")
+            self.stderr.write("Django 의 {# #} 는 한 줄짜리다. 여러 줄은 {% comment %} 로")
+            sys.exit(1)
+
         missing = self._check_links(out, prefix)
         if missing:
             for page, link in missing[:30]:
@@ -87,6 +95,15 @@ class Command(BaseCommand):
             self.stderr.write(f"깨진 링크 {len(missing)}개")
             sys.exit(1)
         self.stdout.write("링크 검사 통과")
+
+    def _check_template_leaks(self, out):
+        """그려진 HTML 에 {# · {% · {{ 가 남았는가 (005 — 여러 줄 {# #} 이 화면에 글로 나왔다)."""
+        leaks = []
+        for page in out.rglob("*.html"):
+            m = re.search(r".{0,30}(\{#|\{%|\{\{).{0,30}", page.read_text(encoding="utf-8"))
+            if m:
+                leaks.append((page.relative_to(out), m.group(0)))
+        return leaks
 
     def _check_links(self, out, prefix):
         missing, seen = [], {}

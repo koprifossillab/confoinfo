@@ -6,7 +6,7 @@
 {# 진행 중·다가올·지난 갈래는 아래 JS 가 개최지의 오늘을 보고 가른다 — 구운 날이 아니라 여는 날 기준이어야 한다 #}
 <div id="conf-sections">
 {% for c in confs %}
-<a class="conf-card" href="{% url 'program' c.slug %}" data-tz="{{ c.timezone }}"
+<a class="conf-card" href="{% url 'program' c.slug %}" data-slug="{{ c.slug }}" data-tz="{{ c.timezone }}"
    data-start="{{ c.start_date|date:'Y-m-d' }}" data-end="{{ c.end_date|default:c.start_date|date:'Y-m-d' }}"{% if c.color %} style="--cc: {{ c.color }}"{% endif %}>
   <div class="conf-short">{{ c.short_name }}</div>
   <div class="conf-name">{{ c.name }}</div>
@@ -22,6 +22,13 @@
 {% block scripts %}
 <script>
 (function () {
+  // 기본으로 볼 학회가 정해져 있으면 그리로 (005). "‹ All"·탭바는 ?all 을 달고 와서 목록을 본다
+  const home = CONFO.getCfg().home;
+  if (home && !new URLSearchParams(location.search).has('all')) {
+    const card = document.querySelector(`.conf-card[data-slug="${CSS.escape(home)}"]`);
+    if (card) { location.replace(card.href); return; }
+  }
+
   const box = document.getElementById('conf-sections');
   const cards = [...box.querySelectorAll('.conf-card')];
   const groups = { ongoing: [], upcoming: [], past: [] };
@@ -29,6 +36,7 @@
     const today = CONFO.zoneNow(c.dataset.tz).date, s = c.dataset.start, e = c.dataset.end || s;
     const k = !s || today < s ? 'upcoming' : today > e ? 'past' : 'ongoing';
     if (k === 'ongoing') c.querySelector('.conf-short').insertAdjacentHTML('beforeend', '<span class="conf-live">LIVE</span>');
+    if (c.dataset.slug === home) c.querySelector('.conf-short').insertAdjacentHTML('beforeend', '<span class="conf-default">DEFAULT</span>');
     groups[k].push(c);
   });
   groups.past.reverse();                       // 지난 것은 최근 것부터 (카드는 시작일 순으로 온다)

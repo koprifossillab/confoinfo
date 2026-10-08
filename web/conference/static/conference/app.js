@@ -20,6 +20,23 @@
     localStorage.setItem(CKEY, JSON.stringify(c));
     return c;
   }
+  // 모양 (005). 값이 목록에 없으면 기본값 — 옛 판이 남긴 값이나 손으로 고친 값을 거른다 (GSM readLook)
+  const LOOKS = { theme: ["auto", "light", "dark"], font: ["sans", "serif", "system"] };
+  function getLook(key) {
+    const v = getCfg()[key];
+    return LOOKS[key].includes(v) ? v : LOOKS[key][0];
+  }
+  const darkMq = window.matchMedia ? matchMedia("(prefers-color-scheme: dark)") : null;
+  function applyLook() {
+    const d = document.documentElement, t = getLook("theme");
+    d.setAttribute("data-theme", t === "auto" ? (darkMq && darkMq.matches ? "dark" : "light") : t);
+    const f = getLook("font");
+    if (f === "sans") d.removeAttribute("data-font"); else d.setAttribute("data-font", f);
+  }
+  function setLook(key, value) { setCfg({ [key]: value }); applyLook(); }
+  // "Auto" 이면 기기가 다크 모드를 바꾸는 대로 따라간다
+  if (darkMq && darkMq.addEventListener) darkMq.addEventListener("change", applyLook);
+
   function resetLocal() {
     [SKEY, CKEY].forEach(k => localStorage.removeItem(k));
   }
@@ -240,6 +257,6 @@
     root: ROOT,
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
     getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
-    LANGS, xlateLang, chunks,
+    LANGS, xlateLang, chunks, getLook, setLook,
   });
 })();

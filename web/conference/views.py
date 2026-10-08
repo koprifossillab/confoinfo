@@ -13,11 +13,13 @@ import json
 import re
 from collections import defaultdict
 
+from django.conf import settings
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
+from . import changelog
 from .models import Conference, Session, Talk
 
 ALARM_MIN = 5             # 캘린더 알림: 발표 N분 전
@@ -263,8 +265,13 @@ def plan(request, slug=None):
 
 
 def settings_page(request):
-    """표시 설정·이 기기의 자료 지우기. 값은 localStorage 에 있다."""
-    return render(request, "conference/settings.html", {})
+    """기본 학회·모양·번역 언어 설정, 판 이력, 이 기기의 자료 지우기. 설정값은 localStorage 에 있다."""
+    try:
+        notes = changelog.parse((settings.PROJECT_ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
+    except OSError:
+        notes = []
+    return render(request, "conference/settings.html",
+                  {"confs": Conference.objects.order_by("-start_date", "slug"), "notes": notes})
 
 
 # ── 정적 JSON (build_site 가 파일로 굽는다) ──────────────────────────────

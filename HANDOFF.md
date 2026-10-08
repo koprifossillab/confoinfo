@@ -31,7 +31,7 @@
 발표·초록     /<slug>/talk/<pk>/ · /<slug>/abstract/<pk>/   ☆ · 메모 · talk.ics(발표 하나)
 검색          /<slug>/search/ · /search/          search.json 을 받아 브라우저에서 (악센트 무시, 낱말 모두)
 내 계획       /<slug>/plan/ · /plan/              talks.json 에서 북마크만 골라 · 여러 발표 .ics 는 JS 가 만든다
-설정          /settings/
+설정          /settings/                          기본 학회 · 테마 · 글꼴 · 휴식 · 번역 언어 · 이 기기 지우기 · 판 이력(CHANGELOG.md)
 ```
 
 ## 3. 함정
@@ -40,6 +40,8 @@
 - **발표 pk = (slug, key) 의 해시다** (`loader.stable_id`, 003). `key`·`slug` 를 바꾸면 그 북마크가 끊긴다.
   DB 의 일련번호로 되돌리면 학회 하나를 더할 때마다 다른 학회의 북마크가 밀린다
 - `localStorage` 는 출처(`koprifossillab.github.io`) 단위다 — 같은 조직의 다른 Pages 와 키 공간을 나눠 쓴다. 키는 늘 `confoinfo_` 로 시작할 것
+- **템플릿의 여러 줄 주석은 `{% comment %}`** — `{# #}` 는 한 줄짜리라 여러 줄이면 화면에 글로 나온다. 굽기가 잡는다 (005)
+- 색은 `style.css` 머리의 토큰으로만 — 글자색에 `--navy` 를 쓰면 다크에서 안 읽힌다. 글자는 `--link`
 - `STATIC_URL` 은 서브경로를 직접 단다 — 상대경로로 되돌리면 구운 사이트의 CSS 가 404 다 (001)
 - 미리 보기는 `/confoinfo/` 아래로 띄워야 한다 — `build_site.sh` 가 끝에 명령을 찍어 준다
 - 헤드리스 화면 확인은 `playwright==1.49.1`(requirements-dev) — 이 서버의 크로미움 판에 맞췄다.
