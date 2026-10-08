@@ -4,8 +4,12 @@
     python tools/i18n_todo.py icamg2026 ko > todo.json      # [{"k": 열쇠, "kind": title|body, "text": 원문}]
     python tools/i18n_todo.py icamg2026 ko --merge done.json # {열쇠: 번역} 을 enrich/icamg2026.ko.json 에 합친다
 
-번역할 것: 발표 제목(휴식 빼고) · 초록 제목·본문 · 세션 제목·소개. 열쇠는
+번역할 것: 발표 제목(휴식 빼고) · 초록 제목 · 세션 제목·소개. 열쇠는
 `conference.enrich.text_key` 와 같다(원문 sha1 앞 16자).
+
+**초록 본문은 미리 번역하지 않는다** (사용자 방침, 2026-10-08 — 비용이 과하다). 초록은
+상세 화면의 Papago·Google 링크로 읽는 사람이 그때 번역한다(004). 제목과 세션 소개는 짧고
+적어서 미리 번역한다.
 """
 import argparse
 import hashlib
@@ -32,8 +36,7 @@ def sources(slug):
         if t.get("kind") != "break":
             add(t.get("title"), "title")
     for a in d.get("abstracts") or []:
-        add(a.get("title"), "title")
-        add(a.get("text"), "body")
+        add(a.get("title"), "title")          # 본문(text)은 넣지 않는다 — 위 머리말
     for s in d.get("sessions") or []:
         add(s.get("title"), "title")
         add(s.get("description"), "body")

@@ -47,5 +47,7 @@
 - **덧붙임 자료(`enrich/`)는 이 서버에서 미리 만든다** — 번역은 원문 해시가 열쇠라 원문이 바뀌면 안 나온다
   (`tools/i18n_todo.py <slug> ko` 가 다시 할 것을 뽑는다). 대표 논문은 `tools/fetch_openalex.py <slug>` (006)
 - **STRATI 2026 은 덧붙임 자료를 만들지 않는다** — 지난 학회다(사용자, 2026-10-08)
+- **초록 본문은 미리 번역하지 않는다** — 비용이 과하다(사용자, 2026-10-08). 미리 번역은 제목·세션 소개만,
+  초록은 Papago·Google 링크로. `tools/i18n_todo.py` 가 초록 본문을 아예 안 뽑는다
 - 헤드리스 화면 확인은 `playwright==1.49.1`(requirements-dev) — 이 서버의 크로미움 판에 맞췄다.
   `page.clock.install(time=…)` 으로 학회 기간을 흉내 낸다

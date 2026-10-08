@@ -125,7 +125,9 @@ python tools/csv2conf.py docs/examples/example-program.csv \
 | 파일 | 무엇 | 만드는 길 |
 |---|---|---|
 | `enrich/<slug>.openalex.json` | 제1저자·교신저자마다 OpenAlex 저자 짝과 대표 논문 셋 | `python tools/fetch_openalex.py <slug>` — 받은 사람은 건너뛴다 |
-| `enrich/<slug>.<lang>.json` | 제목·초록·세션 소개의 번역 `{"t": {원문 열쇠: 번역}}` | 사람(또는 Claude 세션)이 번역해 넣는다. 열쇠는 `enrich.text_key(원문)` |
+| `enrich/<slug>.<lang>.json` | 제목·세션 소개의 번역 `{"t": {원문 열쇠: 번역}}` | 사람(또는 Claude 세션)이 번역해 넣는다. 열쇠는 `enrich.text_key(원문)` |
 
 **번역의 열쇠는 원문의 해시다** — 원문이 고쳐지면 그 번역은 저절로 안 나온다(낡은 번역을
 보이지 않는다). 다시 번역할 것은 `tools/i18n_todo.py <slug> <lang>` 이 뽑는다.
+**초록 본문은 미리 번역하지 않는다** — 비용이 과하다(사용자, 2026-10-08). 초록은 상세 화면의
+Papago·Google 링크로 읽는다. **지난 학회에는 덧붙임 자료를 만들지 않는다.**
