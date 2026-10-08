@@ -12,12 +12,13 @@
 
 `conferences/<slug>.json` 하나를 넣고 `main` 에 밀면 그 학회의 프로그램·세션·검색·내 계획이
 공개 주소에 열린다. 폰에서 VPN·Tailscale 없이 연다. STRATI 2026(발표 457 · 초록 607, 본문 포함)이
-들어 있다. 북마크·메모는 그 브라우저에만 있다 — 서버가 없어 기기 간 동기화는 없다.
+들어 있다. ICAMG 2026(부산, 11-02~04 · 구두 108 · 포스터 75, 초록 본문은 아직 미공개)도.
+북마크·메모는 그 브라우저에만 있다 — 서버가 없어 기기 간 동기화는 없다.
 
 | | 지금 |
 |---|---|
 | 사이트 | `tools/build_site.sh` → `site/` (1,568개 파일 · 17 MB) · 링크 검사 · CI 가 `main` 에서 굽는다 |
-| 학회 | `strati2026` 하나 (지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
+| 학회 | `icamg2026`(icamg.org HTML · `sources/icamg2026/fetch.sh` 로 다시 받는다) · `strati2026`(지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
 | 시험 | 28개 (`python web/manage.py test conference`) |
 | 남은 것 | `TODOs.md` |
 
@@ -36,7 +37,8 @@
 ## 3. 함정
 
 - **뷰가 요청을 보면 안 된다** — `request.GET`·`timezone.now()` 는 굽는 순간의 값으로 굳는다 (CLAUDE.md)
-- **자료의 `key` 를 바꾸면 그 발표의 북마크가 끊긴다** (`docs/data-format.md`)
+- **발표 pk = (slug, key) 의 해시다** (`loader.stable_id`, 003). `key`·`slug` 를 바꾸면 그 북마크가 끊긴다.
+  DB 의 일련번호로 되돌리면 학회 하나를 더할 때마다 다른 학회의 북마크가 밀린다
 - `localStorage` 는 출처(`koprifossillab.github.io`) 단위다 — 같은 조직의 다른 Pages 와 키 공간을 나눠 쓴다. 키는 늘 `confoinfo_` 로 시작할 것
 - `STATIC_URL` 은 서브경로를 직접 단다 — 상대경로로 되돌리면 구운 사이트의 CSS 가 404 다 (001)
 - 미리 보기는 `/confoinfo/` 아래로 띄워야 한다 — `build_site.sh` 가 끝에 명령을 찍어 준다

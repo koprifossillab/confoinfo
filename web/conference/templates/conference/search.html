@@ -30,6 +30,7 @@
         <a class="talk-title" href="${t.url}">${esc(t.title)}</a>
         <div class="talk-meta">
           ${SHOW_CONF ? `<span class="conf-tag">${esc(t.conf_name)}</span>` : ''}
+          ${t.code ? `<span class="code-tag">${esc(t.code)}</span>` : ''}
           ${t.session ? `<span class="badge">${esc(t.session)}</span>` : ''}
           ${t.author ? `<span class="author">${esc(t.author)}</span>` : ''}</div>
         <div class="talk-place">📅 ${dayLabel(t.date)}${t.room ? ' · 📍 ' + esc(t.room) : ''}</div>

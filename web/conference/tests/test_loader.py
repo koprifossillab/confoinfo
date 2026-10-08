@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from conference.loader import load, validate
+from conference.loader import load, stable_id, validate
 from conference.models import Abstract, Conference, Room, Session, Talk
 
 from .base import sample
@@ -64,6 +64,17 @@ class LoadTests(TestCase):
         self.assertEqual(t2.pk, pk)                         # 북마크가 붙은 pk 가 그대로
         self.assertEqual(t2.title, "Second talk (renamed)")
         self.assertFalse(Talk.objects.filter(key="t1").exists())
+
+    def test_pk_does_not_depend_on_load_order(self):
+        # 구운 사이트는 빌드마다 빈 DB 에 읽는다 — 앞에 학회가 하나 끼어도 pk 가 같아야 한다 (003)
+        load(sample())
+        alone = Talk.objects.get(conference__slug="testconf", key="t2").pk
+        Conference.objects.all().delete()
+        load(sample(slug="aaa", short_name="AAA"))
+        load(sample())
+        self.assertEqual(Talk.objects.get(conference__slug="testconf", key="t2").pk, alone)
+        self.assertEqual(alone, stable_id("testconf", "t2"))
+        self.assertLess(alone, 2 ** 53)                     # JS Number 로 정확하다
 
     def test_two_conferences_same_keys(self):
         load(sample())

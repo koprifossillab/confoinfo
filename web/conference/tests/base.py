@@ -11,7 +11,8 @@ SAMPLE = {
     "rooms": [{"name": "Hall B", "short": "B", "floor": "2F"},
               {"name": "Hall A", "short": "A", "floor": "1F"}],
     "sessions": [{"code": "S2", "group": "Oral", "title": "Second"},
-                 {"code": "S1", "group": "Oral", "title": "First"}],
+                 {"code": "S1", "group": "Oral", "title": "First",
+                  "conveners": "Kim Ex, Lee", "description": "About.\n\n- one\n- two"}],
     "abstracts": [
         {"key": "a1", "session": "S1", "title": "Trilobites of somewhere",
          "text": "Body.", "keywords": ["trilobite"],
@@ -21,7 +22,7 @@ SAMPLE = {
     ],
     "talks": [
         {"key": "t1", "date": "2026-05-04", "start": "09:00", "end": "09:20",
-         "room": "Hall A", "session": "S1", "title": "Trilobites of somewhere",
+         "room": "Hall A", "session": "S1", "title": "Trilobites of somewhere", "code": "O-1",
          "speaker": "Kim Ex", "abstract": "a1"},
         {"key": "t2", "date": "2026-05-04", "start": "09:20", "end": "09:40",
          "room": "Hall A", "session": "S1", "title": "Second talk", "speaker": "Lee"},

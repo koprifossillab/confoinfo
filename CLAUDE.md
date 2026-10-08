@@ -19,9 +19,11 @@ STRATI 2026 하나를 위해 만든 `jikhanjung/strati2026` 을 범용으로 옮
 ```
 
 **정본은 `conferences/<slug>.json` 이다. DB 는 그 사본이다.** 형식은
-[docs/data-format.md](docs/data-format.md). `import_conference` 가 자료의 `key` 로
-행을 맞춰 **pk 를 지킨다** — 브라우저의 북마크·메모가 발표 pk 에 붙어 있기 때문이다.
-**자료의 `key` 를 바꾸는 것은 그 발표의 북마크를 지우는 것이다.**
+[docs/data-format.md](docs/data-format.md). **발표 pk 는 (학회 slug, 자료의 `key`) 에서
+계산한다**(`loader.stable_id`) — 브라우저의 북마크·메모가 발표 pk 에 붙어 있고, 구운 사이트는
+빌드마다 빈 DB 에 새로 읽기 때문이다(DB 가 매기는 일련번호는 읽는 순서를 따라 밀린다, 003).
+**`key` 나 `slug` 를 바꾸는 것은 그 북마크를 지우는 것이다.** 학회 사이트에서 뽑을 때 key 를
+행 순서로 매기지 않는다.
 
 **학회마다 다른 것은 자료에 둔다, 코드에 두지 않는다.** strati2026 에서는 룸 순서·
 층·날짜의 해·시간대·세션 코드 정렬이 코드에 박혀 있었다. 그것을 걷어 낸 것이 이
@@ -98,7 +100,7 @@ pip install -r requirements.txt     # = -web(Django) + -dev(pymupdf·pdfplumber�
 
 ```bash
 python web/manage.py migrate
-python web/manage.py import_conference --all      # conferences/*.json → DB (pk 를 지키며)
+python web/manage.py import_conference --all      # conferences/*.json → DB (pk 는 slug+key 에서)
 python web/manage.py runserver                    # http://127.0.0.1:8000/
 python web/manage.py test conference              # 시험 — 학회 자료 파일 검사도 여기 있다
 ```

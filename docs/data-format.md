@@ -35,7 +35,9 @@ python web/manage.py import_conference --check conferences/<slug>.json
     {"name": "International Room I", "short": "Int'l I", "floor": "7F"}
   ],
   "sessions": [                        // 순서가 곧 세션 목록의 순서
-    {"code": "G1", "group": "General", "title": "…", "poster_count": 3}
+    {"code": "G1", "group": "General", "title": "…", "poster_count": 3,
+     "conveners": "좌장 A, 좌장 B",    // 세션 목록·상세에 나온다
+     "description": "소개 문단\n\n- 항목\n- 항목"}   // 상세에서 펼친다. 빈 줄 = 문단, 줄바꿈 = <br>
   ],
   "abstracts": [
     {
@@ -58,6 +60,7 @@ python web/manage.py import_conference --check conferences/<slug>.json
       "room": "International Room I",  // rooms 의 name. 없으면(null) 전체 행사 — "Plenary" 탭
       "session": "G4",                 // sessions 의 code
       "title": "…",                    // 필수
+      "code": "P12",                   // 학회가 붙인 발표 번호(포스터 보드 등). 제목 옆 테두리 표시
       "speaker": "발표자 (보통 제1저자)",
       "kind": "talk",                  // talk · plenary · keynote · poster · break · event
       "abstract": "57",                // abstracts 의 key
@@ -70,7 +73,8 @@ python web/manage.py import_conference --check conferences/<slug>.json
 ## `key` 를 바꾸지 말 것
 
 **브라우저의 북마크·메모는 발표의 DB pk 에 붙는다.** 다시 읽어 들일 때 loader 가
-`key` 로 같은 행을 찾아 pk 를 지키므로, 제목·시간·룸을 고쳐도 북마크가 따라간다.
+발표의 pk 를 `(학회 slug, key)` 에서 계산하므로, 제목·시간·룸을 고쳐도 북마크가 따라간다.
+**slug 를 바꾸는 것도 그 학회의 북마크를 전부 끊는다.**
 `key` 를 바꾸면 다른 발표가 되어 그 발표의 북마크가 사라진다. 순서를 끼워 넣을
 일이 있으면 줄 번호 말고 고정된 식별자를 쓴다.
 
@@ -102,6 +106,7 @@ python web/manage.py import_conference --check conferences/<slug>.json
 |---|---|
 | 스프레드시트·학회 사이트의 표 | CSV 로 내보내 `tools/csv2conf.py` — 예시 `docs/examples/` |
 | PDF 핸드북·초록집 | `sources/<slug>/` 에 파서를 두고 이 형식으로 내보낸다 — 예 `sources/strati2026/` |
+| 학회 사이트의 HTML 표 | 받은 HTML 을 `sources/<slug>/raw/` 에 커밋하고 파서로 — 예 `sources/icamg2026/` |
 | 학회 API·JSON | 그 학회 전용 변환기를 `sources/<slug>/` 에 |
 
 ```bash

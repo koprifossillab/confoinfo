@@ -5,6 +5,7 @@
     <a class="talk-title" href="{% url 'talk_detail' t.conference.slug t.id %}">{{ t.title }}</a>
     <div class="talk-meta">
       {% if show_conf %}<span class="conf-tag">{{ t.conference.short_name }}</span>{% endif %}
+      {% if t.code %}<span class="code-tag">{{ t.code }}</span>{% endif %}
       {% if t.session %}<span class="badge" title="{{ t.session.title }}">{{ t.session.code }}</span>{% endif %}
       {% if t.speaker %}<span class="author">{{ t.speaker }}</span>{% endif %}
     </div>

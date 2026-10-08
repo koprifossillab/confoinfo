@@ -93,6 +93,7 @@ def _talk_payload(t):
         "session": t.session.code if t.session else "",
         "start": _hm(t.start),
         "end": _hm(t.end),
+        "code": t.code,
         "title": t.title,
         "author": t.speaker,
         "kind": t.kind,

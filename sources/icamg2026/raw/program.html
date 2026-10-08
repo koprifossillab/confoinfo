@@ -1,0 +1,2678 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Program - ICAMG 2026">
+    <title>Program - ICAMG 2026</title>
+    <link rel="canonical" href="https://icamg.org/program">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo_1110_1.png?v=4">
+    <link rel="apple-touch-icon" sizes="180x180" href="logo_1110_1.png?v=4">
+    <style>
+        /* ===================================
+           Reset & Base Styles
+           =================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-brown: #6d4c41;
+            --primary-dark: #2c3e50;
+            --text-dark: #333;
+            --text-gray: #666;
+            --text-light: #999;
+            --border-gray: #e0e0e0;
+            --bg-white: #ffffff;
+            --bg-light: #f8f9fa;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background: var(--bg-white);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* ===================================
+           Header Section
+           =================================== */
+        .site-header {
+            background: var(--bg-white);
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-gray);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .site-logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a3a4d;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+        }
+
+        .site-logo-text {
+            color: #1a3a4d;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .site-logo-text:hover {
+            opacity: 0.8;
+        }
+
+        .year {
+            color: #0077b6;
+        }
+
+        .logo-icon {
+            width: 3.75rem;
+            height: 3.75rem;
+            flex-shrink: 0;
+            object-fit: contain;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .logo-icon:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .header-info {
+            flex: 1;
+        }
+
+                .conference-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .conference-title:hover {
+            opacity: 0.7;
+        }
+
+        .conference-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .conference-subtitle:hover {
+            opacity: 0.7;
+        }
+
+        .mobile-header {
+            display: none;
+        }
+
+        /* ===================================
+           Tab Navigation
+           =================================== */
+        .tab-navigation {
+            background: var(--bg-white);
+            border-bottom: 3px solid var(--primary-brown);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-container {
+            position: relative;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .tab-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .tab-item {
+            flex: 1;
+            position: relative;
+        }
+
+        .tab-link {
+            display: block;
+            padding: 1rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            border-right: 1px solid var(--border-gray);
+            transition: var(--transition);
+        }
+
+        .tab-item:last-child .tab-link {
+            border-right: none;
+        }
+
+        .tab-link:hover,
+        .tab-item.active .tab-link {
+            background: var(--bg-light);
+            color: var(--primary-brown);
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 180px;
+            max-width: 220px;
+            background: var(--bg-white);
+            border: 1px solid var(--border-gray);
+            border-top: none;
+            box-shadow: var(--shadow-md);
+            list-style: none;
+            z-index: 1000;
+            white-space: normal;
+        }
+
+        .tab-item:hover .dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-menu li {
+            width: 100%;
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            color: var(--text-dark);
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-bottom: 1px solid var(--border-gray);
+            transition: var(--transition);
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+
+        .dropdown-menu li:last-child a {
+            border-bottom: none;
+        }
+
+        .dropdown-menu a:hover {
+            background: var(--bg-light);
+            color: var(--primary-brown);
+            padding-left: 1.25rem;
+        }
+
+        /* ===================================
+           Main Content Layout with Sidebar
+           =================================== */
+        .content-wrapper {
+            display: flex;
+            min-height: calc(100vh - 400px);
+        }
+
+        /* Left Sidebar */
+        .sidebar {
+            width: 250px;
+            background: var(--primary-brown);
+            padding: 0;
+            flex-shrink: 0;
+        }
+
+        .sidebar-title {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            padding: 1.5rem 1.25rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-menu a {
+            display: block;
+            padding: 1rem 1.25rem;
+            color: white;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background: rgba(255, 255, 255, 0.15);
+            padding-left: 1.75rem;
+        }
+
+        /* Right Main Content */
+        .main-content {
+            flex: 1;
+            padding: 3rem;
+            background: var(--bg-white);
+        }
+
+        .page-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-brown);
+        }
+
+        .content-section {
+            background: var(--bg-white);
+        }
+
+        .chair-photo {
+            float: left;
+            width: 180px;
+            height: auto;
+            margin: 10px 2rem 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .message-text {
+            line-height: 1.8;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .message-text p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .message-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .signature {
+            text-align: right;
+            margin-top: 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-brown);
+        }
+
+        /* ===================================
+           Program Schedule Table
+           =================================== */
+        .schedule-section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-brown);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--primary-brown);
+        }
+
+        .schedule-intro {
+            color: var(--text-gray);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .schedule-table-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--border-gray);
+            border-radius: 8px;
+            box-shadow: var(--shadow-sm);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .schedule-scroll-hint {
+            display: none;
+            font-size: 0.78rem;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 0.6rem;
+        }
+
+        /* Programme Grid: the Date column uses rowspan, so only it (not every row's
+           leading cell) can safely be pinned while swiping - pinning Time too would
+           overlap the spanning Date cell underneath it. */
+        .schedule-table:not(.detailed-table) th:first-child,
+        .schedule-table:not(.detailed-table) td.date-cell {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Detailed Programme Grid and Poster Presentations: the leading cell is never
+           omitted by a rowspan, so it can be pinned directly with no conflict. */
+        .schedule-table.detailed-table th:first-child,
+        .schedule-table.detailed-table td:first-child,
+        .schedule-table.poster-table th:first-child,
+        .schedule-table.poster-table td:first-child {
+            position: sticky;
+            left: 0;
+            z-index: 2;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.08);
+        }
+
+        .schedule-table th:first-child {
+            z-index: 3;
+        }
+
+        .schedule-table {
+            width: 100%;
+            min-width: 1080px;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .schedule-table th {
+            background: var(--primary-brown);
+            color: #fff;
+            padding: 0.75rem 0.6rem;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            white-space: nowrap;
+        }
+
+        .schedule-table td {
+            padding: 0.65rem 0.75rem;
+            border: 1px solid var(--border-gray);
+            vertical-align: top;
+        }
+
+        .schedule-table .date-cell {
+            background: var(--bg-light);
+            color: var(--primary-brown);
+            font-weight: 700;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            font-size: 0.85rem;
+        }
+
+        .schedule-table .time-cell {
+            background: #fbf9f7;
+            color: var(--text-dark);
+            font-weight: 600;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        .schedule-table .break-cell {
+            background: #faf8f6;
+            color: var(--text-gray);
+            font-style: italic;
+            text-align: center;
+        }
+
+        .schedule-table .highlight-cell {
+            background: rgba(0, 119, 182, 0.05);
+        }
+
+        .schedule-table .event-main {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .schedule-table .event-subline {
+            display: block;
+            margin-top: 0.3rem;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+
+        .schedule-table .venue-text {
+            color: #a23b72;
+            font-weight: 600;
+        }
+
+        .schedule-table .session-cell {
+            background: var(--bg-white);
+        }
+
+        .schedule-table .session-code {
+            display: inline-block;
+            color: #0077b6;
+            font-weight: 700;
+            font-size: 0.78rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .schedule-table .session-title {
+            display: block;
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .schedule-table .session-convener {
+            display: block;
+            margin-top: 0.3rem;
+            color: var(--text-gray);
+            font-size: 0.78rem;
+            font-style: italic;
+        }
+
+        .schedule-table .empty-cell {
+            background: #fcfcfc;
+        }
+
+        .schedule-note {
+            margin-top: 0.75rem;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        /* ===================================
+           Schedule Tabs (Programme Grid / Detailed Programme Grid)
+           =================================== */
+        .schedule-tab-buttons {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            border-bottom: 2px solid var(--primary-brown);
+        }
+
+        .schedule-tab-btn {
+            padding: 0.7rem 1.5rem;
+            border: 2px solid var(--primary-brown);
+            border-bottom: none;
+            background: var(--bg-light);
+            color: var(--primary-brown);
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 8px 8px 0 0;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            top: 2px;
+        }
+
+        .schedule-tab-btn:hover {
+            background: #efe6e2;
+        }
+
+        .schedule-tab-btn.active {
+            background: #4a9c6d;
+            border-color: #4a9c6d;
+            color: #fff;
+        }
+
+        .schedule-tab-hint {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-style: italic;
+            margin: 0.85rem 0 1.25rem;
+        }
+
+        .schedule-tab-panel {
+            display: none;
+        }
+
+        .schedule-tab-panel.active {
+            display: block;
+        }
+
+        .schedule-table.detailed-table {
+            min-width: 1200px;
+            font-size: 0.8rem;
+        }
+
+        .schedule-table .day-header-cell {
+            background: var(--primary-dark);
+            color: #fff;
+            text-align: left;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .schedule-table .talk-cell {
+            background: var(--bg-white);
+        }
+
+        .schedule-table .talk-authors {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .schedule-table .talk-title {
+            display: block;
+            color: var(--text-gray);
+            font-size: 0.8rem;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* ===================================
+           Poster Presentations Table
+           =================================== */
+        .schedule-table.poster-table {
+            min-width: 900px;
+        }
+
+        .schedule-table .poster-session-cell {
+            background: rgba(0, 119, 182, 0.1);
+            color: var(--primary-dark);
+            text-align: left;
+            padding: 0.55rem 0.9rem;
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        /* Theme colors matched to the session themes on the Proposed Sessions page */
+        .schedule-table .poster-session-cell.theme-1 { color: #2e86ab; background: rgba(46, 134, 171, 0.1); }
+        .schedule-table .poster-session-cell.theme-2 { color: #a23b72; background: rgba(162, 59, 114, 0.1); }
+        .schedule-table .poster-session-cell.theme-3 { color: #f18f01; background: rgba(241, 143, 1, 0.1); }
+        .schedule-table .poster-session-cell.theme-4 { color: #c73e1d; background: rgba(199, 62, 29, 0.1); }
+        .schedule-table .poster-session-cell.theme-5 { color: #3b7dd8; background: rgba(59, 125, 216, 0.1); }
+        .schedule-table .poster-session-cell.theme-6 { color: #4a9c6d; background: rgba(74, 156, 109, 0.1); }
+        .schedule-table .poster-session-cell.theme-7 { color: #7b68ae; background: rgba(123, 104, 174, 0.1); }
+        .schedule-table .poster-session-cell.theme-8 { color: var(--primary-brown); background: rgba(109, 76, 65, 0.1); }
+
+        .schedule-table .poster-no-cell {
+            text-align: center;
+            color: var(--text-gray);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .schedule-table .poster-title-cell {
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .schedule-table .poster-presenter-cell {
+            color: var(--text-dark);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .schedule-table .poster-affiliation-cell {
+            color: var(--text-gray);
+        }
+
+        /* ===================================
+           Footer
+           =================================== */
+        .footer {
+            background: #7aa4b5;
+            color: white;
+            padding: 1.2rem 0;
+            text-align: center;
+        }
+
+        .footer-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-subtitle {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .footer-address {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-contact {
+            font-size: 0.85rem;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        .footer-contact p {
+            margin: 0.25rem 0;
+        }
+
+        .footer-copyright {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-link {
+            color: white;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin: 0 0.5rem;
+            white-space: nowrap;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+            text-decoration: underline;
+        }
+
+        /* ===================================
+           Responsive Design
+           =================================== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            /* Hide desktop header */
+            .site-header {
+                display: none;
+            }
+
+            /* Show mobile header */
+            .mobile-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: var(--bg-white);
+                padding: 1rem;
+                border-bottom: 1px solid var(--border-gray);
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                z-index: 200;
+                box-shadow: var(--shadow-sm);
+            }
+
+            body {
+                padding-top: 70px;
+            }
+
+            .mobile-header .site-logo {
+                font-size: 1.8rem;
+            }
+
+            .mobile-header .logo-icon {
+                width: 2.7rem;
+                height: 2.7rem;
+            }
+
+            .mobile-header .mobile-menu-toggle {
+                display: block;
+            }
+
+            /* Mobile tab navigation */
+            .tab-navigation {
+                position: static;
+                border-bottom: none;
+            }
+
+            .nav-container {
+                display: block;
+                position: relative;
+            }
+
+            .tab-menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--bg-white);
+                border-top: 1px solid var(--border-gray);
+                box-shadow: var(--shadow-md);
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                z-index: 150;
+                max-height: calc(100vh - 70px);
+                overflow-y: auto;
+                padding-top: 0.5rem;
+            }
+
+            .tab-menu.active {
+                display: flex;
+            }
+
+            .tab-item {
+                width: 100%;
+                border-bottom: 1px solid var(--border-gray);
+            }
+
+            .tab-link {
+                font-size: 0.9rem;
+                padding: 0.875rem 1rem;
+                border-right: none;
+                text-align: left;
+            }
+
+            /* Mobile Dropdown */
+            .dropdown-menu {
+                position: static;
+                display: none;
+                border: none;
+                box-shadow: none;
+                background: var(--bg-light);
+                padding-left: 1rem;
+            }
+
+            .tab-item:hover .dropdown-menu {
+                display: none;
+            }
+
+            .tab-item.dropdown-open .dropdown-menu {
+                display: block;
+            }
+
+            .dropdown-menu a {
+                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            /* Mobile Content Layout */
+            .content-wrapper {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+            }
+
+            .sidebar-menu {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+
+            .sidebar-menu li {
+                border-bottom: none;
+                border-right: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            .sidebar-menu a {
+                padding: 1rem 1.5rem;
+            }
+
+            .main-content {
+                padding: 2rem 1rem;
+            }
+
+            .page-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .chair-photo {
+                float: none;
+                display: block;
+                margin: 0 auto 1.5rem auto;
+                width: 140px;
+            }
+
+            .message-text {
+                font-size: 0.95rem;
+            }
+
+            .message-text p {
+                text-align: left;
+            }
+
+            .schedule-section-title {
+                font-size: 1.2rem;
+            }
+
+            .schedule-table {
+                font-size: 0.75rem;
+                min-width: 820px;
+            }
+
+            .schedule-table.detailed-table {
+                min-width: 900px;
+            }
+
+            .schedule-table.poster-table {
+                min-width: 700px;
+            }
+
+            .schedule-table th,
+            .schedule-table td {
+                padding: 0.5rem;
+            }
+
+            .schedule-table .talk-authors,
+            .schedule-table .talk-title {
+                font-size: 0.72rem;
+            }
+
+            .schedule-scroll-hint {
+                display: block;
+            }
+
+            .schedule-tab-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.85rem;
+            }
+
+            .schedule-tab-hint {
+                font-size: 0.78rem;
+            }
+        }
+
+        /* Coming Soon Modal */
+        .coming-soon-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .coming-soon-modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+            padding: 3rem 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 90%;
+            color: #333;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            position: relative;
+            border: 2px solid #e0e0e0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #333;
+            text-shadow: none;
+        }
+
+        .modal-content p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: #666;
+        }
+
+        .modal-close-btn {
+            background: rgba(109, 76, 65, 0.9);
+            color: white;
+            border: none;
+            padding: 1rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-close-btn:hover {
+            background: #6d4c41;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Coming Soon Modal -->
+    <div class="coming-soon-modal" id="comingSoonModal">
+        <div class="modal-content">
+            <h2>🚧 Site Coming Soon!</h2>
+            <p>This page is currently under construction.<br>
+                Please check back later for updates.</p>
+            <button class="modal-close-btn" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <h1 class="site-logo">
+            <img src="logo_1110_1.png?v=3" alt="ICAMG Logo" class="logo-icon">
+            <a href="/" class="site-logo-text">ICAMG-10 <span class="year">2026</span></a>
+        </h1>
+        <button class="mobile-menu-toggle" aria-label="메뉴 열기">☰</button>
+    </div>
+
+    <!-- Desktop Header -->
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="site-logo">
+                    <img src="logo_1110_1.png?v=3" alt="ICAMG Logo" class="logo-icon">
+                    <a href="/" class="site-logo-text">ICAMG-10 <span class="year">2026</span></a>
+                </h1>
+                <div class="header-info">
+                    <a href="/" style="text-decoration: none; color: inherit;">
+                        <h2 class="conference-title">The 10th International Conference on Asian Marine Geology 2026</h2>
+                    </a>
+                    <a href="/" style="text-decoration: none; color: inherit;">
+                        <p class="conference-subtitle">October 30 ~ November 7, 2026 | Busan Port International Exhibition &
+                        Convention Center(BPEX), Republic of Korea</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Tab Navigation -->
+    <nav class="tab-navigation">
+        <div class="container">
+            <div class="nav-container">
+                <ul class="tab-menu">
+                    <li class="tab-item active">
+                        <a href="icamg2026" class="tab-link">ICAMG 2026 ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="icamg2026?page=welcome">Welcome Message</a></li>
+                            <li><a href="local-organizing-committee">Local Organizing Committee</a></li>
+                            <li><a href="scientific-committee">Scientific Committee</a></li>
+                            <li><a href="international-committee">International Committee</a></li>
+                            <li><a href="main-theme">Main Theme</a></li>
+                            <li><a href="proposed-session">Proposed Sessions</a></li>
+                            <li><a href="whats-new">What's New</a></li>
+                        </ul>
+                    </li>
+                    <li class="tab-item">
+                        <a href="program" class="tab-link">Program ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="program">Program at a Glance</a></li>
+                            <li><a href="keynote-lectures">Keynote Lectures</a></li>
+                            <li><a href="joint-session-with-wof-speaker">Joint Session with WOF Speaker</a></li>
+                            <li><a href="field-trip">Field Trip</a></li>
+                        </ul>
+                    </li>
+                    <li class="tab-item">
+                        <a href="submission" class="tab-link">Submission ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="submission">Abstract Submission</a></li>
+                        </ul>
+                    </li>
+                    <li class="tab-item">
+                        <a href="registration" class="tab-link">Registration ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="registration">On-line Registration</a></li>
+                            <li><a href="special-registration">Special Registration</a></li>
+                            <li><a href="field-trip-registration">Field Trip Registration</a></li>
+                            <li><a href="visa-invitation-letter">VISA INVITATION LETTER</a></li>
+                        </ul>
+                    </li>
+                    <li class="tab-item">
+                        <a href="Exhibition-Opportunities" class="tab-link">Sponsor ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="Exhibition-Opportunities">Exhibition Opportunities</a></li>
+                            <li><a href="Sponsorship-Advertising">Sponsorship & Advertising</a></li>
+                            <li><a href="Sponsorship-Advertising-Exhibition">Sponsorship, Advertising & Exhibition</a></li>
+                        </ul>
+                    </li>
+                    <li class="tab-item">
+                        <a href="venue" class="tab-link">Venue ▼</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="venue">Conference Venue</a></li>
+                            <li><a href="venue#transportation">Transportation</a></li>
+                            <li><a href="venue#fromAirport">From the Airport</a></li>
+                            <li><a href="venue#visa">Visa Information</a></li>
+                            <li><a href="accommodation">Accommodation</a></li>
+                            <li><a href="tour-information">Tour Information</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content with Sidebar -->
+    <div class="content-wrapper">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-title">Program</div>
+            <ul class="sidebar-menu">
+                <li><a href="#programGlance" class="active">Program at a Glance</a></li>
+                <li><a href="keynote-lectures">Keynote Lectures</a></li>
+                <li><a href="joint-session-with-wof-speaker">Joint Session with WOF Speaker</a></li>
+                <li><a href="field-trip">Field Trip</a></li>
+            </ul>
+        </aside>
+
+        <!-- Right Main Content -->
+        <main class="main-content">
+            <div class="content-section" id="programGlance" style="display: block;">
+                <h1 class="page-title">Program at a Glance</h1>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem;">
+                    <a href="#" onclick="showComingSoon(event)"
+                       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(26, 58, 77, 0.4)'; this.style.background='#0f2433';"
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(26, 58, 77, 0.3)'; this.style.background='#1a3a4d';"
+                       style="display: inline-flex; align-items: center; justify-content: center; background: #1a3a4d; color: white; padding: 0.8rem 2.5rem; border-radius: 50px; text-decoration: none; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 15px rgba(26, 58, 77, 0.3); transition: all 0.3s ease; border: none; cursor: pointer;">Final Program</a>
+                    <a href="#" onclick="showComingSoon(event)"
+                       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(0, 119, 182, 0.4)'; this.style.background='#005f8a';"
+                       onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(0, 119, 182, 0.3)'; this.style.background='#0077b6';"
+                       style="display: inline-flex; align-items: center; justify-content: center; background: #0077b6; color: white; padding: 0.8rem 2.5rem; border-radius: 50px; text-decoration: none; font-size: 1rem; font-weight: 700; box-shadow: 0 4px 15px rgba(0, 119, 182, 0.3); transition: all 0.3s ease; border: none; cursor: pointer;">E-abstract Book</a>
+                </div>
+
+                <h2 class="schedule-section-title">Programme Grid</h2>
+
+                <div class="schedule-tab-buttons">
+                    <button type="button" class="schedule-tab-btn active" data-tab="programmeGridPanel" onclick="switchScheduleTab('programmeGridPanel')">Programme Grid</button>
+                    <button type="button" class="schedule-tab-btn" data-tab="detailedProgrammeGridPanel" onclick="switchScheduleTab('detailedProgrammeGridPanel')">Oral Presentation Schedule</button>
+                    <button type="button" class="schedule-tab-btn" data-tab="posterPresentationsPanel" onclick="switchScheduleTab('posterPresentationsPanel')">Poster Presentations</button>
+                </div>
+                <p class="schedule-tab-hint">👆 Click a tab above to view the corresponding schedule.</p>
+
+                <div class="schedule-tab-panel active" id="programmeGridPanel">
+                <p class="schedule-intro">The table below presents the full ICAMG-10 2026 conference schedule,
+                    including keynote lectures, parallel sessions, and the Joint Session with WOF Speaker, across
+                    the three main conference days (November 2–4, 2026) at BPEX, Busan, Republic of Korea.</p>
+
+                <p class="schedule-scroll-hint">↔ Swipe left or right to see the full schedule.</p>
+                <div class="schedule-table-wrapper">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Event Hall A, B</th>
+                                <th>Meeting Room 6 &amp; 7</th>
+                                <th>Meeting Room 8 &amp; 9</th>
+                                <th>Meeting Room 10</th>
+                                <th>Seaside Hallway</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="break-row">
+                            <td rowspan="9" class="date-cell">Monday,<br>2 November 2026</td>
+                            <td class="time-cell">08:00~</td>
+                            <td colspan="5" class="break-cell">Registration Desk Opens (08:00–18:00)</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:30~11:00</td>
+                            <td colspan="5" class="highlight-cell"><span class="event-main">Welcome Ceremony and Address – <span class="venue-text">Event Hall A, B</span></span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:00~11:30</td>
+                            <td colspan="5" class="highlight-cell"><span class="event-main">Keynote: Prof. Kyung Eun Lee – Paleoceanography and paleoclimatology of the North Pacific over the past 10 million years – <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">(Convener: Minoru Ikehara)</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">11:30~13:00</td>
+                            <td colspan="5" class="break-cell">Lunch – <span class="venue-text">Event Hall A, B</span>, 11:30~13:00</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00~14:30</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 1A</span><span class="session-title">Coastal to shelfal environments: Processes and products</span><span class="session-convener">Conveners: Kyungsik Choi, Xin Shan</span></td>
+                            <td class="session-cell"><span class="session-code">Session 1B</span><span class="session-title">Antarctic Ocean-Ice-Climate Interactions I: Paleoceanographic perspectives</span><span class="session-convener">Conveners: Min Kyung Lee, Sunghan Kim</span></td>
+                            <td class="session-cell"><span class="session-code">Session 1C</span><span class="session-title">Unravelling Arctic fjord and coastal change: Paleoenvironmental records, modern observations, and future perspectives</span><span class="session-convener">Conveners: Jung-Hyun Kim, Young Jin Joe, Dahae Kim</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">14:30~14:50</td>
+                            <td colspan="5" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50~16:20</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 2A</span><span class="session-title">Sediment dynamics and geomorphodynamics in tidal environments</span><span class="session-convener">Conveners: Sun Min Choi, Joohee Jo, Jun Young Seo</span></td>
+                            <td class="session-cell"><span class="session-code">Session 2B</span><span class="session-title">Antarctic Ocean-Ice-Climate Interactions II: Paleoceanographic perspectives</span><span class="session-convener">Conveners: Sunghan Kim, Min Kyung Lee</span></td>
+                            <td class="session-cell"><span class="session-code">Session 2C</span><span class="session-title">Arctic paleoceanography and cryosphere dynamics: High-frequency variability and global climate linkage during the Quaternary</span><span class="session-convener">Conveners: Kwangchul Jang, Xiaotong Xiao, Kwangkyu Park, Wenshen Xiao</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">16:20~16:40</td>
+                            <td colspan="5" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:40~18:00</td>
+                            <td class="empty-cell"></td>
+                            <td class="empty-cell"></td>
+                            <td class="empty-cell"></td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Poster Session</span><span class="session-title">(16:40~18:00)</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td rowspan="11" class="date-cell">Tuesday,<br>3 November 2026</td>
+                            <td class="time-cell">08:00~</td>
+                            <td colspan="5" class="break-cell">Registration Desk Opens (08:00–18:00)</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">09:10~09:40</td>
+                            <td colspan="5" class="highlight-cell"><span class="event-main">Keynote: Dr. Ken Ikehara – Submarine landslides and associated gravity flow deposits around the Japanese islands – <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">(Convener: Shouye Yang)</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">09:40~10:00</td>
+                            <td colspan="5" class="break-cell">Morning Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00~11:30</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 3A</span><span class="session-title">Sedimentary environment evolution of Asian continental margin and compilation of related maps</span><span class="session-convener">Conveners: Xuefa Shi, Minoru Ikehara, Tae Soo Chang, Shuqing Qiao</span></td>
+                            <td class="session-cell"><span class="session-code">Session 3B</span><span class="session-title">Western Pacific paleoceanography I: Past and future</span><span class="session-convener">Conveners: Li Lo, Kyung Eun Lee, Takuya Sagawa, Helen Bostock</span></td>
+                            <td class="session-cell"><span class="session-code">Session 3C</span><span class="session-title">Marine Geohazards, Tectonics and Geophysics</span><span class="session-convener">Conveners: Soojung An, Hyeon-Seob Kim, Kyoungjin Kim, Donggeun Yoo</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">11:30~13:00</td>
+                            <td colspan="5" class="break-cell">Lunch – <span class="venue-text">Event Hall A, B</span>, 11:30~13:00</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00~14:30</td>
+                            <td colspan="5" class="highlight-cell"><span class="event-main">Joint Session with World Ocean Forum – <span class="venue-text">Event Hall A, B</span>  (Convener: Sangmin Hyun)</span><span class="event-subline">Dr. Michael J McPhaden (University of Washington, USA): El Niño 2026: Causes, Consequences, and Connections to Climate Change</span><span class="event-subline">Prof. Kyungsik Choi (Seoul National University, Korea): A Changing Arctic Landscape: Insights from tidal-flat morphodynamics in Dicksonfjorden, Svalbard</span><span class="event-subline">One more person: TBD</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">14:30~14:50</td>
+                            <td colspan="5" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50~16:20</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 4A</span><span class="session-title">Source-to-Sink transport and fate across atmosphere-land-river-ocean-sediment system</span><span class="session-convener">Convener: Hoi-Soo Jung</span></td>
+                            <td class="session-cell"><span class="session-code">Session 4B</span><span class="session-title">Western Pacific paleoceanography II: Past and future</span><span class="session-convener">Conveners: Li Lo, Kyung Eun Lee, Takuya Sagawa, Helen Bostock</span></td>
+                            <td class="session-cell"><span class="session-code">Session 4C</span><span class="session-title">Carbon cycling and subsurface CO2 storage</span><span class="session-convener">Conveners: Sookwan Kim, Byung-Dal So</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">16:20~16:40</td>
+                            <td colspan="5" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:40~18:10</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 5A</span><span class="session-title">Transport and burial of particulate organic matter in the ocean</span><span class="session-convener">Conveners: Baozhi Lin, Minkyoung Kim, Shigeyoshi Otosaka</span></td>
+                            <td class="session-cell"><span class="session-code">Session 5B</span><span class="session-title">New-Era Scientific Ocean Drilling: To improve collaboration in Asian Marine Geology</span><span class="session-convener">Conveners: Minoru Ikehara, Yoon-Mi Kim, Zhifei Liu, Ron Hackney</span></td>
+                            <td class="empty-cell"></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">18:10~21:00</td>
+                            <td colspan="5" class="break-cell">Conference Dinner – <span class="venue-text">Event Hall A, B</span>, 18:10~21:00</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td rowspan="8" class="date-cell">Wednesday,<br>4 November 2026</td>
+                            <td class="time-cell">08:00~</td>
+                            <td colspan="5" class="break-cell">Registration Desk Opens (08:00–16:00)</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">09:10~09:40</td>
+                            <td colspan="5" class="highlight-cell"><span class="event-main">Keynote: Prof. Zhifei Liu – Deep-sea sedimentary dynamic processes crossing active to passive continental margins: Fifteen consecutive years of mooring observations in the South China Sea – <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">(Convener: Jang-Jun Bahk)</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">09:40~10:00</td>
+                            <td colspan="5" class="break-cell">Morning Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00~11:30</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 6A</span><span class="session-title">Deep-sea sedimentary dynamic processes: Combining observations and sedimentary records</span><span class="session-convener">Conveners: Zhifei Liu, Jang Jun Bahk, Andrew Tien-Shun Lin</span></td>
+                            <td class="session-cell"><span class="session-code">Session 6B</span><span class="session-title">Sedimentary processes in the Asian marginal seas and marine environmental evolution</span><span class="session-convener">Conveners: Chuanxiu Luo, Sui Wan, Yi Zhong, Shuhuan Du</span></td>
+                            <td class="empty-cell"></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">11:30~13:00</td>
+                            <td colspan="5" class="break-cell">Lunch – <span class="venue-text">Event Hall A, B</span>, 11:30~13:00</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00~14:30</td>
+                            <td class="empty-cell"></td>
+                            <td class="session-cell"><span class="session-code">Session 7A</span><span class="session-title">Formation and exploration of marine mineral resources: Crusts, nodules, and hydrothermal deposits</span><span class="session-convener">Conveners: Youngjae Kim, Jung-Woo Park, Sang-Mook Lee, Kiho Yang</span></td>
+                            <td class="session-cell"><span class="session-code">Session 7B</span><span class="session-title">Marine sedimentary records supporting climate systems models</span><span class="session-convener">Conveners: Shu Gao, James T. Liu</span></td>
+                            <td class="empty-cell"></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">14:30~14:50</td>
+                            <td colspan="5" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50~15:00</td>
+                            <td colspan="5" class="highlight-cell"><span class="event-main">Closing Address and Announcement – <span class="venue-text">Event Hall A, B</span></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="schedule-note">※ This program is subject to change depending on further preparations.</p>
+                </div>
+
+                <div class="schedule-tab-panel" id="detailedProgrammeGridPanel">
+                <p class="schedule-intro">The table below presents the detailed oral presentation schedule, including
+                    individual talk titles and presenters for each parallel session, across the three main
+                    conference days (November 2–4, 2026).</p>
+
+                <p class="schedule-scroll-hint">↔ Swipe left or right to see the full schedule.</p>
+                <div class="schedule-table-wrapper">
+                    <table class="schedule-table detailed-table">
+                        <tbody>
+                        <tr class="day-header-row"><th colspan="4" class="day-header-cell">Monday, 2 November 2026</th></tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Meeting Room 6 &amp; 7</th>
+                            <th>Meeting Room 8 &amp; 9</th>
+                            <th>Meeting Room 10</th>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">08:00–18:00</td>
+                            <td colspan="3" class="break-cell">Registration Desk Opens</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:30–11:00</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Welcome ceremony and address/ <span class="venue-text">Event Hall A, B</span></span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:00–11:30</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Keynote: Prof. Kyung Eun Lee Paleoceanography and paleoclimatology of the North Pacific over the past 10 million years/ <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">Convener: Minoru Ikehara</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">11:30–13:00</td>
+                            <td colspan="3" class="break-cell">Lunch/ <span class="venue-text">Event Hall A, B</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00–14:30</td>
+                            <td class="session-cell"><span class="session-code">Session 1A</span><span class="session-title">Coastal to shelfal environments: Processes and products</span><span class="session-convener">Conveners: Kyungsik Choi and Xin Shan</span></td>
+                            <td class="session-cell"><span class="session-code">Session 1B</span><span class="session-title">Antarctic Ocean-Ice-Climate Interactions I: Paleoceanographic perspectives</span><span class="session-convener">Conveners: Min Kyung Lee, Sunghan Kim</span></td>
+                            <td class="session-cell"><span class="session-code">Session 1C</span><span class="session-title">Unravelling Arctic fjord and coastal change: Paleoenvironmental records, modern observations, and future perspectives</span><span class="session-convener">Conveners: Jung-Hyun Kim, Young Jin Joe, Dahae Kim</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00–13:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Seolhui Bang, Joohee Jo, Dohyeong Kim, Seungyeon Sohn, Kyungsik Choi</span><span class="talk-title">Morphodynamic evolution of a macrotidal open-coast tidal flat driven by decadal migration of a major estuarine tidal channel</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Kyu-Cheul Yoo, Jae Il Lee, Sunghan Kim, Min Kyung Lee, Sangbeom Ha, Young Kyu Park, Kiho Yang, Sukyung Cho, Kang Cheul Jang</span><span class="talk-title">A journey into Antarctica's past: SWAIS 2C Project</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Eun Jin Son, Eunho Jang, Sang-Jong Park, Yeontae Kim, Jung-Hyun Kim, Young Jun Yoon, Sae Yun Kwon</span><span class="talk-title">Mercury isotopes reveal seasonal PBM variability and daily PBM–snow dynamics during early Arctic AMDEs</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:15–13:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Xin Shan, Robert W Dalrymple, Xuefa Shi, Yuting Huang, Zengquan Yao, Shuqing Qiao, Qingjie Zhou, Tao Lan, Yonggui Yu, Yong Shi</span><span class="talk-title">Transverse and longitudinal asymmetries of a mixed-energy strait: The Holocene Bohai Strait</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Hyun Hee Rhee, Min Kyung Lee, Yeong Bae Seong, Sunghan Kim, Jae Il Lee, Kyu-Cheul Yoo, Byung Yong Yu</span><span class="talk-title">Glaciovolcanic processes between the Campbell glacier and Mt. Melbourne volcano, Antarctica: Ice and fire</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Young Jin Joe, Younkyu Ahn, Matthias Forwick, Jochen Knies, Christoph Vogt, Yeong Ju Son, Seung-Il Nam, Jung-Hyun Kim</span><span class="talk-title">The last collapse of the northern Svalbard continental margin</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:30–13:45</td>
+                            <td class="talk-cell"><span class="talk-authors">Shuai Cong, Houjie Wang, Xiao Wu, Jianzhong Ge, Naishuang Bi, Yunhai Li</span><span class="talk-title">Ratchet effect of tropical cyclones: Episodic controls on sediment dynamics and depositional evolution of the East China Sea inner shelf</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Sangbeom Ha, Kyu-Cheul Yoo, Jae Il Lee, Min Kyung Lee, Sunghan Kim</span><span class="talk-title">Comparison of stratigraphic correlation and AMS 14C ages of sediments from the Bellingshausen Sea continental margin, West Antarctica</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Youngkyu Ahn, Young Jin Joe, Kwangchul Jang, Yeong Ju Son, Dahae Kim, Matthias Forwick, Jochen Knies, Jung-Hyun Kim, Sungmin Hong, Ho Kyung Ha, Seung-Il Nam</span><span class="talk-title">Last deglacial glacier dynamics and sedimentary responses to hydrographic change in the Hinlopen Strait, Arctic Svalbard</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:45–14:00</td>
+                            <td class="talk-cell"><span class="talk-authors">Seungyeon Sohn, Seolhui Bang, Myungshin Park, Kyungsik Choi</span><span class="talk-title">Fair-weather tides and monsoon floods: contrasting controls on morphodynamics and facies architecture in a macrotidal embayment</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Young Kyu Park, Kyu-Cheul Yoo, Jae Il Lee, Min Kyung Lee, Sunghan Kim, Soyoung Kim, Sangbeom Ha, Insung Kang, Jinwook Kim</span><span class="talk-title">Mineralogical and sedimentological signatures of Late Pleistocene ice sheet instability in the Bellingshausen Sea</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Dohyeong Kim, Joohee Jo, Seungyeon Sohn, Kyungsik Choi</span><span class="talk-title">Spatiotemporal reorganization of paraglacial spit complexes on a tide-influenced Arctic fjord delta: Dicksonfjorden, Svalbard</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:00–14:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Dominique Valdivia, James T Liu, Rick Yang, Jay Lee, Yu-Shih Lin, Chih-Chieh Su</span><span class="talk-title">Source-to-Sink controls on the spatial distribution of a modern mud depocenter and palimpsest sediments on the Northern South China Sea Shelf</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Insung Kang, Youngkyu Park, Kyu-Cheul Yoo, Min Kyung Lee, Jinwook Kim</span><span class="talk-title">Tracing adjacent glacial catchments with single particle smectite composition in surface sediments and gravity cores of the Dotson and Getz A troughs, Amundsen Sea</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Chang Hwa Lee, Jung-Hyun Kim, Pereira Ryan, Thomas Wagner, Ga-Eun Lee, Matthias Forwick, Dong-Hun Lee</span><span class="talk-title">Influence from Arctic amplification on dissolved organic matter around Svalbard</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:15–14:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Kyungsik Choi</span><span class="talk-title">Cyclic steps as a formative mechanism of morphodynamic and sedimentary heterogeneity in tidal-flat systems</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Wenshen Xiao, Heran Huang, Rujian Wang, Li Wu, Duanping Shi, Yanli Li</span><span class="talk-title">Glacial impacts on sedimentation off Enderby land, east Antarctica during the past two glacial cycles</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Yun Ji Song, Jong Wook Kim, Seung-Buhm Woo, Ki-Hwan Kim, Jung-Hyun Kim, Seung-Il Nam, Emilia Kyung Jin</span><span class="talk-title">Impact of glacier meltwater runoff on flow patterns and seawater exchange processes in Kongsfjorden, Arctic Svalbard</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">14:30–14:50</td>
+                            <td colspan="3" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50–16:20</td>
+                            <td class="session-cell"><span class="session-code">Session 2A</span><span class="session-title">Sediment dynamics and geomorphodynamics in tidal environments</span><span class="session-convener">Conveners: Sun Min Choi, Joohee Jo, Jun Young Seo</span></td>
+                            <td class="session-cell"><span class="session-code">Session 2B</span><span class="session-title">Antarctic Ocean-Ice-Climate Interactions II: Paleoceanographic perspectives</span><span class="session-convener">Conveners: Sunghan Kim, Min Kyung Lee</span></td>
+                            <td class="session-cell"><span class="session-code">Session 2C</span><span class="session-title">Arctic paleoceanography and cryosphere dynamics: High-frequency variability and global climate linkage during the Quaternary</span><span class="session-convener">Conveners: Kwangchul Jang, Xiaotong Xiao, Kwangkyu Park, Wenshen Xiao</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50–15:05</td>
+                            <td class="talk-cell"><span class="talk-authors">Myungshin Park, Kyungsik Choi</span><span class="talk-title">The planform mobility of tidal channel confluences in the Dokgot-ri tidal flat, Garolim bay</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Keiji Horikawa, Boo-Keun Khim, Yoshihiro Asahara</span><span class="talk-title">Antarctic ice sheet areal expansion drove Middle Miocene Southern Ocean circulation shifts and CO2 drawdown</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Jingyuan Zhang, W.S. Xiao, W. Yuan, R.J. Wang, L. Polyak, M. O'Regan, D.P. Shi</span><span class="talk-title">Diagenetic overprint and magnetostratigraphic fidelity in central Arctic Ocean sediments</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:05–15:20</td>
+                            <td class="talk-cell"><span class="talk-authors">Yunhai Li, Yunpeng Li</span><span class="talk-title">Multi-indicator identification of sediment-source responses and hydrodynamic reworking in typhoon event deposits: A case study from the northeastern Beibu Gulf</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Yibo Cui, Wenshen Xiao, Rujian Wang, Qingmiao Li, Heran Huang, Jingyuan Zhang</span><span class="talk-title">Productivity regulated by overturning circulation in the Southern Ocean since the late Pliocene</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Yuying Zhang, Limin Hu, Xun Gong, Xiaotong Xiao, Ruediger Stein, Xuefa Shi</span><span class="talk-title">Enhanced Arctic sea-ice retreat due to pronounced pacificization effect in the Holocene</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:20–15:35</td>
+                            <td class="talk-cell"><span class="talk-authors">Seong Woon Jeong, Chae Yeon Eun, Dong Hyeon Kim, Jong Dae Do, Byung-Cheol Kum, Ho Kyung Ha</span><span class="talk-title">Geomorphological control on hydrodynamics and sediment transport in a hypertidal, human-altered bay: Gyeonggi Bay, Korea</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Sunghan Kim, Jae Il Lee, Chrisitian Ohneiser, Sookwan Kim, Min Kyung Lee, Kyu-Cheul Yoo, Heung Soo Moon, Jinku Park</span><span class="talk-title">Changing Modes of Biogenic Sedimentation in the Ross Sea Sector Across the Mid-Pleistocene Transition</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Bo Li, Xiaotong Xiao</span><span class="talk-title">Linking molecular fingerprints with isotopic and biomarker evidence to resolve sedimentary organic matter sources in the Arctic</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:35–15:50</td>
+                            <td class="talk-cell"><span class="talk-authors">Qian Yu, Yunwei Wang, Mingxiang Pan</span><span class="talk-title">Tidal controls on suspended sediment from space</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Hyuk Choi, Isabelle Billy, Xavier Crosta, Sunghan Kim, Boo-Keun Khim</span><span class="talk-title">Long-term paleoceanographic change in the north Crozet region (Indian sector of the Southern Ocean) during the last ~3 Ma</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Duanping Shi, Wenshen Xiao, Zhiwei He, Leonid Polyak, Matt O'Regan, Rujian Wang, Jingyuan Zhang, Li Wu</span><span class="talk-title">Enhanced organic-carbon burial under reduced deep-water oxygenation in the western Arctic during the late Middle Pleistocene Transition</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:50–16:05</td>
+                            <td class="talk-cell"><span class="talk-authors">Sun Min Choi, Su In Kim, Mi Sun Yun, Chae Yeon Eun, TienPing Xu, Leiping Ye, Zhan Hu, Jun Young Seo, Ho Kyung Ha</span><span class="talk-title">Variability of cohesive sediment erodibility across diverse depositional environments</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Boo-Keun Khim, J.Y. Yang, M. Ikehara, I.K. Um</span><span class="talk-title">Grain size change of detrital particles in the Antarctic zone (Conrad Rise) of the Southern Ocean since the last glacial maximum</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Zhengquan Yao, Yaru Liu, Xuefa Shi, Yuri Vasilenko</span><span class="talk-title">Wildfire history recorded in deposits of the East Siberian Arctic Shelf since the late Quaternary</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:05–16:20</td>
+                            <td class="talk-cell"><span class="talk-authors">Joohee Jo, Jun-Yong Park</span><span class="talk-title">Long-term evolution of tidal channel networks in an accretional tidal flat in a macrotidal setting</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Sukyung Chu, Kyu-Cheul Yoo, Kiho Yang</span><span class="talk-title">Reconstructing lower circumpolar deep-water variations during glacial–interglacial periods with ferromanganese-coated IRDs from the Drake Passage</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Su-Jeong Lim, Sookwan, Kim, Byung-Dal So</span><span class="talk-title">Glacial loading and unloading influence fault stresses and fluid migration beneath the western bathymetry trough</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">16:20–16:40</td>
+                            <td colspan="3" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:40–18:00</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Poster session/ Seaside Hallway</span></td>
+                        </tr>
+                        <tr class="day-header-row"><th colspan="4" class="day-header-cell">Tuesday, 3 November 2026</th></tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Meeting Room 6 &amp; 7</th>
+                            <th>Meeting Room 8 &amp; 9</th>
+                            <th>Meeting Room 10</th>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">08:00–18:00</td>
+                            <td colspan="3" class="break-cell">Registration Desk Opens</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">09:10–09:40</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Keynote: Dr. Ken Ikehara Submarine landslides and associated gravity flow deposits around the Japanese islands/ <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">Convener: Shouye Yang</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">09:40–10:00</td>
+                            <td colspan="3" class="break-cell">Morning Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00–11:30</td>
+                            <td class="session-cell"><span class="session-code">Session 3A</span><span class="session-title">Sedimentary environment evolution of Asian continental margin and compilation of related maps</span><span class="session-convener">Conveners: Xuefa Shi, Minoru Ikehara, Tae Soo Chang, Shuqing Qiao</span></td>
+                            <td class="session-cell"><span class="session-code">Session 3B</span><span class="session-title">Western Pacific paleoceanography I: Past and future</span><span class="session-convener">Conveners: Li Lo, Kyung Eun Lee, Takuya Sagawa, Helen Bostock</span></td>
+                            <td class="session-cell"><span class="session-code">Session 3C</span><span class="session-title">Marine Geohazards, Tectonics and Geophysics</span><span class="session-convener">Conveners: Soojung An, Hyeon-Seob Kim, Kyoungjin Kim, Donggeun Yoo</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00–10:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Shuqing Qiao, Xuefa Shi, Yanguang Liu, Sheng Jie</span><span class="talk-title">Compilation of the 1:1,000,000 sediment type map of China's adjacent seas: Data integration, classification standards and mapping practice</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Seungchan Jeong, Okazaki Yusuke</span><span class="talk-title">Cycladophora davisiana (Radiolaria) curve in the Bering and Okhotsk Seas since the Last Glacial Maximum considering sieve sizes and morphology</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Joohyeon Kim, Young Jae Shinn</span><span class="talk-title">Evolution history of a submarine mud volcano in the inner-shelf off southeastern Korea</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:15–10:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Zhengquan Yao, Han Feng, Xuefa Shi, Zhongshi Zhang, Huayu Lu, Hanzhi Zhang, Yanguang Liu, Xin Shan, Jiang Dong, Linsen Dong, Gongxu Yang, Limin Hu, Yuri Vasilenko, Anatoli Astakhov, Alexander Bosin</span><span class="talk-title">Multiphase glaciation in East Siberia during the late Quaternary: Evidence from Arctic zircon U-Pb ages</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Jose Dominick Guballa, Li Lo, Chien-Hsiang Lin</span><span class="talk-title">Orbital forcing on coccolithophore assemblages in the Solomon Sea during the last 260 ka</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Gideon Ovwuwonye, Adetayo Folorunso, Oluwatoyin Oluwadare, Olusola Ashiru, Ayomide Ifanegan</span><span class="talk-title">Quantitative integration of geostatistics and rock physics analysis for uncertainty evaluation in "Giddy" Field, offshore Niger Delta</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:30–10:45</td>
+                            <td class="talk-cell"><span class="talk-authors">Xuefa Shi, Shuqing Qiao, Lina Jin, Jie Sheng, Xin Shan, Zhi Dong, Zhengquan Yao</span><span class="talk-title">Global seafloor sediment mapping project</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Yui Fujimi, Minoru Ikehara, Yusuke Okazaki, Yoshimi Kubota, Hidetaka Kobayashi, Yousuke Miyairi, Yusuke Yokoyama, Keiji Horikawa</span><span class="talk-title">Oceanographic conditions off Tokai region under Kuroshio Current over the past 20,000 years</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Jaeyoon Keum, Eunseo Choi, Byung-Dal So</span><span class="talk-title">Inherited fault geometry and coupled surface processes control three-dimensional architecture of metamorphic core complexes</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:45–11:00</td>
+                            <td class="talk-cell"><span class="talk-authors">Yechan Park, Tae Soo Chang, Dhong Il Lim, Jaesoo Lim, Jin Cheul Kim, Hyun Ho Yoon, Wonnyon Kim</span><span class="talk-title">Coexisting regression and transgression in the Seomjin river estuary, southern Korea: Asynchronous Holocene evolution and spatial asymmetry</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Zi-Qi Chew, Sheng-Ting Hsu, Richard D. Norris, Chih-Chieh Su, Chien-Hsiang Lin</span><span class="talk-title">Holocene Fish Diversity and Shelf Development in the Taiwan Strait Based on Marine Sediment Cores</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Abi Dzikri Alghifari, Nan Wu, Guangfa Zhong</span><span class="talk-title">Influence of a small mass-transport body on the development of adjacent channel systems in the deepwater Taranaki Basin</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:00–11:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Zhi Dong, Xuefa Shi, Jianjun Zou, Yanguang Liu, Zhengquan Yao, Ruxi Dou</span><span class="talk-title">A tale of two water‑mass regimes: intraspecific morphometric divergence of Cycladophora davisiana (Radiolaria)</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Chien-Hsiang Lin, Zi-Qi Chew, Chih-Lin Wei, Shraddha Band, Jose Dominick Guballa, Li Lo</span><span class="talk-title">Shifts in deep-sea fish communities across the last four superinterglacial intervals</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Ara Jeong, Yeong Bae Seong, Kwang Hee Choi</span><span class="talk-title">Quantifying millennial-scale coastal erosion and shore platform evolution using cosmogenic radionuclides and numerical models</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:15–11:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Hun Jun Ha, Tae Soo Chang</span><span class="talk-title">Sediment provenance and dispersal pathways on the Heuksan Mud Belt, southwest Korean shelf: Insights from grain-size end-member analysis</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Wei Wang, Christophe Colin, Zhaokai Xu, Shouye Yang, Tiegang Li</span><span class="talk-title">Neodymium in modern foraminifera from the southern Philippine Sea: Implications for tracing water masses and continental weathering inputs</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Hyeon-Seob Kim, Minsu Kim, Dong-Hyo Sohn, Sung-Moon Yoo, Sungshil Kim, Seongryon Kim, Byung-Dal So</span><span class="talk-title">Far-field postseismic GNSS constraints on back-arc mantle viscosity beneath the East Sea (Japan Sea) following the 2011 Mw 9.0 Tohoku-Oki earthquake</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">11:30–13:00</td>
+                            <td colspan="3" class="break-cell">Lunch/ <span class="venue-text">Event Hall A, B</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00–14:30</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Joint Session with World Ocean Forum/ <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">Michael J McPhaden (University of Washington, USA) El Niño 2026: Causes, Consequences, and Connections to Climate Change</span><span class="event-subline">Kyungsik Choi (Seoul National University, Korea): A Changing Arctic Landscape: Insights from tidal-flat morphodynamics in Dicksonfjorden, Svalbard</span><span class="event-subline">One more person: TBD</span><span class="event-subline">Convener: Sangmin Hyun</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">14:30–14:50</td>
+                            <td colspan="3" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50–16:20</td>
+                            <td class="session-cell"><span class="session-code">Session 4A</span><span class="session-title">Source-to-Sink transport and fate across atmosphere-land-river-ocean-sediment system</span><span class="session-convener">Convener: Hoi-Soo Jung</span></td>
+                            <td class="session-cell"><span class="session-code">Session 4B</span><span class="session-title">Western Pacific paleoceanography II: Past and future</span><span class="session-convener">Conveners: Li Lo, Kyung Eun Lee, Takuya Sagawa, Helen Bostock</span></td>
+                            <td class="session-cell"><span class="session-code">Session 4C</span><span class="session-title">Carbon cycling and subsurface CO2 storage</span><span class="session-convener">Conveners: Sookwan Kim, Byung-Dal So</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50–15:05</td>
+                            <td class="talk-cell"><span class="talk-authors">Jianfeng Li, Ni Su, Xiaobao Gao, Yalong Li, Nicholas Chia Wei Ng, Zhe Zhou, Shouye Yang</span><span class="talk-title">Hydroclimatic and sediment physical controls on riverine organic carbon in the Yarlung Tsangpo River</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Li Lo, Yi-Hseuh Tsai, Kuo-Yen Wei, Chuan-Chou Shen, Hong-Shen Mii, Chih-Kai Chuang, Matteo Ternelli, Ludvig Löwemark</span><span class="talk-title">Evolution of the Western Pacific Warm Pool's southern margin since 3 Ma: Insights from multi-species foraminiferal vertical profiles and barrier layer dynamics</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Xuguang Feng, Xuefa Shi</span><span class="talk-title">Heterogeneity in ice sheets- vs. monsoon rainfall-induced silicate weathering from high to low latitudes</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:05–15:20</td>
+                            <td class="talk-cell"><span class="talk-authors">Jihun Kim, Dhongil Lim, Taesoo Chang</span><span class="talk-title">Holocene dispersal of Chinese river-derived clays to the Korean coast linked to Kuroshio branch variability in the Yellow and East China seas</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Kotaro Hoshi, Akemi Fukumura, Ken Sawada</span><span class="talk-title">Paleoceanographic changes reconstructed by biomarker analysis of the sediment core from the Gulf of Alaska in the northern North Pacific over the last 10 million years</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Sookwan Kim, Seonghoon Moon, Jongha Hwang, Yoo Jin Kwon, Chung-Ho Kim, Su-Hwan Lee, Chung Kyun Jeon, Seok-Hyeon Do</span><span class="talk-title">Overburden characterization for offshore CO2 storage: seismic stratigraphy and key monitoring targets, offshore Korea</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:20–15:35</td>
+                            <td class="talk-cell"><span class="talk-authors">Shouye Yang</span><span class="talk-title">Asian sedimentary continuum</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Shraddha Band, Li Lo, Chun-Chih Yang, Horng-Sheng Mii, Chuan-Chou Shen, Chien-Hsiang Lin</span><span class="talk-title">Upper ocean thermo-haline variability of the Indonesian Throughflow during the Plio-Pleistocene based on IODP Site U1482</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Jie Sheng, Shuqing Qiao, Xuefa Shi, Bin Wu</span><span class="talk-title">Machine-learning mapping of surface sediment organic carbon across the South China Sea</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:35–15:50</td>
+                            <td class="talk-cell"><span class="talk-authors">Xiao Wu, Houjie Wang, Naishuang Bi, Jaia Syvitski, Yoshiki Saito, Jeffrey Nittrouer</span><span class="talk-title">Reservoir regulation has brought a classic river-dominated delta under human control</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Kirsty Mary Camba, Allan Gil Fernando</span><span class="talk-title">Refinement of late Pliocene to Pleistocene calcareous nannofossil biostratigraphy of IODP Expedition 363 Site U1487 (Manus Basin, West Pacific Ocean)</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Chan-Hee Jang, Byung-Dal So</span><span class="talk-title">Influence of gas chimney connectivity and permeability on CO2 migration in offshore geological storage</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">15:50–16:05</td>
+                            <td class="talk-cell"><span class="talk-authors">Jiacheng Peng, Chengfan Yang</span><span class="talk-title">Transfer and modification of lithium isotope weathering signals from river basin to marginal sea: Insights from the Yangtze River Source-to-Sink system</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Hyein Kim, Kyung Ho Park, Jonghoon Park, Kiho Yang</span><span class="talk-title">Long-term depositional changes linked to redox heterogeneity and microbial zonation in carbonate-rich sediments of KC–7 Seamount, western Pacific</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Mengjiao Jia, Limin Hu, Yuying Zhang, Jiazong Du, Yakun Zhang, Xuefa Shi</span><span class="talk-title">A centennial perspective on recent phytoplankton community change along the Asian continental margin: From the Arctic to tropics</span></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:05–16:20</td>
+                            <td class="talk-cell"><span class="talk-authors">James Liu, R.J. Yang, J. Lee, C.C. Su, S.C. Chien, Y. Wang, X. Du, A. Wang, Yu-Shih Lin</span><span class="talk-title">Temporal and spatial coherence between physical processes and seafloor sediment records of the source-to-sink mud belt system on the inner shelf of the East China Sea</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Hiroyuki Takata, Tomohisa Irino, Hiroki Hayashi, Daisuke Kuwano, Wonnyon Kim, Takuya Sagawa, Boo-Keun Khim</span><span class="talk-title">Paleoceanographic change in the Magellan Seamounts of the western Pacific Ocean since the early Pliocene</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Jiazong Du, Limin Hu</span><span class="talk-title">Climate-driven shifts in the carbon sequestration of reactive iron minerals in the Arctic shelf</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">16:20–16:40</td>
+                            <td colspan="3" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:40–18:10</td>
+                            <td class="session-cell"><span class="session-code">Session 5A</span><span class="session-title">Transport and burial of particulate organic matter in the ocean</span><span class="session-convener">Conveners: Baozhi Lin, Minkyoung Kim, Shigeyoshi Otosaka</span></td>
+                            <td class="session-cell"><span class="session-code">Session 5B</span><span class="session-title">New-Era Scientific Ocean Drilling: To improve collaboration in Asian Marine Geology</span><span class="session-convener">Conveners: Minoru Ikehara, Yoon-Mi Kim, Zhifei Liu, Ron Hackney</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:40–16:55</td>
+                            <td class="talk-cell"><span class="talk-authors">Daidu Fan, Jianfeng Su, Yijing Wu</span><span class="talk-title">Holocene to Anthropocene organic carbon burial mechanisms in the Yangtze Estuary: Impacts of natural and anthropogenic drivers</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Yusuke Okazaki, Keiji Horikawa, Hiroki Matsui, Minoru Ikehara, Junichiro Kuroda</span><span class="talk-title">DSDP 296 re-drilling: to recover continuous carbonate ooze for the last 20 Myrs on the Kyushu-Palau Ridge in the western North Pacific</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">16:55–17:10</td>
+                            <td class="talk-cell"><span class="talk-authors">Ummi Fayyadhah Talipudin, Mohamed R Shalaby, Amjida Roslim, Md Aminul Islam</span><span class="talk-title">Depositional controls on source rock characterization across a Late Triassic deltaic continental margin: Mungaroo Formation, Exmouth Plateau, Northern Carnarvon Basin, Australia</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Guangfa Zhong, Chi-Yue Huang, Mengming Yu, Pinxian Wang</span><span class="talk-title">Status of the geological investigations in the Huatung Basin and future scientific ocean drilling perspectives</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">17:10–17:25</td>
+                            <td class="talk-cell"><span class="talk-authors">Luyang Wang, Zhifei Liu, Baozhi Lin, Yulong Zhao, Hanxiao Wang, Yuxin Huang, Junyuan Cao, Jiaying Li, Xiaodong Zhang, Jiarui Wang, Xiao Ma</span><span class="talk-title">Sustained deep-sea carbon flux by zooplankton fecal pellets under multiscale climate forcing in the South China Sea</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Ken Ikehara, Michael Strasser, Lena Maeda, Yasufumi Satoguchi, Yoshitake Nagahashi, Yuhji Yamamoto, Claudio Robustelli Test, Mutsumi Iizuka, IODP Expedition 503 Scientists</span><span class="talk-title">Exploring the history of slip-to-the-trench and element cycling in a hadal trench basin through drilling of trench-fill sequence at the central Japan Trench: IODP3 Exp. 503 "Hadal Trench Tsunamigenic Slip History – Buried in the Trench"</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">17:25–17:40</td>
+                            <td class="talk-cell"><span class="talk-authors">Ken Sawada, Madoka Kobayashi, Osamu Seki</span><span class="talk-title">Distribution of terrestrial plant-derived terpenoids in North Pacific surface sediments: Insights into terrigenous material transport and paleoenvironments</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Zhifei Liu, Gilbert Camoin</span><span class="talk-title">E-ODP initiative: Advancing global ocean drilling data integration and AI-driven scientific discovery</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">17:40–17:55</td>
+                            <td class="talk-cell"><span class="talk-authors">Junfei Chen, Chao Li, Albert Galy, Guodong Jia, Shouye Yang</span><span class="talk-title">Monsoon and Coriolis force driven multi-provenance evolution of the Sunda Shelf since the mid-Holocene</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Minoru Ikehara</span><span class="talk-title">Towards reconstruction of million-year-scale Kuroshio variability: Insights from sedimentary records of the northwestern Pacific</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">17:55–18:10</td>
+                            <td class="talk-cell"><span class="talk-authors">Jiacheng Peng, Chengfan Yang, Shouye Yang</span><span class="talk-title">Li isotopic constraints on terrestrial weathering signal transport in the Changjiang-East China Sea continuum</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Tomohisa Irino, Gayan Saluka Senarathna Bandara Wagage, Masanobu Yamamoto, Liviu Giosan, Steven Clemens</span><span class="talk-title">Revised composite splice stratigraphy of IODP Site U1445 in the Bay of Bengal</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">18:10–21:00</td>
+                            <td colspan="3" class="break-cell">Conference Dinner/ <span class="venue-text">Event Hall A, B</span></td>
+                        </tr>
+                        <tr class="day-header-row"><th colspan="4" class="day-header-cell">Wednesday, 4 November 2026</th></tr>
+                        <tr>
+                            <th>Time</th>
+                            <th>Meeting Room 6 &amp; 7</th>
+                            <th>Meeting Room 8 &amp; 9</th>
+                            <th>Meeting Room 10</th>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">08:00–16:00</td>
+                            <td colspan="3" class="break-cell">Registration Desk Opens</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">09:10–09:40</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Keynote: Prof. Zhifei Liu Deep-sea sedimentary dynamic processes crossing active to passive continental margins: Fifteen consecutive years of mooring observations in the South China Sea/ <span class="venue-text">Event Hall A, B</span></span><span class="event-subline">Convener: Jang-Jun Bahk</span></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">09:40–10:00</td>
+                            <td colspan="3" class="break-cell">Morning Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00–11:30</td>
+                            <td class="session-cell"><span class="session-code">Session 6A</span><span class="session-title">Deep-sea sedimentary dynamic processes: Combining observations and sedimentary records</span><span class="session-convener">Conveners: Zhifei Liu, Jang Jun Bahk, Andrew Tien-Shun Lin</span></td>
+                            <td class="session-cell"><span class="session-code">Session 6B</span><span class="session-title">Sedimentary processes in the Asian marginal seas and marine environmental evolution</span><span class="session-convener">Conveners: Chuanxiu Luo, Sui Wan, Yi Zhong, Shuhuan Du</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:00–10:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Zhuangcai Tian, Xiujun Guo</span><span class="talk-title">The longest continuous record of internal wave deposits in the modern ocean: Implications for deep-sea sediment transport</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Chuanxiu Luo, Ananna Rahman, Xuando Chen, Zhong Chen, Xiang Su, Bishan Chen, Md Hafijur Rahaman Khan, Su Wan, Sirong Wu</span><span class="talk-title">Multi-proxy reconstruction of environmental responses to marine transgression in Hangzhou Bay since MIS 6</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:15–10:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Jang-Jun Bahk, Gyu-Tae Sim, Hyesung Kim, Soyeon Lee, In-Kwon Um</span><span class="talk-title">Distinguishing grain-size signals of eolian and laterally transported hemipelagic sediments in the East Sea (Japan Sea)</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Nicholas Chia Wei Ng, Chao Li, Guodong Jia, Zhifei Duan, Jianfeng Li, Shouye Yang</span><span class="talk-title">Synchronous sediment provenance shifts in the southern South China Sea across the glacial-Holocene transition</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:30–10:45</td>
+                            <td class="talk-cell"><span class="talk-authors">Meng Liu, Pauline Cornard, Tilmann Schwenk, Brit Kockisch, Nikolas Römer-Stange, Bingbing Wei, Alice Lefebvre, Ling Wang, Jingping Xu, Zaijin You, Md Minarul Hoque, Hermann R Kudrass, Till J.J. Hanebuth, Christian France-Lanord, Volkhard Spieß, Elda Miramontes</span><span class="talk-title">Near-bottom sediment dynamics in the Swatch of No Ground (SoNG) Canyon in the Bay of Bengal, northern Indian Ocean</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Zhong Yi</span><span class="talk-title">Indian Ocean monsoon precipitation and the carbon cycle over the last 50,000 years</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">10:45–11:00</td>
+                            <td class="talk-cell"><span class="talk-authors">Yusuke Kodama, Takuto Ando, Ken Sawada</span><span class="talk-title">Transport and depositional processes of terrigenous organic matter to deep sea sediments in the Bengal Fan</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Yu-Hyeon Park, Jang-Jun Bahk, Boo-Keun Khim</span><span class="talk-title">Biomarker-derived temperatures and paleoenvironmental changes in the Korea Gap (Ulleung Basin), East Sea since the last glacial period</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:00–11:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Gyu-Tae Sim, Jang-Jun Bahk, Hye-Sung Kim, In-Kwon Um</span><span class="talk-title">Distinguishing complex sedimentary processes on the southeastern continental shelf of Korea using surface sediment grain-size characteristics</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Anqi Wang, Zhi Dong, Zhengquan Yao, Xuefa Shi, Jianghui Du, Sergey Gorbarenko, Ying Zhang, Hui Zhang, Lianhua He, Yanguang Liu, Jianjun Zou, Yuriy Vasilenko, Alexander Bosin, Kunshan Wang, Xinqing Zou, Fendeng Shi</span><span class="talk-title">Re-evaluating the radiogenic neodymium signature of North Pacific Intermediate Water: New insights from authigenic phases in Okhotsk Sea sediments</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">11:15–11:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Zhifei Liu, Huazhen Huang, Yulong Zhao, Christophe Colin, Andrew Tien-Shun Lin</span><span class="talk-title">Typhoon- and earthquake-triggered turbidity current activities over the past 4000 years in the Gaoping Submarine Canyon of the northeastern South China Sea</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Niu Lu, Jiantao Cao, Liping Tian, Juan He, Li Li, Guodong Jia</span><span class="talk-title">Divergent temperature changes between surface and intermediate waters in the southern South China Sea since the last deglaciation</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">11:30–13:00</td>
+                            <td colspan="3" class="break-cell">Lunch</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00–14:30</td>
+                            <td class="session-cell"><span class="session-code">Session 7A</span><span class="session-title">Formation and exploration of marine mineral resources: Crusts, nodules, and hydrothermal deposits</span><span class="session-convener">Conveners: Youngjae Kim, Jung-Woo Park, Sang-Mook Lee, Kiho Yang</span></td>
+                            <td class="session-cell"><span class="session-code">Session 7B</span><span class="session-title">Marine sedimentary records supporting climate systems-models</span><span class="session-convener">Conveners: Shu Gao, James T. Liu</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:00–13:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Sarang Choi, Jung-Woo Park, Sunghwan Im, Tong Ha Lee, Jung Hun Seo, Changkun Park, Hwayoung Kim, Jonguk Kim</span><span class="talk-title">Depth-dependent chlorine cycling at the magmatic-hydrothermal interface of mid-ocean ridges: Insights from hornfelsic diabase</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Shu Gao</span><span class="talk-title">How data sets of marine sedimentation better support system modelling for climate change studies</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:15–13:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Hananto Kurnio, Brian G. Jones, Yuhelda Dahlan, Noor C.D. Aryanto, Jaeysen Kanily</span><span class="talk-title">Marine gold placer deposits in Semangko Bay – Lampung – south Sumatra, Indonesia</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Serin Lim, Tae Soo Chang, Jin Cheul Kim, Yongmi Kim, Dhong Il Lim, Byeong-Hoon Kim, Tamara Pico</span><span class="talk-title">Toward resolving MIS 3 sea level changes: Regional GIA dynamics in the epicontinental Yellow Sea</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:30–13:45</td>
+                            <td class="talk-cell"><span class="talk-authors">Noor Cahyo D Aryanto, Udaya Kamiludin, Hananto Kurnio</span><span class="talk-title">From tin placers to strategic minerals: Reassessing heavy-mineral and rare-earth element enrichment in coastal and shallow-marine sediments of south Bangka, Indonesia</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Takashi Hasegawa, Retsu Nishiyama, Kensuke Kashima, Takeru Koishi</span><span class="talk-title">The importance of terrestrial outcrops for reconstructing marine paleoenvironments using the alkenone paleothermometer</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">13:45–14:00</td>
+                            <td class="talk-cell"><span class="talk-authors">Jinsub Park, Youngkyu Park, Hyein Kim, Kiho Yang</span><span class="talk-title">Microbial reduction and transformation of deep sea vernadite by Shewanella oneidensis MR-1</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Ponnusamy Saravanan, Xiangzhong Li</span><span class="talk-title">Holocene Arabian Sea stratification and deoxygenation in response to monsoon weakening</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:00–14:15</td>
+                            <td class="talk-cell"><span class="talk-authors">Hyeonho An, Hanbeom Park, Jaewoo Jung, Jonguk Kim, Kiho Yang</span><span class="talk-title">Origin of chlorite in sediment from the Cheoeum Vent Field, an inactive hydrothermal system on the central Indian Ridge</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Boo-Keun Khim, S.Y. Lee, Y. Kim, S. Kim, H. Asahi, T. Irino</span><span class="talk-title">Carbonate and organic carbon deposition in the Surveyor Fan (IODP Site U1417) in the Gulf of Alaska (northeast Pacific) during the late Miocene to early Pleistocene</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:15–14:30</td>
+                            <td class="talk-cell"><span class="talk-authors">Youngjae Kim, Wonnyon Kim, Youngtak Ko</span><span class="talk-title">Recent advances and applications of drill coring in ferromanganese crust exploration and research</span></td>
+                            <td class="talk-cell"><span class="talk-authors">Bin Ismail, Muhammad Adam</span><span class="talk-title">Urbino Summer School in Paleoclimatology 2026: Framework, participation experience, and benefit towards greater paleoclimate research</span></td>
+                            <td class="empty-cell"></td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-cell">14:30–14:50</td>
+                            <td colspan="3" class="break-cell">Afternoon Coffee Break</td>
+                        </tr>
+                        <tr>
+                            <td class="time-cell">14:50–15:00</td>
+                            <td colspan="3" class="highlight-cell"><span class="event-main">Closing address and announcement/ <span class="venue-text">Event Hall A, B</span></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="schedule-note">※ This program is subject to change depending on further preparations.</p>
+                </div>
+
+                <div class="schedule-tab-panel" id="posterPresentationsPanel">
+                <p class="schedule-intro">The table below presents the full ICAMG-10 2026 poster presentation list,
+                    grouped by session.</p>
+
+                <p class="schedule-scroll-hint">↔ Swipe left or right to see the full list.</p>
+                <div class="schedule-table-wrapper">
+                    <table class="schedule-table poster-table">
+                        <tbody>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-1">Session 1-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">1</td>
+                            <td class="poster-title-cell">Suspended sediment plume dynamics around the Ieodo Ocean Research Station: Preliminary Results</td>
+                            <td class="poster-presenter-cell">Seong Hyeon Bae</td>
+                            <td class="poster-affiliation-cell">Inha University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">2</td>
+                            <td class="poster-title-cell">Strong and rapid authigenic uptake of potassium: Evidence from the Changjiang (Yangtze) Estuary-East China Sea</td>
+                            <td class="poster-presenter-cell">Xuechao Wu</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">3</td>
+                            <td class="poster-title-cell">Morphodynamics and stratigraphic architecture of tidal point bars and abandoned channel fills in macrotidal Gomso Bay, Korea</td>
+                            <td class="poster-presenter-cell">Kyungsik Choi</td>
+                            <td class="poster-affiliation-cell">Seoul National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">4</td>
+                            <td class="poster-title-cell">Muddy tidal rhythmites in a channelized open-coast macrotidal flat: Implications for paleoelevation reconstruction and IHS architecture</td>
+                            <td class="poster-presenter-cell">Kyungsik Choi</td>
+                            <td class="poster-affiliation-cell">Seoul National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">5</td>
+                            <td class="poster-title-cell">From overwash-driven rollover to alongshore dispersal: Chenier evolution under changing boundary conditions in Gomso Bay, Korea</td>
+                            <td class="poster-presenter-cell">Seolhui Bang</td>
+                            <td class="poster-affiliation-cell">Seoul National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">6</td>
+                            <td class="poster-title-cell">Geological evolution and coastal geomorphology of St. Martin's Island, Bangladesh</td>
+                            <td class="poster-presenter-cell">Md Shamsuzzaman</td>
+                            <td class="poster-affiliation-cell">Geological Survey of Bangladesh</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-1">Session 1-2</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">7</td>
+                            <td class="poster-title-cell">Atypical northward spit growth on a macrotidal beach against prevailing northwesterly winds – implications for sediment compartment and beach management</td>
+                            <td class="poster-presenter-cell">Solin Kim</td>
+                            <td class="poster-affiliation-cell">Chonnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">8</td>
+                            <td class="poster-title-cell">How do ebb-dominated elongate sand bars migrate upslope across multi-timescales? A case study from the upper mudflat of the semi-enclosed Hampyeong Bay, SW Korea</td>
+                            <td class="poster-presenter-cell">Jung Hee Chae</td>
+                            <td class="poster-affiliation-cell">Chonnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">9</td>
+                            <td class="poster-title-cell">Sediment partitioning in an engineered macrotidal estuary: four decades of contrasting erosion and accretion in the Geum River estuary, west coast of Korea, reconstructed from archived bathymetric surveys (1982–2025)</td>
+                            <td class="poster-presenter-cell">Joo Bong Jeong</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">10</td>
+                            <td class="poster-title-cell">Asymmetric barrier-island morphodynamics driven by regulated fluvial sediment supply and wave forcing</td>
+                            <td class="poster-presenter-cell">Seolhui Bang</td>
+                            <td class="poster-affiliation-cell">Seoul National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">11</td>
+                            <td class="poster-title-cell">Impact of artificial disturbance and episodic weather events on the morphologic and sedimentologic changes in the sheltered macrotidal flats (Shinsi tidal flats, Korea)</td>
+                            <td class="poster-presenter-cell">Dohyeong Kim</td>
+                            <td class="poster-affiliation-cell">Korea Environment Institute</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">12</td>
+                            <td class="poster-title-cell">Chute cutoff and abandoned channel infilling create localized blue carbon hotspots in an unvegetated macrotidal flat</td>
+                            <td class="poster-presenter-cell">Seungyeon Sohn</td>
+                            <td class="poster-affiliation-cell">Seoul National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">13</td>
+                            <td class="poster-title-cell">The influence of tidal channel migration on intertidal dune evolution and surface sedimentary facies in macrotidal environments</td>
+                            <td class="poster-presenter-cell">Joohee Jo</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">14</td>
+                            <td class="poster-title-cell">Effects of particle size on the erosion and resuspension of glass particles</td>
+                            <td class="poster-presenter-cell">Jun Young Seo</td>
+                            <td class="poster-affiliation-cell">Chonnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">15</td>
+                            <td class="poster-title-cell">Long-term coastal dune dynamics following typhoon erosion along the west coast of Korea: Insights for nature-based solutions</td>
+                            <td class="poster-presenter-cell">Kwang Hee Choi</td>
+                            <td class="poster-affiliation-cell">Catholic Kwandong University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-1">Session 1-3</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">16</td>
+                            <td class="poster-title-cell">Mapping of the sediment provenance using rare earth element in the Korea Strait shelf mud</td>
+                            <td class="poster-presenter-cell">Hyosang Kwon</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Geoscience and Mineral Resources</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">17</td>
+                            <td class="poster-title-cell">Different depositional systems under comparable highstand conditions: Holocene and MIS 5 mud successions on the southeastern continental shelf of Korea</td>
+                            <td class="poster-presenter-cell">Tae Yeon Kim</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Geoscience and Mineral Resources</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-1">Session 1-4</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">18</td>
+                            <td class="poster-title-cell">Millennial-scale climate variability and East Asian monsoon dynamics during MIS 3 revealed by eolian sedimentary records from Hainan Island, China</td>
+                            <td class="poster-presenter-cell">Shuhuan Du</td>
+                            <td class="poster-affiliation-cell">South China Sea Institute of Oceanology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">19</td>
+                            <td class="poster-title-cell">Reassessing continental sediment fluxes at a marginal sea gateway: Quantitative provenance of the Korea Strait Shelf Mud (KSSM)</td>
+                            <td class="poster-presenter-cell">Minji Seo</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">20</td>
+                            <td class="poster-title-cell">Operational sequential digestion of sedimentary biogenic silica and its application to BSi–TOC distributions in the Korea Strait shelf mud (KSSM)</td>
+                            <td class="poster-presenter-cell">Yunji Kim</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">21</td>
+                            <td class="poster-title-cell">Preliminary Geochemical analysis result of Sediment Cores from the South Sea</td>
+                            <td class="poster-presenter-cell">Hyosang Kwon</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Geoscience and Mineral Resources</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">22</td>
+                            <td class="poster-title-cell">Preliminary multiproxy analysis of sediment provenance and depositional processes in the East China Sea coastal mud area</td>
+                            <td class="poster-presenter-cell">Hui-Juan Pan</td>
+                            <td class="poster-affiliation-cell">National Taiwan Ocean University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">23</td>
+                            <td class="poster-title-cell">Reconstructing late Holocene tropical cyclone activity from grain-size records in the Hupo Basin, East Sea (Sea of Japan)</td>
+                            <td class="poster-presenter-cell">Hye-Sung Kim</td>
+                            <td class="poster-affiliation-cell">Chungnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">24</td>
+                            <td class="poster-title-cell">Mid-Holocene environmental change and its impact on human settlement in the eastern Jianghuai region of coastal China: Mineralogical and geochemical evidence</td>
+                            <td class="poster-presenter-cell">Chengcheng Ye</td>
+                            <td class="poster-affiliation-cell">East China Normal University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-1">Session 1-5</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">25</td>
+                            <td class="poster-title-cell">Pyrites formed by seawater–rock interaction in altered oceanic crust drive both oceanic sulfur cycling and atmospheric oxygen levels</td>
+                            <td class="poster-presenter-cell">Yunying Zhang</td>
+                            <td class="poster-affiliation-cell">South China Sea Institute of Oceanology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">26</td>
+                            <td class="poster-title-cell">Sedimentological characteristics of flood- and earthquake-related turbidites in slope basin sediment off Shikoku, Japan (site C9037, Exp. 913): Insights from visual core description and grain size analysis</td>
+                            <td class="poster-presenter-cell">Anjalia Kusuma Wardani</td>
+                            <td class="poster-affiliation-cell">Kochi University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">27</td>
+                            <td class="poster-title-cell">The transport process of turbidity currents and their impacts on deep-sea environments</td>
+                            <td class="poster-presenter-cell">Yupeng Ren</td>
+                            <td class="poster-affiliation-cell">Ocean University of China</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">28</td>
+                            <td class="poster-title-cell">Zooplankton fecal pellet characteristics and their potential implications for sinking behavior and carbon export in the southern South China Sea</td>
+                            <td class="poster-presenter-cell">Suthinun Janngarm</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">29</td>
+                            <td class="poster-title-cell">Frequent and large-volume event deposition in the bottom of Challenger Deep: Insights from OC 14C-ages and elemental anomalies</td>
+                            <td class="poster-presenter-cell">Zhiwei He</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">30</td>
+                            <td class="poster-title-cell">Submarine landslide distribution and slope instability in the Uleung Basin, East Sea</td>
+                            <td class="poster-presenter-cell">Gwangsoo Lee</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Geoscience and Mineral Resources</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-2">Session 2-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">31</td>
+                            <td class="poster-title-cell">Transport of particulate organic carbon along the eastern margin of the Tsushima Warm Current</td>
+                            <td class="poster-presenter-cell">Shigeyoshi Otosaka</td>
+                            <td class="poster-affiliation-cell">The University of Tokyo</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">32</td>
+                            <td class="poster-title-cell">Organic carbon stocks of the surficial sediments in the territorial waters of Korea</td>
+                            <td class="poster-presenter-cell">Boo-Keun Khim</td>
+                            <td class="poster-affiliation-cell">Pusan National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">33</td>
+                            <td class="poster-title-cell">Interannual variability in particulate organic carbon and its isotopic characteristics in the Western Indian Ocean</td>
+                            <td class="poster-presenter-cell">Sujin Kang</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science and Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">34</td>
+                            <td class="poster-title-cell">Turbidity current overspills dominated the transfer of terrestrial particulate organic carbon in deep-canyon levees</td>
+                            <td class="poster-presenter-cell">Baozhi Lin</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-2">Session 2-3</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">35</td>
+                            <td class="poster-title-cell">Trends in elemental variations in sediments off Shodoshima Island, Harima Nada, Seto Inland Sea, Japan: a possible recovery from heavy metal contamination in recent decades</td>
+                            <td class="poster-presenter-cell">Go-Ichiro Uramoto</td>
+                            <td class="poster-affiliation-cell">Marine Core Research Institute, Kochi University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">36</td>
+                            <td class="poster-title-cell">Evolution of current circulation in the Malacca Strait since the middle Holocene</td>
+                            <td class="poster-presenter-cell">Ai Lina</td>
+                            <td class="poster-affiliation-cell">First Institute of Oceanography</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-3">Session 3-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">37</td>
+                            <td class="poster-title-cell">Taxonomic control improves the Mg–temperature proxy in crustose coralline algae: Evidence from the Korean mid-latitude coast</td>
+                            <td class="poster-presenter-cell">Kyeongyoon Kwak</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">38</td>
+                            <td class="poster-title-cell">Precession-driven upper-ocean heat redistribution in the tropical Indian Ocean: Evidence from thermocline variability in the western Indian Ocean</td>
+                            <td class="poster-presenter-cell">Chunxiao Sun</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-3">Session 3-2</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">39</td>
+                            <td class="poster-title-cell">A diatom-dominated plankton community under prolonged Pliocene warming in the South China Sea</td>
+                            <td class="poster-presenter-cell">Zhongyuan Luo</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">40</td>
+                            <td class="poster-title-cell">Integrated chronostratigraphy of Magellan seamount KC-7 in the western Pacific Ocean for late Neogene paleoceanographic studies</td>
+                            <td class="poster-presenter-cell">B.K. Khim</td>
+                            <td class="poster-affiliation-cell">Pusan National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">41</td>
+                            <td class="poster-title-cell">Orbital-scale variability of coarse fraction in the western tropical Pacific sediment during the Plio-Pleistocene periods</td>
+                            <td class="poster-presenter-cell">Takuya Sagawa</td>
+                            <td class="poster-affiliation-cell">Kanazawa University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">42</td>
+                            <td class="poster-title-cell">Surface-subsurface temperature contrasts over the past 400 kyr in the northern Okinawa Trough</td>
+                            <td class="poster-presenter-cell">Tae Wook Ko</td>
+                            <td class="poster-affiliation-cell">National Korea Maritime and Ocean University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">43</td>
+                            <td class="poster-title-cell">Seawater osmium isotope variations in the Okinawa Trough: Implications for climate-driven weathering over the past 20 kyr</td>
+                            <td class="poster-presenter-cell">Jihun Kim</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-3">Session 3-3</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">44</td>
+                            <td class="poster-title-cell">Library of marine samples (LIMS): A national hub for marine sample curation and collaboratory research</td>
+                            <td class="poster-presenter-cell">Jihun Kim</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-4">Session 4-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">45</td>
+                            <td class="poster-title-cell">Wettability-controlled capillary back-pressure stabilizes supercritical CO₂ during injection into depleted gas reservoir</td>
+                            <td class="poster-presenter-cell">Soojung An</td>
+                            <td class="poster-affiliation-cell">Kangwon National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">46</td>
+                            <td class="poster-title-cell">Effects of grain-size evolution on mantle exhumation during continental rifting: Implications for thermodynamic H2 generation potential</td>
+                            <td class="poster-presenter-cell">Jieun Chang</td>
+                            <td class="poster-affiliation-cell">Kangwon National University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-5">Session 5-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">47</td>
+                            <td class="poster-title-cell">Molecular fingerprinting traces anthropogenic and natural sources of organic compounds in core sediments from Arctic fjord</td>
+                            <td class="poster-presenter-cell">Youngnam Kim</td>
+                            <td class="poster-affiliation-cell">Chungnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">48</td>
+                            <td class="poster-title-cell">Evaluating GDGT-based temperature proxies in Kongsfjorden Trough, Svalbard</td>
+                            <td class="poster-presenter-cell">Jung-Hyun Kim</td>
+                            <td class="poster-affiliation-cell">Korea Polar Research Institute</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">49</td>
+                            <td class="poster-title-cell">Sedimentary organic carbon dynamics off Kongsfjord, Svalbard over the past 14,000 years</td>
+                            <td class="poster-presenter-cell">Dahae Kim</td>
+                            <td class="poster-affiliation-cell">Korea Polar Research Institute</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">50</td>
+                            <td class="poster-title-cell">Spatial variability of pollen composition across Svalbard fjord surface sediments</td>
+                            <td class="poster-presenter-cell">Mincheol Lee</td>
+                            <td class="poster-affiliation-cell">Yonsei University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">51</td>
+                            <td class="poster-title-cell">Dinoflagellate cyst assemblages in surface sediments from Arctic Svalbard fjords: Biogeographic distribution and ecological preferences</td>
+                            <td class="poster-presenter-cell">So-Young Kim</td>
+                            <td class="poster-affiliation-cell">Korea Polar Research Institute</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-5">Session 5-2</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">52</td>
+                            <td class="poster-title-cell">Late Quaternary glacial history and depositional evolution in the central Joides Trough, Ross Sea, Antarctica</td>
+                            <td class="poster-presenter-cell">Jae Il Lee</td>
+                            <td class="poster-affiliation-cell">Korea Polar Research Institute</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">53</td>
+                            <td class="poster-title-cell">Controls on spatial heterogeneity in dinoflagellate cyst distribution in recent sediments off west Antarctica</td>
+                            <td class="poster-presenter-cell">So-Young Kim</td>
+                            <td class="poster-affiliation-cell">Korea Polar Research Institute</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">54</td>
+                            <td class="poster-title-cell">Late Holocene paleoenvironmental changes and centennial-scale variability near Joinville Island, Antarctic peninsula</td>
+                            <td class="poster-presenter-cell">Min Kyung Lee</td>
+                            <td class="poster-affiliation-cell">Korea Polar Research Institute</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">55</td>
+                            <td class="poster-title-cell">Orbital-scale variations of biogenic carbonate components at the Del Canõ Rise (Indian sector of the Southern Ocean) during the last 400 ka</td>
+                            <td class="poster-presenter-cell">Yewon Kim</td>
+                            <td class="poster-affiliation-cell">Pusan National University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-5">Session 5-3</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">56</td>
+                            <td class="poster-title-cell">Size-dependent δ18O and δ13C variations in a planktic foraminiferal Neogloboquadrina pachyderma (sinistral) record from Chukchi Plateau: Implications for (sub)surface water conditions in the western Arctic Ocean over the past ~50 ka</td>
+                            <td class="poster-presenter-cell">Rujian Wang</td>
+                            <td class="poster-affiliation-cell">Tongji University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">57</td>
+                            <td class="poster-title-cell">Sedimentary responses to ice sheet dynamics in the Chukchi-East Siberian margin based on clay mineralogy and grain size distribution</td>
+                            <td class="poster-presenter-cell">Yoon Ji</td>
+                            <td class="poster-affiliation-cell">Gyeongsang National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">58</td>
+                            <td class="poster-title-cell">Glacial-interglacial variability of deepwater influenced nutrient supply and productivity in the north Pacific</td>
+                            <td class="poster-presenter-cell">Qin Shu</td>
+                            <td class="poster-affiliation-cell">Ocean University of China</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">59</td>
+                            <td class="poster-title-cell">Barents seaway opening and enhanced Arctic-Atlantic exchange across the mid-Pleistocene transition</td>
+                            <td class="poster-presenter-cell">Kwangchul Jang</td>
+                            <td class="poster-affiliation-cell">Gyeongsang National University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-6">Session 6-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">60</td>
+                            <td class="poster-title-cell">Late sulfide liquid to MSS transition at mid-ocean ridges: Implications for gold endowments in seafloor massive sulfides</td>
+                            <td class="poster-presenter-cell">Gyuchan Park</td>
+                            <td class="poster-affiliation-cell">Seoul National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">61</td>
+                            <td class="poster-title-cell">Towards reliable resource estimation of cobalt-rich ferromanganese crusts in the Korean contract area: Exploration progress and future strategy</td>
+                            <td class="poster-presenter-cell">Wonnyon Kim</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">62</td>
+                            <td class="poster-title-cell">Quantitative resource estimation of cobalt-rich ferromanganese crusts on the KC-2 seamount, western Pacific: Intergration acoustic backscatter and ground-truth data</td>
+                            <td class="poster-presenter-cell">Gyuha Hwang</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">63</td>
+                            <td class="poster-title-cell">Hydrothermal reactivity of magnetite-bearing banded iron formations: Implications for geological hydrogen</td>
+                            <td class="poster-presenter-cell">Inkyeong Moon</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-6">Session 6-2</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">64</td>
+                            <td class="poster-title-cell">Effects of porosity updating on CO2 migration and geomechanical response in geological CO2 storage</td>
+                            <td class="poster-presenter-cell">Jeong-Won Seo</td>
+                            <td class="poster-affiliation-cell">Kangwon National University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-7">Session 7-1</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">65</td>
+                            <td class="poster-title-cell">Sedimentary and hydrodynamic responses of a tidal bar to a storm in the Geum Estuary, Korea</td>
+                            <td class="poster-presenter-cell">Hun Jun Ha</td>
+                            <td class="poster-affiliation-cell">Chonnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">66</td>
+                            <td class="poster-title-cell">Wave–tide mixed-energy tidal bar at the Geum River estuary mouth, western Korea: similarity to open-coast tidal flats</td>
+                            <td class="poster-presenter-cell">U-Seong Kim</td>
+                            <td class="poster-affiliation-cell">Chonnam National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">67</td>
+                            <td class="poster-title-cell">Residual tidal circulation and its influence on the morphological and sedimentary asymmetry of Yeoja Bay tidal flats, a UNESCO World Heritage site, on the southern coast of Korea</td>
+                            <td class="poster-presenter-cell">Tae Soo Chang</td>
+                            <td class="poster-affiliation-cell">Chonnam National University</td>
+                        </tr>
+                        <tr class="poster-session-row"><th colspan="4" class="poster-session-cell theme-8">Session 8-0</th></tr>
+                        <tr>
+                            <td class="poster-no-cell">68</td>
+                            <td class="poster-title-cell">Reconstructing early mid Holocene climate from Lake Suigetsu sediments using organic biomarkers</td>
+                            <td class="poster-presenter-cell">Nehdi Neji</td>
+                            <td class="poster-affiliation-cell">Hokkaido University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">69</td>
+                            <td class="poster-title-cell">Three-dimensional magnetization structure of Dokdo, Simheungtaek and Isabu Tablemounts, Ulleung Basin, East Sea, from magnetization vector inversion</td>
+                            <td class="poster-presenter-cell">SoonYoung Choi</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">70</td>
+                            <td class="poster-title-cell">Geoacoustic properties at the sediment-water interface</td>
+                            <td class="poster-presenter-cell">Gil Young Kim</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Geoscience and Mineral Resources</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">71</td>
+                            <td class="poster-title-cell">Numerical modeling of the effects of fault location and permeability on hydrothermal circulation at the outer rise</td>
+                            <td class="poster-presenter-cell">Minji Seong</td>
+                            <td class="poster-affiliation-cell">Kangwon National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">72</td>
+                            <td class="poster-title-cell">Influence of initial mantle thermal heterogeneity on segment linkage during rift propagation</td>
+                            <td class="poster-presenter-cell">Min-Seok Jang</td>
+                            <td class="poster-affiliation-cell">Kangwon National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">73</td>
+                            <td class="poster-title-cell">Rapid finite source inversion using pre-calculated Green's functions and spatially optimized GNSS networks for faults in Western Japan</td>
+                            <td class="poster-presenter-cell">Minsu Kim</td>
+                            <td class="poster-affiliation-cell">Kangwon National University</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">74</td>
+                            <td class="poster-title-cell">AI-assisted integrated multisensor maritime surveillance architecture</td>
+                            <td class="poster-presenter-cell">Jose Jorge Polanco Torres</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        <tr>
+                            <td class="poster-no-cell">75</td>
+                            <td class="poster-title-cell">Regional-to-local modelling of storm surge and wave conditions around Tongatapu during tropical cyclone Gita</td>
+                            <td class="poster-presenter-cell">Ana Vaoahi Tupou</td>
+                            <td class="poster-affiliation-cell">Korea Institute of Ocean Science &amp; Technology</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="schedule-note">※ This program is subject to change depending on further preparations.</p>
+                </div>
+            </div>
+
+            <div class="content-section" id="keynoteLectures" style="display: none;">
+                <h1 class="page-title">Keynote Lectures</h1>
+
+                <div
+                    style="text-align: center; padding: 4rem 2rem; background: var(--bg-light); border-radius: 8px; margin-top: 2rem;">
+                    <h2 style="font-size: 2rem; color: var(--primary-brown); margin-bottom: 1rem;">Page Under
+                        Construction</h2>
+                    <p style="font-size: 1.1rem; color: var(--text-gray);">This page is currently being prepared. Please
+                        check back later for updates.</p>
+                </div>
+            </div>
+
+            <div class="content-section" id="fieldTrip" style="display: none;">
+                <h1 class="page-title">Field Trip</h1>
+
+                <!-- Field Trip 1 -->
+                <div
+                    style="background: var(--bg-white); border: 1px solid var(--border-gray); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                    <h2
+                        style="font-size: 1.6rem; color: var(--primary-brown); margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-brown); padding-bottom: 0.5rem;">
+                        Walking through the tidal flats, southwestern coasts of Korea</h2>
+
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark); width: 120px;">Date
+                            </td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">2026.10.30.~11.1. (2 Nights and 3
+                                Days)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Start</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Gunsan city</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">End</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Busan Train Station</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Guide</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Tae Soo Chang, Hun Jun Ha, Serin Lim,
+                                U-Seong Kim, So Lin Kim, Heechae Jung</td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem;">
+                            Description</h3>
+                        <p style="line-height: 1.8; color: var(--text-gray); text-align: justify;">
+                            Along the west coast of Korean peninsula, extensive tidal flats have been developed, these
+                            having been formed during the mid-Holocene, ca. 8-6 thousands year. However, the tidal flats
+                            have different aspects from place to place in response to dominant physical forcing. The
+                            field excursion aims at observing sedimentary facies characteristics and stratigraphic
+                            evolution during the late Quaternary coupled with sea-level fluctuations. This field trip
+                            consists of various types of tidal flats including typical estuarine to wave-dominated open
+                            coasts associated with coastal dunes.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <img src="assets/images/fieldtrip1-3.jpg" alt="Tidal flat research fieldwork"
+                            style="width: 100%; max-width: 800px; height: auto; border-radius: 4px; box-shadow: var(--shadow-sm); display: block; margin: 0 auto;">
+                    </div>
+                </div>
+
+                <!-- Field Trip 2 -->
+                <div
+                    style="background: var(--bg-white); border: 1px solid var(--border-gray); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                    <h2
+                        style="font-size: 1.6rem; color: var(--primary-brown); margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-brown); padding-bottom: 0.5rem;">
+                        Morphodynamics and sedimentation of the macrotidal flat, southern Ganghwa Island</h2>
+
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark); width: 120px;">Date
+                            </td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">2026.10.30.~11.1. (2 Nights and 3
+                                Days)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Start</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Incheon International Airport</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">End</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Seoul Train Station</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Guide</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Seolhui Bang, Seungyeon Sohn,
+                                Kyungsik Choi</td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem;">
+                            Description</h3>
+                        <p style="line-height: 1.8; color: var(--text-gray); text-align: justify;">
+                            This field excursion provides a comprehensive examination of the morphology, morphodynamics,
+                            and sedimentation of Korea's most extensive macrotidal flats. Conducted over three days, the
+                            trip offers participants a rare opportunity to observe the dynamic sedimentary environments
+                            of the Han River Delta, including areas adjacent to the Korean Demilitarized Zone (DMZ). Key
+                            topics addressed during the excursion include the origin and significance of inclined
+                            heterolithic stratification, the morphodynamics of tidal dunes and channels, the influence
+                            of tidal and seasonal processes, and the stratigraphic architecture of macrotidal flats.
+                            On-site examination of core peels will facilitate discussion on the coupled roles of tidal
+                            and wave processes in governing the morphodynamic evolution of these macrotidal systems.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 1.5rem;">
+                        <img src="assets/images/fieldtrip2-1.jpg" alt="Ganghwa macrotidal flat"
+                            style="width: 100%; max-width: 800px; height: auto; border-radius: 4px; box-shadow: var(--shadow-sm); display: block; margin: 0 auto;">
+                    </div>
+                </div>
+
+                <!-- Field Trip 3 -->
+                <div
+                    style="background: var(--bg-white); border: 1px solid var(--border-gray); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                    <h2
+                        style="font-size: 1.6rem; color: var(--primary-brown); margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-brown); padding-bottom: 0.5rem;">
+                        Jeju Island UNESCO Global Geopark Excursion</h2>
+
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark); width: 120px;">Date
+                            </td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">2026.11.5.~11.6. OR 2026.10.31~11.1.
+                                (1 Nights and 2 Days)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Start</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Jeju Airport at 11:00 AM</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">End</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Jeju Airport at 5:00 PM</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Guide</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Jeon Yongmun</td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem;">
+                            Description</h3>
+                        <p style="line-height: 1.8; color: var(--text-gray); text-align: justify;">
+                            This field trip offers participants the opportunity to visit key geological sites of Jeju
+                            Island, designated as both a UNESCO World Natural Heritage site and a UNESCO Global Geopark,
+                            to directly experience the geological heritage of the island. Jeju Island is renowned for
+                            its unique volcanic landforms and rich maritime culture. The trip aims to provide a
+                            comprehensive understanding of both the geological features and the cultural-historical
+                            background that have shaped the island.
+                        </p>
+                    </div>
+
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                        <img src="assets/images/fieldtrip3-1.jpg" alt="Jeju lava cave"
+                            style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: var(--shadow-sm);">
+                        <img src="assets/images/fieldtrip3-2.jpg" alt="Jeju coastal formation"
+                            style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: var(--shadow-sm);">
+                    </div>
+                </div>
+
+                <!-- Field Trip 4 -->
+                <div
+                    style="background: var(--bg-white); border: 1px solid var(--border-gray); border-radius: 8px; padding: 2rem; margin-bottom: 2rem; box-shadow: var(--shadow-md);">
+                    <h2
+                        style="font-size: 1.6rem; color: var(--primary-brown); margin-bottom: 1.5rem; border-bottom: 2px solid var(--primary-brown); padding-bottom: 0.5rem;">
+                        Coastal Landforms and Wave-Dominated Settings on the Korean Peninsula Central East Coast</h2>
+
+                    <table style="width: 100%; border-collapse: collapse; margin-bottom: 1.5rem;">
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark); width: 120px;">Date
+                            </td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">2026.11.5.~11.7. (2 Nights and 3
+                                Days)</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Start</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Gangneug Station</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">End</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Yeongdeok Station</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border-gray);">
+                            <td style="padding: 0.75rem; font-weight: 600; color: var(--text-dark);">Guide</td>
+                            <td style="padding: 0.75rem; color: var(--text-gray);">Kwang Hee Choi</td>
+                        </tr>
+                    </table>
+
+                    <div style="margin-bottom: 1.5rem;">
+                        <h3 style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 1rem;">
+                            Description</h3>
+                        <p style="line-height: 1.8; color: var(--text-gray); text-align: justify; margin-bottom: 1rem;">
+                            The central east coast of the Korean Peninsula is a microtidal coast with a tidal range of
+                            less than 0.5 meters and is relatively rapidly uplifting on the peninsula. Coarse-sand
+                            beaches, coastal dunes, and lagoons are well developed. Additionally, along the rocky coast,
+                            sea cliffs, shore platforms, and sea stacks appear. These coastal features are totally
+                            different from those of the west coast, which has a highly complex coastline and a wide
+                            intertidal zone.
+                        </p>
+                        <p style="line-height: 1.8; color: var(--text-gray); text-align: justify; margin-bottom: 1rem;">
+                            In the Gangneung area, we will encounter sand beaches, lagoons, and coastal terraces (Figure
+                            a). In particular, the Jeongdongjin coastal terrace in Gangneung developed due to the
+                            combined effects of sea-level fluctuations and tectonic uplift caused by fault movement,
+                            resulting in a horizontal shore platform and beach ridge characteristic of wave-dominated
+                            coasts. Traces of fossilized boring shells from the past also remain on the terrace surface
+                            (Figure b).
+                        </p>
+                        <p style="line-height: 1.8; color: var(--text-gray); text-align: justify;">
+                            In the Uljin and Yeongdong areas, we observe coastal plains formed by beach ridge
+                            advancement and note the southward shift of erosion zones caused by recent coastal structure
+                            installations (Figures c and d).
+                        </p>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 1.5rem;">
+                        <div>
+                            <img src="assets/images/fieldtrip4-a.jpg" alt="Lagoon Gyeongpo"
+                                style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: var(--shadow-sm); margin-bottom: 0.5rem;">
+                            <p style="text-align: center; color: var(--text-gray); font-size: 0.9rem;">(a) Lagoon
+                                Gyeongpo</p>
+                        </div>
+                        <div>
+                            <img src="assets/images/fieldtrip4-b.jpg" alt="Fossils of boring shells"
+                                style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: var(--shadow-sm); margin-bottom: 0.5rem;">
+                            <p style="text-align: center; color: var(--text-gray); font-size: 0.9rem;">(b) Fossils of
+                                boring shells on the coastal terrace</p>
+                        </div>
+                        <div>
+                            <img src="assets/images/fieldtrip4-c.jpg" alt="Goraebul coast"
+                                style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: var(--shadow-sm); margin-bottom: 0.5rem;">
+                            <p style="text-align: center; color: var(--text-gray); font-size: 0.9rem;">(c) Goraebul
+                                coast from the Mt.Sangdae</p>
+                        </div>
+                        <div>
+                            <img src="assets/images/fieldtrip4-d.jpg" alt="Lagoonal wetland"
+                                style="width: 100%; height: 250px; object-fit: cover; border-radius: 4px; box-shadow: var(--shadow-sm); margin-bottom: 0.5rem;">
+                            <p style="text-align: center; color: var(--text-gray); font-size: 0.9rem;">(d) A lagoonal
+                                wetland between beachridges</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-inner" style="display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;">
+                <!-- Left: Company Info -->
+                <div class="footer-info" style="text-align: left; font-size: 0.75rem; line-height: 1.7; color: rgba(255,255,255,0.9);">
+                    <p style="margin: 3px 0; font-weight: 700; font-size: 0.935rem;">ICAMG 국제아시아해양지질학회</p>
+                    <p style="margin: 3px 0;">B-3909, LotteCastle Dumer, 190, Chungjang-daero, Dong-gu, Busan, 48751, Republic of Korea</p>
+                    <p style="margin: 3px 0;">Name of Representative : Sangmin Hyun | Business Registration No. : 618-82-75365</p>
+                    <p style="margin: 3px 0;">Tel. : +82-10-2882-1057 | E-mail : <a href="/cdn-cgi/l/email-protection#79181d14101739101a18141e57160b1e" style="color: rgba(255,255,255,0.9); text-decoration: none;"><span class="__cf_email__" data-cfemail="4d2c292024230d242e2c202a63223f2a">[email&#160;protected]</span></a></p>
+                    <p style="margin: 8px 0 0 0; font-size: 0.7rem; color: rgba(255,255,255,0.7);">Copyright © ICAMG 2026. All rights reserved.</p>
+                </div>
+
+                <!-- Right: Buttons -->
+                <div class="footer-buttons" style="display: flex; gap: 0.5rem; flex-shrink: 0;">
+                    <a href="Privacy Policy_Terms of Use_PDF/ICAMG-10 2026 Homepage_Privacy Policy.pdf" download class="footer-btn" style="padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 3px; font-size: 0.8rem; white-space: nowrap; transition: background 0.3s;">Privacy Policy</a>
+                    <a href="Privacy Policy_Terms of Use_PDF/ICAMG-10 2026 Homepage_Terms of Use.pdf" download class="footer-btn" style="padding: 0.5rem 1.5rem; background: rgba(255,255,255,0.2); color: white; text-decoration: none; border-radius: 3px; font-size: 0.8rem; white-space: nowrap; transition: background 0.3s;">Terms and Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Tab Active State
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            document.querySelectorAll('.tab-item').forEach(item => {
+                const link = item.querySelector('.tab-link');
+                if (link) {
+                    const href = link.getAttribute('href');
+                    if (href === currentPage || (currentPage === 'icamg2026.html' && href === 'icamg2026.html')) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                }
+            });
+
+            // Mobile dropdown toggle
+            if (window.innerWidth <= 768) {
+                document.querySelectorAll('.tab-item').forEach(item => {
+                    const hasDropdown = item.querySelector('.dropdown-menu');
+                    if (hasDropdown) {
+                        const link = item.querySelector('.tab-link');
+                        link.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            item.classList.toggle('dropdown-open');
+                        });
+                    }
+                });
+            }
+
+            // Mobile Menu Toggle
+            const mobileMenuToggle = document.querySelector('.mobile-header .mobile-menu-toggle');
+            const tabMenu = document.querySelector('.tab-menu');
+
+            if (mobileMenuToggle && tabMenu) {
+                mobileMenuToggle.addEventListener('click', function () {
+                    tabMenu.classList.toggle('active');
+                    this.textContent = tabMenu.classList.contains('active') ? '✕' : '☰';
+                    this.setAttribute('aria-label', tabMenu.classList.contains('active') ? '메뉴 닫기' : '메뉴 열기');
+                });
+
+                // Close menu when clicking a link (except dropdown parent)
+                document.querySelectorAll('.tab-link').forEach(link => {
+                    link.addEventListener('click', function (e) {
+                        if (window.innerWidth <= 768) {
+                            const parentItem = this.closest('.tab-item');
+                            if (!parentItem.querySelector('.dropdown-menu')) {
+                                tabMenu.classList.remove('active');
+                                mobileMenuToggle.textContent = '☰';
+                                mobileMenuToggle.setAttribute('aria-label', '메뉴 열기');
+                            }
+                        }
+                    });
+                });
+
+                // Close menu when clicking a dropdown item
+                document.querySelectorAll('.dropdown-menu a').forEach(link => {
+                    link.addEventListener('click', function () {
+                        if (window.innerWidth <= 768) {
+                            // Close all dropdowns
+                            document.querySelectorAll('.tab-item').forEach(item => {
+                                item.classList.remove('dropdown-open');
+                            });
+                            // Close main menu
+                            tabMenu.classList.remove('active');
+                            mobileMenuToggle.textContent = '☰';
+                            mobileMenuToggle.setAttribute('aria-label', '메뉴 열기');
+                        }
+                    });
+                });
+            }
+        });
+
+        // Programme Grid / Detailed Programme Grid Tab Switching
+        function switchScheduleTab(tabId) {
+            document.querySelectorAll('.schedule-tab-btn').forEach(function (btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-tab') === tabId);
+            });
+            document.querySelectorAll('.schedule-tab-panel').forEach(function (panel) {
+                panel.classList.toggle('active', panel.id === tabId);
+            });
+        }
+
+        // Coming Soon Modal Functions
+        function showComingSoon(event) {
+            event.preventDefault();
+            const modal = document.getElementById('comingSoonModal');
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('comingSoonModal');
+            modal.classList.remove('active');
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('comingSoonModal').addEventListener('click', function (event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Close modals with ESC key
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Section switching for Program page
+        document.addEventListener('DOMContentLoaded', function () {
+            const sidebarLinks = document.querySelectorAll('.sidebar-menu a');
+            const sections = document.querySelectorAll('.content-section');
+
+            // Handle URL hash on page load
+            const hash = window.location.hash;
+            if (hash) {
+                const targetId = hash.substring(1);
+                const targetSection = document.getElementById(targetId);
+                if (targetSection) {
+                    // Hide all sections
+                    sections.forEach(section => {
+                        section.style.display = 'none';
+                    });
+                    // Show target section
+                    targetSection.style.display = 'block';
+
+                    // Update sidebar active state
+                    sidebarLinks.forEach(link => {
+                        if (link.getAttribute('href') === hash) {
+                            link.classList.add('active');
+                        } else {
+                            link.classList.remove('active');
+                        }
+                    });
+                }
+            }
+
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+
+                        // Remove active class from all links
+                        sidebarLinks.forEach(l => l.classList.remove('active'));
+
+                        // Add active class to clicked link
+                        this.classList.add('active');
+
+                        // Hide all sections
+                        sections.forEach(section => {
+                            section.style.display = 'none';
+                        });
+
+                        // Show target section
+                        const targetId = href.substring(1);
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            targetSection.style.display = 'block';
+                        }
+                    }
+                });
+            });
+        });
+
+        console.log('Program Page Loaded');
+    </script>
+
+    <script type="text/javascript" src="//wcs.pstatic.net/wcslog.js"></script>
+    <script type="text/javascript">
+        if (!wcs_add) var wcs_add = {};
+        wcs_add["wa"] = "174900c87bdc040";
+        if (window.wcs) {
+            wcs_do();
+        }
+    </script>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a472b30668432b98',t:'MTc5MTQzNjg1Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+</html>

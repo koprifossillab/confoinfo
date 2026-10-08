@@ -10,7 +10,7 @@
   <li>
     <a href="{% url 'session_detail' conf.slug s.code %}">
       <span class="badge">{{ s.code }}</span>
-      <span class="stitle">{{ s.title|default:"(title TBD)" }}</span>
+      <span class="stitle">{{ s.title|default:"(title TBD)" }}{% if s.conveners %}<small class="sconv">{{ s.conveners }}</small>{% endif %}</span>
       <span class="scount">{% if s.n_talks %}{{ s.n_talks }} talk{{ s.n_talks|pluralize }}{% elif s.n_abs %}{{ s.n_abs }} abstract{{ s.n_abs|pluralize }}{% endif %}</span>
     </a>
   </li>

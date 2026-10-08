@@ -69,7 +69,7 @@
       <div class="talk-time">${t.start}${t.end?'–'+t.end:''}</div>
       <div class="talk-body">
         <a class="talk-title" href="${t.url}">${CONFO.esc(t.title)}</a>
-        <div class="talk-meta">${t.session?`<span class="badge">${t.session}</span>`:''}
+        <div class="talk-meta">${t.code?`<span class="code-tag">${CONFO.esc(t.code)}</span>`:''}${t.session?`<span class="badge">${CONFO.esc(t.session)}</span>`:''}
           ${t.author?`<span class="author">${CONFO.esc(t.author)}</span>`:''}</div>
         ${place?`<div class="talk-place">📍 ${CONFO.esc(place)}</div>`:''}
         ${noteHtml}

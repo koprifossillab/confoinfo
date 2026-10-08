@@ -7,9 +7,9 @@ strati2026 의 `congress/models.py`(Session·Abstract·Talk)를 학회 하나 �
 (`int(code[1:])`) — 이 코드에 박혀 있었다. 여기서는 전부 자료의 것이다.
 
 **정본은 `conferences/<slug>.json` 이다.** DB 는 그것을 읽은 사본이고
-`import_conference` 가 맞춘다. 각 행의 `key` 가 자료 파일 안의 식별자이고, 다시
-읽어 들일 때 이것으로 같은 행을 찾아 **pk 를 지킨다** — 브라우저의 북마크·메모가
-발표 pk 로 붙어 있기 때문이다.
+`import_conference` 가 맞춘다. 각 행의 `key` 가 자료 파일 안의 식별자이고, **발표·초록의
+pk 는 (학회 slug, key) 에서 계산한다**(`loader.stable_id`) — 브라우저의 북마크·메모가
+발표 pk 로 붙어 있고, 구운 사이트는 빌드마다 빈 DB 에서 새로 읽기 때문이다.
 """
 import datetime as dt
 from zoneinfo import ZoneInfo
@@ -86,6 +86,8 @@ class Session(models.Model):
     code = models.CharField(max_length=20)                  # "G1" · "S14" · "T3-2"
     group = models.CharField(max_length=80, blank=True)     # 세션 목록의 묶음 (General · Special …)
     title = models.CharField(max_length=500, blank=True)
+    conveners = models.CharField(max_length=500, blank=True)   # 좌장 — "A, B"
+    description = models.TextField(blank=True)                 # 세션 소개 (문단은 빈 줄로)
     poster_count = models.IntegerField(default=0)
     order = models.IntegerField(default=0)
 
@@ -146,6 +148,8 @@ class Talk(models.Model):
                              related_name="talks")
     session = models.ForeignKey(Session, null=True, blank=True, on_delete=models.SET_NULL,
                                 related_name="talks")
+    # 학회가 붙인 발표 번호 — 포스터 보드 번호("P12")·구두 번호("O-3"). 없으면 비운다
+    code = models.CharField(max_length=20, blank=True)
     title = models.CharField(max_length=800)
     speaker = models.CharField(max_length=300, blank=True)
     kind = models.CharField(max_length=16, default="talk")

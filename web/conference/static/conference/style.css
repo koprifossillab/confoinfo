@@ -219,3 +219,12 @@ a { color: inherit; text-decoration: none; }
 .tz-note { color: var(--muted); font-size: 12px; margin: -6px 4px 10px; }
 .reset-btn { background: var(--card); border: 1px solid #e3b6b6; color: #b03030;
   border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+/* 발표 번호 (포스터 보드 등) · 세션 좌장·소개 */
+.code-tag { border: 1px solid var(--navy); color: var(--navy); font-size: 11px; font-weight: 700;
+  border-radius: 6px; padding: 0 5px; }
+.sconv { display: block; font-weight: 400; color: var(--muted); font-size: 12px; margin-top: 2px; }
+.session-conveners { color: var(--muted); font-size: 13px; margin: -6px 4px 10px; }
+.session-desc { background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px; margin: 0 0 14px; font-size: 14px; }
+.session-desc summary { font-weight: 600; color: var(--navy); cursor: pointer; }

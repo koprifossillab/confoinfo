@@ -5,6 +5,7 @@
 <article class="detail">
   {% if talk %}
   <div class="detail-when">
+    {% if talk.code %}<span class="code-tag">{{ talk.code }}</span>{% endif %}
     {% if talk.session %}<span class="badge">{{ talk.session.code }}</span>{% endif %}
     {{ talk.date|date:"D M j" }} · {{ talk.start|time:"H:i" }}{% if talk.end %}–{{ talk.end|time:"H:i" }}{% endif %}
     {% if talk.room %} · {{ talk.room.name }}{% if talk.room.floor %} ({{ talk.room.floor }}){% endif %}{% endif %}

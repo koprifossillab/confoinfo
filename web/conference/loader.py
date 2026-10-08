@@ -4,12 +4,14 @@
     errors, warnings = validate(data)
     stats = load(data)          # validate 를 통과한 것만
 
-**다시 읽어 들여도 pk 가 바뀌지 않는다.** 행마다 자료 안의 `key`(룸은 이름,
-세션은 코드)로 같은 것을 찾아 고치고, 자료에서 사라진 것만 지운다. strati2026 은
+**발표·초록의 pk 는 (학회 slug, key) 에서 계산한다** (`stable_id`, 003) — 빈 DB 에 어떤
+순서로 읽어도 같은 pk 가 나온다. 행마다 자료 안의 `key`(룸은 이름, 세션은 코드)로 같은
+것을 찾아 고치고, 자료에서 사라진 것만 지운다. strati2026 은
 기본이 "전부 지우고 다시" 였는데, 그러면 발표 pk 가 바뀌어 브라우저에 남은
 북마크가 엉뚱한 발표를 가리킨다. 그쪽도 그래서 배포 때는 `--upsert` 를 썼다.
 """
 import datetime as dt
+import hashlib
 import re
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
@@ -113,16 +115,34 @@ def validate(data):
     return errors, warnings
 
 
-def _sync(model, conference, items, lookup, defaults_of):
-    """lookup 칸으로 행을 맞추고 자료에 없는 행을 지운다. {lookup 값: 행} 을 돌려준다."""
+def stable_id(slug, key):
+    """(학회 slug, 자료의 key) → 정해진 pk. 52비트라 JS 의 Number 로도 정확하다.
+
+    **북마크는 발표 pk 에 붙는다.** 처음에는 DB 가 매기는 일련번호를 key 로 지켰는데, 구운
+    사이트는 빌드마다 빈 DB 에 새로 읽어 pk 가 **읽는 순서**로 정해졌다 — 학회 하나가 앞에
+    끼자 다른 학회의 pk 가 전부 밀렸다(003). 그래서 pk 를 자료에서 계산한다.
+    """
+    return int(hashlib.sha1(f"{slug}/{key}".encode()).hexdigest()[:13], 16)
+
+
+def _sync(model, conference, items, lookup, defaults_of, pk_of=None):
+    """lookup 칸으로 행을 맞추고 자료에 없는 행을 지운다. {lookup 값: 행} 을 돌려준다.
+
+    pk_of 를 주면 그 pk 로 만든다. 예전 DB 에 다른 pk 로 있던 행은 지우고 다시 만든다.
+    """
     existing = {getattr(o, lookup): o for o in model.objects.filter(conference=conference)}
     out = {}
     for i, it in enumerate(items):
         k = it[lookup]
         values = defaults_of(i, it)
         obj = existing.pop(k, None)
+        want = pk_of(k) if pk_of else None
+        if obj is not None and want is not None and obj.pk != want:
+            obj.delete()
+            obj = None
         if obj is None:
-            obj = model.objects.create(conference=conference, **{lookup: k}, **values)
+            extra = {"pk": want} if want is not None else {}
+            obj = model.objects.create(conference=conference, **{lookup: k}, **values, **extra)
         else:
             changed = [f for f, v in values.items() if getattr(obj, f) != v]
             for f in changed:
@@ -163,6 +183,7 @@ def load(data):
 
     sessions, sessions_gone = _sync(Session, conf, data.get("sessions") or [], "code", lambda i, s: {
         "group": s.get("group") or "", "title": s.get("title") or "",
+        "conveners": s.get("conveners") or "", "description": s.get("description") or "",
         "poster_count": s.get("poster_count") or 0, "order": i})
 
     def abstract_values(i, a):
@@ -175,16 +196,19 @@ def load(data):
                     [au.get("name", "") for au in a.get("authors") or []]
                     + list(a.get("keywords") or []))}
     abstracts, abstracts_gone = _sync(Abstract, conf, data.get("abstracts") or [], "key",
-                                      abstract_values)
+                                      abstract_values,
+                                      pk_of=lambda k: stable_id(conf.slug, "abstract/" + k))
 
     def talk_values(i, t):
         r, s, a = rooms.get(t.get("room")), sessions.get(t.get("session")), abstracts.get(t.get("abstract"))
         return {"date": _date(t["date"]), "start": _time(t["start"]), "end": _time(t.get("end")),
                 "room_id": r.pk if r else None, "session_id": s.pk if s else None,
+                "code": t.get("code") or "",
                 "title": t["title"], "speaker": t.get("speaker") or "",
                 "kind": t.get("kind") or "talk", "abstract_id": a.pk if a else None,
                 "page": t.get("page")}
-    talks, talks_gone = _sync(Talk, conf, data.get("talks") or [], "key", talk_values)
+    talks, talks_gone = _sync(Talk, conf, data.get("talks") or [], "key", talk_values,
+                              pk_of=lambda k: stable_id(conf.slug, k))
 
     return {
         "slug": conf.slug, "created": created,

@@ -16,6 +16,7 @@
 
 | slug | 학회 | 발표 | 초록 | 자료 |
 |---|---|---|---|---|
+| `icamg2026` | ICAMG-10 2026 — 10th International Conference on Asian Marine Geology (부산 BPEX, 2026-10-30~11-07, 학술 일정 11-02~04) | 196 (구두 108 · 포스터 75) | 184 (저자만, 본문 미공개) | `sources/icamg2026/` (icamg.org/program HTML) |
 | `strati2026` | STRATI 2026 — 5th International Congress on Stratigraphy (쑤저우, 2026-06-28~07-03) | 457 | 607 | `sources/strati2026/` (핸드북·초록집 PDF 파서) |
 
 ## 새 학회를 넣는다

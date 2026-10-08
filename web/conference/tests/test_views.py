@@ -74,6 +74,10 @@ class ViewTests(TestCase):
     def test_sessions_and_detail(self):
         r = self.client.get("/testconf/sessions/")
         self.assertEqual([[s.code for s in items] for g, items in r.context["groups"]], [["S2", "S1"]])
+        r = self.client.get("/testconf/session/S1/")
+        self.assertContains(r, "Conveners: Kim Ex, Lee")
+        self.assertContains(r, "- one<br>- two")
+        self.assertContains(r, '<span class="code-tag">O-1</span>')
         r = self.client.get("/testconf/session/S2/")
         self.assertEqual([a.key for a in r.context["extra"]], ["a2"])
         self.assertEqual([t.key for t in r.context["talks"]], ["t6", "t8"])
