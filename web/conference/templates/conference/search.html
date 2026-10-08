@@ -1,21 +1,27 @@
 {% extends "conference/base.html" %}
+{% load static %}
 {# 찾는 일은 브라우저가 한다 — search.json 을 한 번 받아 둔다 (정적 사이트, 002) #}
 {% block title %}Search · {{ conf.short_name|default:"confoinfo" }}{% endblock %}
 {% block content %}
-<form class="searchbar" id="sform">
-  <input type="search" name="q" id="q" autofocus autocomplete="off"
-         placeholder="{% if conf %}Title, author, keyword, session…{% else %}Search all conferences…{% endif %}">
+<form class="searchbar" id="sform" autocomplete="off">
+  <div class="ac-wrap">
+    <input type="search" name="q" id="q" autofocus autocomplete="off" role="combobox"
+           aria-autocomplete="list" aria-controls="ac" aria-expanded="false"
+           placeholder="{% if conf %}Title, author (also 한글 이름), session…{% else %}Search all conferences…{% endif %}">
+    <ul id="ac" class="ac" role="listbox" hidden></ul>
+  </div>
   <button type="submit">Go</button>
 </form>
 <div id="results"></div>
 {% endblock %}
 {% block scripts %}
+<script src="{% static 'conference/kname.js' %}"></script>
 <script>
 (async function () {
   const LIMIT = 200;
   const SHOW_CONF = {% if conf %}false{% else %}true{% endif %};
   const form = document.getElementById('sform'), input = document.getElementById('q');
-  const out = document.getElementById('results');
+  const out = document.getElementById('results'), ac = document.getElementById('ac');
   const esc = CONFO.esc;
   let index = null;
 
@@ -47,16 +53,27 @@
         <span class="author" translate="no">${esc(a.authors.split(', ').slice(0, 3).join(', '))}${a.authors.split(', ').length > 3 ? ' …' : ''}</span>
       </div></div></div>`;
   }
-  // 낱말마다 다 들어 있어야 걸린다 — "trilobite cambrian" 은 둘 다 있는 것만
-  function matches(item, words) {
-    if (!item._h) item._h = CONFO.fold(item.title + ' ' + (item.author || '') + ' ' + (item.authors || '') + ' ' + (item.x || ''));
-    return words.every(w => item._h.includes(w));
+
+  // 찾을 글: 제목 · 발표자 · 공저자·키워드·세션 · 미리 번역한 제목(한국어로 찾기, 007)
+  function hay(item) {
+    if (!item._h) item._h = CONFO.fold([item.title, item.author, item.authors, item.x,
+                                        ...Object.values(item.tr || {})].filter(Boolean).join(' '));
+    return item._h;
+  }
+  // 질의 하나 → 거르는 함수. 한글만으로 된 1~5자는 이름으로도 본다 ("최경식" → Kyungsik Choi)
+  function matcher(q) {
+    const words = CONFO.fold(q).split(/\s+/).filter(Boolean);
+    const plain = q.replace(/\s+/g, '');
+    const kq = /^[\uAC00-\uD7A3]{1,5}$/.test(plain) ? KNAME.queryKeys(plain) : [];
+    return item => (words.length && words.every(w => hay(item).includes(w)))
+      || (kq.length && (item.n || []).some(n => KNAME.matches(n, kq)));
   }
   function run(q) {
-    const words = CONFO.fold(q).split(/\s+/).filter(Boolean);
-    if (!words.length) { out.innerHTML = ''; return; }
-    const talks = index.talks.filter(t => matches(t, words));
-    const abs = index.abstracts.filter(a => matches(a, words));
+    closeAc();
+    if (!q.trim()) { out.innerHTML = ''; return; }
+    const m = matcher(q.trim());
+    const talks = index.talks.filter(m);
+    const abs = index.abstracts.filter(m);
     let html = `<p class="result-count">${talks.length} talk${talks.length === 1 ? '' : 's'}`
       + (abs.length ? ` · ${abs.length} other abstract${abs.length === 1 ? '' : 's'}` : '')
       + (talks.length > LIMIT ? ` (first ${LIMIT})` : '') + '</p>';
@@ -67,20 +84,89 @@
     CONFO.refresh();
   }
 
-  const q0 = new URLSearchParams(location.search).get('q') || '';
-  input.value = q0;
-  form.addEventListener('submit', e => {
-    e.preventDefault();
+  // ── 자동완성 (007) ─────────────────────────────────────────────────
+  // 저자 · 세션 · 발표 제목에서 고른다. 저자를 고르면 그 이름으로 찾고, 발표를 고르면 바로 간다
+  let people = null, sessions = null, sel = -1, items = [];
+  function buildLists() {
+    const pc = new Map(), sc = new Map();
+    [...index.talks, ...index.abstracts].forEach(it => {
+      (it.n || []).forEach(n => pc.set(n, (pc.get(n) || 0) + 1));
+      if (it.session && !sc.has(it.session)) sc.set(it.session, it.st || '');
+    });
+    people = [...pc.entries()].map(([name, count]) => ({ name, count, f: CONFO.fold(name) }));
+    sessions = [...sc.entries()].map(([code, title]) => ({ code, title, f: CONFO.fold(code + ' ' + title) }));
+  }
+  function suggest(q) {
+    q = q.trim();
+    if (q.length < 2 && !/[\uAC00-\uD7A3]/.test(q)) return [];
+    const f = CONFO.fold(q);
+    const words = f.split(/\s+/).filter(Boolean);
+    const plain = q.replace(/\s+/g, '');
+    const kq = /^[\uAC00-\uD7A3]{1,5}$/.test(plain) ? KNAME.queryKeys(plain) : [];
+    // 이름: 낱말마다 이름의 어느 토막이 그 글로 시작하거나, 한글 이름으로 맞으면
+    const ps = people.filter(p => (words.length && words.every(w => p.f.split(/[\s-]+/).some(t => t.startsWith(w))))
+                               || (kq.length && KNAME.matches(p.name, kq)))
+      .sort((a, b) => b.count - a.count).slice(0, 5)
+      .map(p => ({ kind: 'person', label: p.name, sub: `${p.count} talk${p.count === 1 ? '' : 's'}`, q: p.name }));
+    const ss = sessions.filter(s => words.length && words.every(w => s.f.includes(w))).slice(0, 3)
+      .map(s => ({ kind: 'session', label: s.code, sub: s.title, q: s.code }));
+    const ts = index.talks.filter(t => words.length && words.every(w => hay(t).includes(w))).slice(0, 3)
+      .map(t => ({ kind: 'talk', label: t.title, sub: (t.tr && t.tr.ko) || t.author || '', url: t.url }));
+    return [...ps, ...ss, ...ts].slice(0, 9);
+  }
+  const ICON = { person: '👤', session: '📚', talk: '📄' };
+  function renderAc() {
+    if (!items.length) return closeAc();
+    ac.innerHTML = items.map((it, i) => `<li role="option" id="ac-${i}" data-i="${i}"
+        class="ac-item${i === sel ? ' on' : ''}" aria-selected="${i === sel}">
+        <span class="ac-ic">${ICON[it.kind]}</span>
+        <span class="ac-t"><span class="ac-label"${it.kind !== 'talk' ? ' translate="no"' : ''}>${esc(it.label)}</span>
+        ${it.sub ? `<span class="ac-sub">${esc(it.sub)}</span>` : ''}</span></li>`).join('');
+    ac.hidden = false;
+    input.setAttribute('aria-expanded', 'true');
+    input.setAttribute('aria-activedescendant', sel >= 0 ? 'ac-' + sel : '');
+  }
+  function closeAc() { ac.hidden = true; items = []; sel = -1; input.setAttribute('aria-expanded', 'false'); }
+  function pick(it) {
+    if (it.url) { location.href = it.url; return; }
+    input.value = it.q;
+    submit();
+  }
+  function submit() {
     const q = input.value.trim();
     history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname);
     if (index) run(q);
+  }
+  ac.addEventListener('mousedown', e => {            // blur 보다 먼저 — click 이면 목록이 먼저 닫힌다
+    const li = e.target.closest('li[data-i]'); if (!li) return;
+    e.preventDefault(); pick(items[+li.dataset.i]);
   });
+  input.addEventListener('keydown', e => {
+    if (ac.hidden) return;
+    if (e.key === 'ArrowDown') { sel = (sel + 1) % items.length; renderAc(); e.preventDefault(); }
+    else if (e.key === 'ArrowUp') { sel = (sel - 1 + items.length) % items.length; renderAc(); e.preventDefault(); }
+    else if (e.key === 'Enter' && sel >= 0) { e.preventDefault(); pick(items[sel]); }
+    else if (e.key === 'Escape') closeAc();
+  });
+  input.addEventListener('blur', () => setTimeout(closeAc, 150));
+  form.addEventListener('submit', e => { e.preventDefault(); submit(); });
+
+  const q0 = new URLSearchParams(location.search).get('q') || '';
+  input.value = q0;
   if (q0) out.innerHTML = '<p class="empty">Searching…</p>';
   try {
     index = await (await fetch('{% if conf %}{% url "search_index" conf.slug %}{% else %}{% url "search_index_all" %}{% endif %}?v={{ version }}')).json();
   } catch (e) { out.innerHTML = '<p class="empty">Could not load the search index.</p>'; return; }
+  buildLists();
   let timer;
-  input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => run(input.value.trim()), 200); });
+  // 한글은 조합 중에도 input 이 온다 — 그대로 따라간다 (조합 끝을 기다리면 목록이 늦다)
+  input.addEventListener('input', () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      run(input.value.trim());               // 결과는 치는 대로 (run 이 목록을 닫는다)
+      items = suggest(input.value); sel = -1; renderAc();
+    }, 150);
+  });
   run(q0);
 })();
 </script>

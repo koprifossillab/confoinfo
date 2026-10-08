@@ -288,9 +288,19 @@ def search_json(request, slug=None):
 
     초록 본문은 안 넣는다(STRATI 2026 만으로 1 MB 가 넘는다). 프로그램에 자리가 없는
     초록(포스터·미편성)은 `talks` 와 따로 `abstracts` 에.
+
+    007 에서 셋을 더했다 — `n`(저자 이름 목록: 한글 이름 검색과 자동완성), `st`(세션 제목:
+    자동완성), `tr`(미리 번역한 제목 {언어: 제목}: 한국어로 찾기).
     """
     talks, abstracts = [], []
     for conf in _confs(slug):
+        langs = enrich.languages(conf.slug)
+        trs = {lang: enrich.translations(conf.slug, lang) for lang in langs}
+
+        def tr_of(title):
+            k = enrich.text_key(title)
+            return {lang: t[k] for lang, t in trs.items() if t.get(k)}
+
         for t in conf.talks.exclude(kind="break").select_related("session", "room", "abstract"):
             extra = [t.speaker]
             if t.abstract:
@@ -299,6 +309,13 @@ def search_json(request, slug=None):
                 extra += [t.session.code, t.session.title]
             p = _talk_payload(t)
             p["x"] = " ".join(e for e in extra if e)
+            names = [a.get("name", "") for a in (t.abstract.authors if t.abstract else [])]
+            if t.speaker and people.clean(t.speaker) and not names:
+                names = [people.clean(t.speaker)]
+            p["n"] = [n for n in names if n]
+            p["st"] = t.session.title if t.session else ""
+            if (tr := tr_of(t.title)):
+                p["tr"] = tr
             talks.append(p)
         for a in conf.abstracts.filter(talks__isnull=True).select_related("session"):
             abstracts.append({
@@ -307,6 +324,9 @@ def search_json(request, slug=None):
                 "session": a.session.code if a.session else "",
                 "url": reverse("abstract_detail", args=[conf.slug, a.id]),
                 "x": " ".join(e for e in [a.search_text, a.session.title if a.session else ""] if e),
+                "n": [au.get("name", "") for au in a.authors if au.get("name")],
+                "st": a.session.title if a.session else "",
+                **({"tr": tr} if (tr := tr_of(a.title)) else {}),
             })
     return _json({"talks": talks, "abstracts": abstracts})
 

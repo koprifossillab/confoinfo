@@ -29,7 +29,8 @@
 프로그램      /<slug>/  ·  /<slug>/day/<날짜>/     뿌리는 첫째 날 — 학회 기간이면 JS 가 오늘로 넘긴다
 세션          /<slug>/sessions/ · /<slug>/session/<code>/
 발표·초록     /<slug>/talk/<pk>/ · /<slug>/abstract/<pk>/   ☆ · 메모 · talk.ics(발표 하나)
-검색          /<slug>/search/ · /search/          search.json 을 받아 브라우저에서 (악센트 무시, 낱말 모두)
+검색          /<slug>/search/ · /search/          search.json 을 받아 브라우저에서 (악센트 무시, 낱말 모두) ·
+                                                  자동완성 · 한글 이름("최경식") · 한국어 번역 제목 (007, kname.js)
 내 계획       /<slug>/plan/ · /plan/              talks.json 에서 북마크만 골라 · 여러 발표 .ics 는 JS 가 만든다
 설정          /settings/                          기본 학회 · 테마 · 글꼴 · 휴식 · 번역 언어 · 이 기기 지우기 · 판 이력(CHANGELOG.md)
 ```
