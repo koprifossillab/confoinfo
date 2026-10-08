@@ -301,3 +301,23 @@ a { color: inherit; text-decoration: none; }
 .notes h4 .note-date { margin-left: auto; font-size: 11.5px; color: var(--muted); font-weight: 400; }
 .notes p { margin: 0 2px 4px; font-size: 13px; line-height: 1.6; }
 .notes code { background: var(--soft); border-radius: 4px; padding: 0 4px; font-size: 12px; }
+
+/* 대표 논문 셋 (006) */
+.works { margin: 8px 0 4px; padding-left: 20px; font-size: 13px; line-height: 1.4; }
+.works li { margin-bottom: 6px; }
+.works a { color: var(--ink); font-weight: 600; }
+.work-meta { display: block; color: var(--muted); font-size: 11.5px; margin-top: 1px; }
+.work-src { color: var(--muted); font-size: 11.5px; margin-bottom: 4px; }
+.work-src a { color: var(--link); text-decoration: underline; }
+.scholar-gs { color: var(--muted); font-size: 12px; }
+
+/* 미리 번역해 둔 것 (006) */
+.tr-title { margin: -4px 0 12px; font-size: 15px; color: var(--muted); font-weight: 600; line-height: 1.4; }
+.tr-sub { display: block; font-size: 12.5px; color: var(--muted); font-weight: 500; margin-top: 2px; line-height: 1.35; }
+.tr-tabs { display: inline-flex; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin: 4px 0 8px; }
+.tr-tabs button { border: none; background: var(--card); color: var(--ink); font: inherit; font-size: 12.5px;
+  padding: 5px 12px; cursor: pointer; border-right: 1px solid var(--line); }
+.tr-tabs button:last-child { border-right: none; }
+.tr-tabs button.on { background: var(--navy); color: var(--on-navy); font-weight: 600; }
+.tr-tabs[hidden], [data-tr][hidden], [data-tr-body][hidden], [data-tr-orig][hidden] { display: none; }
+.tr-desc { border-top: 1px dashed var(--line); margin-top: 8px; padding-top: 4px; }

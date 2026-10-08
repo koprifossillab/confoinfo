@@ -21,6 +21,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.test import Client
 from django.urls import reverse
 
+from conference import enrich
 from conference.models import Conference
 
 LINK_RE = re.compile(r'(?:href|src)="([^"#]+)"')
@@ -35,8 +36,12 @@ def _paths():
     yield reverse("talks_all")
     yield reverse("search_index_all")
     yield reverse("not_found")
+    all_langs = set()
     for c in Conference.objects.all():
         s = c.slug
+        for lang in enrich.languages(s):          # 목록 화면의 번역 (006)
+            all_langs.add(lang)
+            yield reverse("i18n", args=[s, lang])
         yield reverse("program", args=[s])
         for d in c.talks.order_by("date").values_list("date", flat=True).distinct():
             yield reverse("program_day", args=[s, d.isoformat()])
@@ -53,6 +58,8 @@ def _paths():
         yield reverse("plan", args=[s])
         yield reverse("talks", args=[s])
         yield reverse("search_index", args=[s])
+    for lang in sorted(all_langs):
+        yield reverse("i18n_all", args=[lang])
 
 
 class Command(BaseCommand):

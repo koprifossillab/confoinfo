@@ -220,6 +220,55 @@
     });
   }
 
+  // ── 미리 번역해 둔 것 (006) ──────────────────────────────────────────
+  // 번역은 이 저장소의 enrich/<학회>.<언어>.json 에 있고 사이트에 구워져 있다. 바깥을 부르지
+  // 않는다. 상세 화면은 번역이 HTML 에 숨어 있고([data-tr]), 목록은 i18n/<언어>.json 을 받는다.
+  function trLang() {
+    if (getCfg().tr === false) return null;
+    const l = xlateLang();
+    return (window.CONFO.trLangs || []).includes(l) ? l : null;
+  }
+  function applyDetailTr() {
+    const l = trLang();
+    document.querySelectorAll("[data-tr]").forEach(el => { el.hidden = el.dataset.tr !== l; });
+    const tabs = document.querySelector(".tr-tabs");
+    if (!tabs) return;
+    const has = l && document.querySelector(`[data-tr-body="${l}"]`);
+    tabs.hidden = !has;
+    const show = which => {                  // "" = 원문
+      document.querySelector("[data-tr-orig]").hidden = !!which;
+      document.querySelectorAll("[data-tr-body]").forEach(b => { b.hidden = b.dataset.trBody !== which; });
+      tabs.querySelectorAll("button").forEach(b => b.classList.toggle("on", b.dataset.trTab === which));
+    };
+    tabs.onclick = e => { const b = e.target.closest("button"); if (b) show(b.dataset.trTab); };
+    show(has ? l : "");                      // 번역이 있으면 번역부터 — 원문 탭은 한 번 누르면 된다
+  }
+  let trCache = {};
+  function listTr(l) {
+    if (!trCache[l]) {
+      trCache[l] = fetch(window.CONFO.trUrl.replace("LANG", l) + "?v=" + (window.CONFO.version || ""))
+        .then(r => r.ok ? r.json() : {}).catch(() => ({}));
+    }
+    return trCache[l];
+  }
+  function sub(el, text, l) {
+    if (!el || !text || el.nextElementSibling && el.nextElementSibling.classList.contains("tr-sub")) return;
+    el.insertAdjacentHTML("afterend", `<div class="tr-sub" lang="${l}">${esc(text)}</div>`);
+  }
+  async function applyListTr() {
+    const l = trLang();
+    if (!l || !window.CONFO.trUrl) return;
+    const d = await listTr(l);
+    document.querySelectorAll(".talk[data-id]").forEach(c =>
+      sub(c.querySelector(".talk-title"), (d.talks || {})[c.dataset.id], l));
+    document.querySelectorAll(".talk[data-abs-id]").forEach(c =>
+      sub(c.querySelector(".talk-title"), (d.abstracts || {})[c.dataset.absId], l));
+    document.querySelectorAll("li[data-code]").forEach(c => {
+      const t = (d.sessions || {})[c.dataset.code], st = c.querySelector(".stitle");
+      if (t && st && !st.querySelector(".tr-sub")) st.insertAdjacentHTML("beforeend", `<span class="tr-sub" lang="${l}">${esc(t)}</span>`);
+    });
+  }
+
   // ── 화면 도우미 ──────────────────────────────────────────────────────
   function esc(s) {
     return (s || "").replace(/[&<>"']/g, c => (
@@ -231,6 +280,7 @@
     btn.classList.toggle("on", on);
   }
   function refresh() {
+    applyListTr();                           // JS 가 그린 목록(검색·내 계획)도 refresh 를 부른다
     document.querySelectorAll(".bm").forEach(paint);
     document.querySelectorAll(".talk[data-id]").forEach(el => {
       el.classList.toggle("has-note", hasNote(parseInt(el.dataset.id, 10)));
@@ -250,6 +300,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     document.body.classList.toggle("hide-breaks", !getCfg().breaks);
     refresh();
+    applyDetailTr();
     initXlate();
   });
 
@@ -257,6 +308,6 @@
     root: ROOT,
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
     getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
-    LANGS, xlateLang, chunks, getLook, setLook,
+    LANGS, xlateLang, chunks, getLook, setLook, trLang,
   });
 })();

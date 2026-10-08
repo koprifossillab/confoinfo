@@ -1,0 +1,4923 @@
+{
+ "fetched": "2026-10-08",
+ "people": {
+  "abidzikrialghifari|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Abi Dzikri Alghifari",
+   "works": []
+  },
+  "ailina|first institute of oceanography": {
+   "affiliation": "First Institute of Oceanography",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "",
+    "id": "A5015521708",
+    "name": "Ai Lina",
+    "score": 6,
+    "works_count": 2
+   },
+   "name": "Ai Lina",
+   "works": [
+    {
+     "cited": 0,
+     "title": "渤海黄海の表層堆積物粘土鉱物の組成と分布特徴は物質源に対する指示的意義である。【JST・京大機械翻訳】",
+     "url": "https://openalex.org/W2743537738",
+     "venue": "Haiyang huzhao tongbao",
+     "year": 2016
+    },
+    {
+     "cited": 0,
+     "title": "南黄海の北西縁辺に位置するB01孔黏土粒級堆積物の地球化学的特徴とその物質源の識別【JST・京大機械翻訳】",
+     "url": "https://openalex.org/W2744761117",
+     "venue": "",
+     "year": 2016
+    }
+   ]
+  },
+  "anavaoahitupou|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": null,
+   "name": "Ana Vaoahi Tupou",
+   "works": []
+  },
+  "anjaliakusumawardani|kochi university": {
+   "affiliation": "Kochi University",
+   "match": null,
+   "name": "Anjalia Kusuma Wardani",
+   "works": []
+  },
+  "anqiwang|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 3508,
+    "fields": [
+     "Energy",
+     "Environmental Science"
+    ],
+    "hint": "Hainan University, China",
+    "id": "A5100379002",
+    "name": "Anqi Wang",
+    "score": 6,
+    "works_count": 101
+   },
+   "name": "Anqi Wang",
+   "works": [
+    {
+     "cited": 85,
+     "title": "In Situ Synthesis of V4+ and Ce3+ Self-Doped BiVO4/CeO2 Heterostructured Nanocomposites with High Surface Areas and Enhanced Visible-Light Photocatalytic Activity",
+     "url": "https://doi.org/10.1021/acs.jpcc.6b04131",
+     "venue": "The Journal of Physical Chemistry C",
+     "year": 2016
+    },
+    {
+     "cited": 68,
+     "title": "0D/3D CNQDs/CuFe2O4/Cu0 heterostructures as broad spectrum photocatalyst for efficient 5-fluorouracil degradation: Structural evolution and relay oxidation process",
+     "url": "https://doi.org/10.1016/j.apcatb.2022.122117",
+     "venue": "Applied Catalysis B: Environmental",
+     "year": 2022
+    }
+   ]
+  },
+  "arajeong|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 249,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Kyung Hee University, South Korea",
+    "id": "A5090231064",
+    "name": "Ara Jeong",
+    "score": 9,
+    "works_count": 28
+   },
+   "name": "Ara Jeong",
+   "works": [
+    {
+     "cited": 73,
+     "title": "Soil erosion from urbanization processes in the Sonoran Desert, Arizona, USA",
+     "url": "https://doi.org/10.1002/ldr.3207",
+     "venue": "Land Degradation and Development",
+     "year": 2018
+    },
+    {
+     "cited": 35,
+     "title": "Late Quaternary deglacial history across the Larsen B embayment, Antarctica",
+     "url": "https://doi.org/10.1016/j.quascirev.2018.04.011",
+     "venue": "Quaternary Science Reviews",
+     "year": 2018
+    },
+    {
+     "cited": 24,
+     "title": "Impact of drainage integration on basin geomorphology and landform evolution: A case study along the Salt and Verde rivers, Sonoran Desert, USA",
+     "url": "https://doi.org/10.1016/j.geomorph.2020.107439",
+     "venue": "Geomorphology",
+     "year": 2020
+    }
+   ]
+  },
+  "baozhilin|tongji university": {
+   "affiliation": "Tongji University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 398,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5015312333",
+    "name": "Baozhi Lin",
+    "score": 9,
+    "works_count": 43
+   },
+   "name": "Baozhi Lin",
+   "works": [
+    {
+     "cited": 41,
+     "title": "Biogeochemical characteristics of suspended particulate matter in deep chlorophyll maximum layers in the southern East China Sea",
+     "url": "https://doi.org/10.5194/bg-15-2091-2018",
+     "venue": "Biogeosciences",
+     "year": 2018
+    },
+    {
+     "cited": 32,
+     "title": "Roles of sediment supply, geochemical composition and monsoon on organic matter burial along the longitudinal mud belt in the East China Sea in modern times",
+     "url": "https://doi.org/10.1016/j.gca.2021.04.025",
+     "venue": "Geochimica et Cosmochimica Acta",
+     "year": 2021
+    },
+    {
+     "cited": 27,
+     "title": "Zooplankton Fecal Pellet Characteristics and Contribution to the Deep‐Sea Carbon Export in the Southern South China Sea",
+     "url": "https://doi.org/10.1029/2022jc019412",
+     "venue": "Journal of Geophysical Research Oceans",
+     "year": 2022
+    }
+   ]
+  },
+  "binismail|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Bin Ismail",
+   "works": []
+  },
+  "bkkhim|pusan national university": {
+   "affiliation": "Pusan National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 5,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Pusan National University, South Korea",
+    "id": "A5058598642",
+    "name": "B. K. Khim",
+    "score": 12,
+    "works_count": 30
+   },
+   "name": "B.K. Khim",
+   "works": [
+    {
+     "cited": 2,
+     "title": "Interglacial-glacial variations of opal and water contents in the central part of the Okhotsk Sea during the last 500 ka",
+     "url": "https://doi.org/10.14770/jgsk.2011.47.5.459",
+     "venue": "Journal of the geological society of Korea",
+     "year": 2011
+    },
+    {
+     "cited": 1,
+     "title": "Surface water productivity in the Bering Sea and the subarctic North Pacific in response to global climate cooling during the last 2.32 Myrs",
+     "url": "https://openalex.org/W3011236133",
+     "venue": "EGUGA",
+     "year": 2012
+    },
+    {
+     "cited": 1,
+     "title": "High-resolution variation of biogenic opal content in the Bering Sea (IODP Expedition 323, Site U1343) from the late Pliocene to early Pleistocene (2.2 Ma to 1.4 Ma)",
+     "url": "https://openalex.org/W2992304786",
+     "venue": "AGU Fall Meeting Abstracts",
+     "year": 2010
+    }
+   ]
+  },
+  "boli|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 31587,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Beijing Institute of Technology, China",
+    "id": "A5100688318",
+    "name": "Bo Li",
+    "score": 6,
+    "works_count": 1043
+   },
+   "name": "Bo Li",
+   "works": [
+    {
+     "cited": 1188,
+     "title": "Effects of straw carbon input on carbon dynamics in agricultural soils: a meta‐analysis",
+     "url": "https://doi.org/10.1111/gcb.12517",
+     "venue": "Global Change Biology",
+     "year": 2014
+    },
+    {
+     "cited": 1108,
+     "title": "Altered ecosystem carbon and nitrogen cycles by plant invasion: a meta‐analysis",
+     "url": "https://doi.org/10.1111/j.1469-8137.2007.02290.x",
+     "venue": "New Phytologist",
+     "year": 2007
+    },
+    {
+     "cited": 567,
+     "title": "Rethinking China's new great wall",
+     "url": "https://doi.org/10.1126/science.1257258",
+     "venue": "Science",
+     "year": 2014
+    }
+   ]
+  },
+  "bookeunkhim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 3173,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Pusan National University, South Korea",
+    "id": "A5038516228",
+    "name": "Boo‐Keun Khim",
+    "score": 11,
+    "works_count": 247
+   },
+   "name": "Boo-Keun Khim",
+   "works": [
+    {
+     "cited": 341,
+     "title": "Dynamic behaviour of the East Antarctic ice sheet during Pliocene warmth",
+     "url": "https://doi.org/10.1038/ngeo1889",
+     "venue": "Nature Geoscience",
+     "year": 2013
+    },
+    {
+     "cited": 122,
+     "title": "Origin and dispersal of recent clay minerals in the Yellow Sea",
+     "url": "https://doi.org/10.1016/0025-3227(92)90095-y",
+     "venue": "Marine Geology",
+     "year": 1992
+    },
+    {
+     "cited": 76,
+     "title": "Stratigraphy, petrochemistry and Quaternary depositional record of the Songaksan tuff ring, Jeju Island, Korea",
+     "url": "https://doi.org/10.1016/s0377-0273(02)00302-5",
+     "venue": "Journal of Volcanology and Geothermal Research",
+     "year": 2003
+    }
+   ]
+  },
+  "bookeunkhim|pusan national university": {
+   "affiliation": "Pusan National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 3173,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Pusan National University, South Korea",
+    "id": "A5038516228",
+    "name": "Boo‐Keun Khim",
+    "score": 10,
+    "works_count": 247
+   },
+   "name": "Boo-Keun Khim",
+   "works": [
+    {
+     "cited": 341,
+     "title": "Dynamic behaviour of the East Antarctic ice sheet during Pliocene warmth",
+     "url": "https://doi.org/10.1038/ngeo1889",
+     "venue": "Nature Geoscience",
+     "year": 2013
+    },
+    {
+     "cited": 122,
+     "title": "Origin and dispersal of recent clay minerals in the Yellow Sea",
+     "url": "https://doi.org/10.1016/0025-3227(92)90095-y",
+     "venue": "Marine Geology",
+     "year": 1992
+    },
+    {
+     "cited": 76,
+     "title": "Stratigraphy, petrochemistry and Quaternary depositional record of the Songaksan tuff ring, Jeju Island, Korea",
+     "url": "https://doi.org/10.1016/s0377-0273(02)00302-5",
+     "venue": "Journal of Volcanology and Geothermal Research",
+     "year": 2003
+    }
+   ]
+  },
+  "changhwalee|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Chang Hwa Lee",
+   "works": []
+  },
+  "chanheejang|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Chan-Hee Jang",
+   "works": []
+  },
+  "chengchengye|east china normal university": {
+   "affiliation": "East China Normal University",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "",
+    "id": "A5136420802",
+    "name": "Chengcheng YE",
+    "score": 11,
+    "works_count": 3
+   },
+   "name": "Chengcheng Ye",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Boron-Based reconstruction of Early–Middle Holocene paleosalinity in the eastern Jianghuai region, China",
+     "url": "https://doi.org/10.17632/tzkn5x77h4",
+     "venue": "Mendeley Data",
+     "year": 2027
+    },
+    {
+     "cited": 0,
+     "title": "Boron-Based reconstruction of Early–Middle Holocene paleosalinity in the eastern Jianghuai region, China",
+     "url": "https://doi.org/10.17632/tzkn5x77h4.1",
+     "venue": "Mendeley Data",
+     "year": 2027
+    },
+    {
+     "cited": 0,
+     "title": "Mid‑Holocene Environmental Change and Its Impact on Human Settlement in the Eastern Jianghuai Coastal Region, China: Mineralogical and Geochemical Evidence",
+     "url": "https://doi.org/10.17632/ycjzwdmrj2.2",
+     "venue": "Mendeley Data",
+     "year": 2026
+    }
+   ]
+  },
+  "chienhsianglin|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Chien-Hsiang Lin",
+   "works": []
+  },
+  "chuanxiuluo|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2529,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Chinese Academy of Sciences, China",
+    "id": "A5082035231",
+    "name": "Chuanxiu Luo",
+    "score": 9,
+    "works_count": 76
+   },
+   "name": "Chuanxiu Luo",
+   "works": [
+    {
+     "cited": 300,
+     "title": "Indirect validation of tropospheric nitrogen dioxide retrieved from the OMI satellite instrument: Insight into the seasonal variation of nitrogen oxides at northern midlatitudes",
+     "url": "https://doi.org/10.1029/2009jd013351",
+     "venue": "Journal of Geophysical Research Atmospheres",
+     "year": 2010
+    },
+    {
+     "cited": 248,
+     "title": "Estimates of atmospheric‐processed soluble iron from observations and a global mineral aerosol model: Biogeochemical implications",
+     "url": "https://doi.org/10.1029/2004jd004574",
+     "venue": "Journal of Geophysical Research Atmospheres",
+     "year": 2004
+    },
+    {
+     "cited": 216,
+     "title": "East Asian pollen database: modern pollen distribution and its quantitative relationship with vegetation and climate",
+     "url": "https://doi.org/10.1111/jbi.12361",
+     "venue": "Journal of Biogeography",
+     "year": 2014
+    }
+   ]
+  },
+  "chunxiaosun|tongji university": {
+   "affiliation": "Tongji University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 10,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5100820955",
+    "name": "Chunxiao Sun",
+    "score": 16,
+    "works_count": 9
+   },
+   "name": "Chunxiao Sun",
+   "works": [
+    {
+     "cited": 7,
+     "title": "Southward Shift and Intensification of the Intertropical Convergence Zone in the North Pacific Across the Mid‐Pleistocene Transition",
+     "url": "https://doi.org/10.1029/2023gl105983",
+     "venue": "Geophysical Research Letters",
+     "year": 2023
+    },
+    {
+     "cited": 0,
+     "title": "Foraminiferal stable-isotope and Mg/Ca-based SST and TWT records from core GeoB12613 in the western tropical Indian Ocean",
+     "url": "https://doi.org/10.5281/zenodo.22784366",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Foraminiferal stable-isotope and Mg/Ca-based SST and TWT records from core GeoB12613 in the western tropical Indian Ocean",
+     "url": "https://doi.org/10.5281/zenodo.22784365",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2026
+    }
+   ]
+  },
+  "dahaekim|korea polar research institute": {
+   "affiliation": "Korea Polar Research Institute",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 705,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5023649550",
+    "name": "Dahae Kim",
+    "score": 12,
+    "works_count": 39
+   },
+   "name": "Dahae Kim",
+   "works": [
+    {
+     "cited": 39,
+     "title": "Assessing environmental changes in Lake Shihwa, South Korea, based on distributions and stable carbon isotopic compositions of n-alkanes",
+     "url": "https://doi.org/10.1016/j.envpol.2018.04.098",
+     "venue": "Environmental Pollution",
+     "year": 2018
+    },
+    {
+     "cited": 38,
+     "title": "Identification of sources and seasonal variability of organic matter in Lake Sihwa and surrounding inland creeks, South Korea",
+     "url": "https://doi.org/10.1016/j.chemosphere.2017.02.148",
+     "venue": "Chemosphere",
+     "year": 2017
+    },
+    {
+     "cited": 21,
+     "title": "Large contributions of petrogenic and aged soil-derived organic carbon to Arctic fjord sediments in Svalbard",
+     "url": "https://doi.org/10.1038/s41598-023-45141-z",
+     "venue": "Scientific Reports",
+     "year": 2023
+    }
+   ]
+  },
+  "daidufan|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 62,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5012515515",
+    "name": "Daidu Fan",
+    "score": 11,
+    "works_count": 9
+   },
+   "name": "Daidu Fan",
+   "works": [
+    {
+     "cited": 31,
+     "title": "Spatiotemporal variations of heavy metal historical accumulation records and their influencing mechanisms in the Yangtze River Estuary",
+     "url": "https://doi.org/10.1016/j.scitotenv.2022.158733",
+     "venue": "The Science of The Total Environment",
+     "year": 2022
+    },
+    {
+     "cited": 10,
+     "title": "Controls on shallow gas distribution, migration, and associated geohazards in the Yangtze subaqueous delta and the Hangzhou Bay",
+     "url": "https://doi.org/10.3389/fmars.2023.1107530",
+     "venue": "Frontiers in Marine Science",
+     "year": 2023
+    },
+    {
+     "cited": 9,
+     "title": "Wave, flow, and suspended sediment dynamics under strong winds on a tidal beach",
+     "url": "https://doi.org/10.1016/j.ecss.2024.108799",
+     "venue": "Estuarine Coastal and Shelf Science",
+     "year": 2024
+    }
+   ]
+  },
+  "dohyeongkim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 341,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science",
+     "Physics and Astronomy"
+    ],
+    "hint": "Korea Environment Institute, South Korea",
+    "id": "A5101716360",
+    "name": "Dohyeong Kim",
+    "score": 11,
+    "works_count": 35
+   },
+   "name": "Dohyeong Kim",
+   "works": [
+    {
+     "cited": 168,
+     "title": "Significance of direct and indirect radiative forcings of aerosols in the East China Sea region",
+     "url": "https://doi.org/10.1029/2002jd003261",
+     "venue": "Journal of Geophysical Research Atmospheres",
+     "year": 2003
+    },
+    {
+     "cited": 31,
+     "title": "Morphodynamic evolution of the macrotidal Sittaung River estuary, Myanmar: Tidal versus seasonal controls",
+     "url": "https://doi.org/10.1016/j.margeo.2020.106367",
+     "venue": "Marine Geology",
+     "year": 2020
+    },
+    {
+     "cited": 26,
+     "title": "Social and ecological impacts of the Hebei Spirit oil spill on the west coast of Korea: Implications for compensation and recovery",
+     "url": "https://doi.org/10.1016/j.ocecoaman.2014.05.023",
+     "venue": "Ocean & Coastal Management",
+     "year": 2014
+    }
+   ]
+  },
+  "dohyeongkim|korea environment institute": {
+   "affiliation": "Korea Environment Institute",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 341,
+    "fields": [
+     "Computer Science",
+     "Earth and Planetary Sciences",
+     "Environmental Science",
+     "Physics and Astronomy"
+    ],
+    "hint": "Korea Environment Institute, South Korea",
+    "id": "A5101716360",
+    "name": "Dohyeong Kim",
+    "score": 20,
+    "works_count": 35
+   },
+   "name": "Dohyeong Kim",
+   "works": [
+    {
+     "cited": 168,
+     "title": "Significance of direct and indirect radiative forcings of aerosols in the East China Sea region",
+     "url": "https://doi.org/10.1029/2002jd003261",
+     "venue": "Journal of Geophysical Research Atmospheres",
+     "year": 2003
+    },
+    {
+     "cited": 31,
+     "title": "Morphodynamic evolution of the macrotidal Sittaung River estuary, Myanmar: Tidal versus seasonal controls",
+     "url": "https://doi.org/10.1016/j.margeo.2020.106367",
+     "venue": "Marine Geology",
+     "year": 2020
+    },
+    {
+     "cited": 26,
+     "title": "Social and ecological impacts of the Hebei Spirit oil spill on the west coast of Korea: Implications for compensation and recovery",
+     "url": "https://doi.org/10.1016/j.ocecoaman.2014.05.023",
+     "venue": "Ocean & Coastal Management",
+     "year": 2014
+    }
+   ]
+  },
+  "dominiquevaldivia|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Dominique Valdivia",
+   "works": []
+  },
+  "duanpingshi|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5135201266",
+    "name": "Duanping Shi",
+    "score": 7,
+    "works_count": 1
+   },
+   "name": "Duanping Shi",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Glacial impacts on sedimentation off Enderby Land, East Antarctica during the past two glacial cycles",
+     "url": "https://doi.org/10.1016/j.margeo.2026.107791",
+     "venue": "Marine Geology",
+     "year": 2026
+    }
+   ]
+  },
+  "eunjinson|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 8,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Pohang University of Science and Technology, South Korea",
+    "id": "A5116684578",
+    "name": "Eun Jin Son",
+    "score": 11,
+    "works_count": 4
+   },
+   "name": "Eun Jin Son",
+   "works": [
+    {
+     "cited": 6,
+     "title": "Geochemical and mineralogical characteristics of fjord sediments in Arctic Svalbard: insights into Holocene glacial activity and weathering variability",
+     "url": "https://doi.org/10.2110/jsr.2024.088",
+     "venue": "Journal of Sedimentary Research",
+     "year": 2025
+    },
+    {
+     "cited": 1,
+     "title": "Instant Weathering Response to Carbon‐Cycle Perturbations During the End‐Triassic Extinction",
+     "url": "https://doi.org/10.1111/ter.70033",
+     "venue": "Terra Nova",
+     "year": 2026
+    },
+    {
+     "cited": 1,
+     "title": "Holocene climate driving spatially variable mercury input to an Arctic fjord environment",
+     "url": "https://doi.org/10.1016/j.chemgeo.2025.123043",
+     "venue": "Chemical Geology",
+     "year": 2025
+    }
+   ]
+  },
+  "gideonovwuwonye|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Gideon Ovwuwonye",
+   "works": []
+  },
+  "gilyoungkim|korea institute of geoscience and mineral resources": {
+   "affiliation": "Korea Institute of Geoscience and Mineral Resources",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 1746,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Institute of Geoscience and Mineral Resources, South Korea",
+    "id": "A5080990229",
+    "name": "Gil Young Kim",
+    "score": 13,
+    "works_count": 242
+   },
+   "name": "Gil Young Kim",
+   "works": [
+    {
+     "cited": 162,
+     "title": "Slow slip source characterized by lithological and geometric heterogeneity",
+     "url": "https://doi.org/10.1126/sciadv.aay3314",
+     "venue": "Science Advances",
+     "year": 2020
+    },
+    {
+     "cited": 75,
+     "title": "Seismic stratigraphy and depositional history of late Quaternary deposits in a tide-dominated setting: An example from the eastern Yellow Sea",
+     "url": "https://doi.org/10.1016/j.marpetgeo.2016.03.005",
+     "venue": "Marine and Petroleum Geology",
+     "year": 2016
+    },
+    {
+     "cited": 59,
+     "title": "Paleoceanographic change during the last deglaciation, east Sea of Korea",
+     "url": "https://doi.org/10.1029/1999pa000393",
+     "venue": "Paleoceanography",
+     "year": 2000
+    }
+   ]
+  },
+  "goichirouramoto|marine core research institute, kochi university": {
+   "affiliation": "Marine Core Research Institute, Kochi University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 2,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Engineering"
+    ],
+    "hint": "University of Kochi, Japan",
+    "id": "A5124919703",
+    "name": "Go-Ichiro Uramoto",
+    "score": 11,
+    "works_count": 15
+   },
+   "name": "Go-Ichiro Uramoto",
+   "works": [
+    {
+     "cited": 2,
+     "title": "A widespread meter-thick turbidite in the Southern Kuril trench records the 13th-century megathrust earthquake",
+     "url": "https://doi.org/10.1186/s40562-026-00478-x",
+     "venue": "Geoscience Letters",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Additional file 1 of A widespread meter-thick turbidite in the Southern Kuril trench records the 13th-century megathrust earthquake",
+     "url": "https://doi.org/10.6084/m9.figshare.32182110.v1",
+     "venue": "Figshare",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "A widespread meter-thick turbidite in the Southern Kuril trench records the 13th-century megathrust earthquake",
+     "url": "https://doi.org/10.6084/m9.figshare.c.8460417",
+     "venue": "Figshare",
+     "year": 2026
+    }
+   ]
+  },
+  "guangfazhong|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Engineering"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5124976845",
+    "name": "Guangfa Zhong",
+    "score": 9,
+    "works_count": 6
+   },
+   "name": "Guangfa Zhong",
+   "works": [
+    {
+     "cited": 1,
+     "title": "Interactions between buried mass-transport complexes and subsequent slope failures on a passive margin",
+     "url": "https://doi.org/10.1130/b38795.1",
+     "venue": "Geological Society of America Bulletin",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "花东海盆地球动力学演化与未来大洋钻探选址",
+     "url": "https://doi.org/10.1360/sste-2025-0430",
+     "venue": "SCIENTIA SINICA Terrae",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "IODP Expedition 367 Rig instrumentation",
+     "url": "https://doi.org/10.5281/zenodo.18488465",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2018
+    }
+   ]
+  },
+  "gwangsoolee|korea institute of geoscience and mineral resources": {
+   "affiliation": "Korea Institute of Geoscience and Mineral Resources",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 11,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Geoscience and Mineral Resources, South Korea",
+    "id": "A5053376813",
+    "name": "Gwangsoo Lee",
+    "score": 14,
+    "works_count": 3
+   },
+   "name": "Gwangsoo Lee",
+   "works": [
+    {
+     "cited": 11,
+     "title": "Tectonostratigraphic framework in the eastern Korean continental margin, East Sea: Implication for evolution of the Hupo Basin",
+     "url": "https://doi.org/10.1111/bre.12641",
+     "venue": "Basin Research",
+     "year": 2021
+    },
+    {
+     "cited": 0,
+     "title": "Shaking table model test assessing dynamic characteristics of earthquake-induced submarine landslide for Ulleung basin",
+     "url": "https://doi.org/10.1016/j.kscej.2026.100680",
+     "venue": "KSCE Journal of Civil Engineering",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Tectonostratigraphic evolution of the Hupo Basin in the western margin of the Ulleung back-arc basin, the East Sea",
+     "url": "https://doi.org/10.5194/egusphere-egu23-4610",
+     "venue": "",
+     "year": 2023
+    }
+   ]
+  },
+  "gyuchanpark|seoul national university": {
+   "affiliation": "Seoul National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5045330880",
+    "name": "Gyuchan Park",
+    "score": 6,
+    "works_count": 7
+   },
+   "name": "Gyuchan Park",
+   "works": [
+    {
+     "cited": 0,
+     "title": "A Sharp Melt‐Bearing Lithosphere–Asthenosphere Boundary Beneath the Korean Peninsula: Evidence From Teleseismic Receiver Functions",
+     "url": "https://doi.org/10.1029/2026jb035178",
+     "venue": "Journal of Geophysical Research Solid Earth",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Data for \"Fractionation of Sulfide and Platinum-Group Minerals Controls Platinum-Group Element Systematics in Mid-ocean Ridge magma: a Case Study of Macquarie Island Ophiolite\"",
+     "url": "https://doi.org/10.17632/ck7mf66cpc",
+     "venue": "Mendeley Data",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Data for \"Fractionation of Sulfide and Platinum-Group Minerals Controls Platinum-Group Element Systematics in Mid-ocean Ridge magma: a Case Study of Macquarie Island Ophiolite\"",
+     "url": "https://doi.org/10.17632/ck7mf66cpc.2",
+     "venue": "Mendeley Data",
+     "year": 2026
+    }
+   ]
+  },
+  "gyuhahwang|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 13,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5006883124",
+    "name": "Gyuha Hwang",
+    "score": 9,
+    "works_count": 12
+   },
+   "name": "Gyuha Hwang",
+   "works": [
+    {
+     "cited": 8,
+     "title": "Flexure and gravity anomalies of the oceanic lithosphere beneath the Louisville seamount",
+     "url": "https://doi.org/10.1016/j.tecto.2016.07.014",
+     "venue": "Tectonophysics",
+     "year": 2016
+    },
+    {
+     "cited": 3,
+     "title": "Resource abundance of cobalt-rich ferromanganese crusts in the KC-8 seamount, West Pacific",
+     "url": "https://doi.org/10.3389/feart.2024.1495673",
+     "venue": "Frontiers in Earth Science",
+     "year": 2024
+    },
+    {
+     "cited": 1,
+     "title": "Thermomechanical Analysis of the Louisville Seamount Chain: Implications for Late Cretaceous Pacific Plate Evolution",
+     "url": "https://doi.org/10.1029/2025jb031557",
+     "venue": "Journal of Geophysical Research Solid Earth",
+     "year": 2025
+    }
+   ]
+  },
+  "gyutaesim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 3,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Chungnam National University, South Korea",
+    "id": "A5094097141",
+    "name": "Gyutae Sim",
+    "score": 11,
+    "works_count": 4
+   },
+   "name": "Gyu-Tae Sim",
+   "works": [
+    {
+     "cited": 3,
+     "title": "Calibration of sortable silt mean size to bottom current speeds in the East Sea (Japan Sea): challenges and prospects",
+     "url": "https://doi.org/10.1007/s00367-025-00836-2",
+     "venue": "Geo-Marine Letters",
+     "year": 2025
+    },
+    {
+     "cited": 0,
+     "title": "Sediment transport and depositional hydrodynamics on the eastern Korean continental margin revealed by surface sediment granulometry",
+     "url": "https://doi.org/10.1111/sed.70093",
+     "venue": "Sedimentology",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Post-glacial paleoenvironmental changes of sedimentary processes recorded in the contourite drifts of Hupo Basin in the eastern margin of Korean Peninsula, East Sea",
+     "url": "https://doi.org/10.5194/egusphere-egu24-7139",
+     "venue": "",
+     "year": 2024
+    }
+   ]
+  },
+  "hanantokurnio|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 146,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "National Research and Innovation Agency, Indonesia",
+    "id": "A5033757085",
+    "name": "Hananto Kurnio",
+    "score": 10,
+    "works_count": 51
+   },
+   "name": "Hananto Kurnio",
+   "works": [
+    {
+     "cited": 12,
+     "title": "SUBMARINE VOLCANO CHARACTERISTICS IN SABANG WATERS",
+     "url": "https://doi.org/10.32693/bomg.30.2.2015.78",
+     "venue": "BULLETIN OF THE MARINE GEOLOGY",
+     "year": 2016
+    },
+    {
+     "cited": 5,
+     "title": "REVIEW OF COASTAL CHARACTERISTICS OF IRON SAND DEPOSITS IN CILACAP CENTRAL JAVA",
+     "url": "https://doi.org/10.32693/bomg.22.1.2007.4",
+     "venue": "BULLETIN OF THE MARINE GEOLOGY",
+     "year": 2016
+    },
+    {
+     "cited": 4,
+     "title": "Tectonics of Volcanogenic Massive Sulphide (VMS) Deposits at Flores Back Arc Basin: A Review",
+     "url": "https://doi.org/10.32693/bomg.35.2.2020.679",
+     "venue": "BULLETIN OF THE MARINE GEOLOGY",
+     "year": 2020
+    }
+   ]
+  },
+  "hiroyukitakata|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1028,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Shimane University, Japan",
+    "id": "A5042879195",
+    "name": "Hiroyuki Takata",
+    "score": 8,
+    "works_count": 97
+   },
+   "name": "Hiroyuki Takata",
+   "works": [
+    {
+     "cited": 421,
+     "title": "A Cenozoic record of the equatorial Pacific carbonate compensation depth",
+     "url": "https://doi.org/10.1038/nature11360",
+     "venue": "Nature",
+     "year": 2012
+    },
+    {
+     "cited": 166,
+     "title": "Late Pliocene–early Pleistocene paleoceanographic evolution of the Sea of Japan",
+     "url": "https://doi.org/10.1016/s0031-0182(01)00272-3",
+     "venue": "Palaeogeography Palaeoclimatology Palaeoecology",
+     "year": 2001
+    },
+    {
+     "cited": 35,
+     "title": "Factors controlling typhoons and storm rain on the Korean Peninsula during the Little Ice Age",
+     "url": "https://doi.org/10.1007/s10933-015-9861-3",
+     "venue": "Journal of Paleolimnology",
+     "year": 2015
+    }
+   ]
+  },
+  "huijuanpan|national taiwan ocean university": {
+   "affiliation": "National Taiwan Ocean University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 944,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "National Taiwan Ocean University, Taiwan",
+    "id": "A5029118140",
+    "name": "Hui-Juan Pan",
+    "score": 15,
+    "works_count": 27
+   },
+   "name": "Hui-Juan Pan",
+   "works": [
+    {
+     "cited": 642,
+     "title": "Marine microplastics as vectors of major ocean pollutants and its hazards to the marine ecosystem and humans",
+     "url": "https://doi.org/10.1186/s40645-020-00405-4",
+     "venue": "Progress in Earth and Planetary Science",
+     "year": 2021
+    },
+    {
+     "cited": 47,
+     "title": "Millennial-scale variability of Indian summer monsoon during the last 42 kyr: Evidence based on foraminiferal Mg/Ca and oxygen isotope records from the central Bay of Bengal",
+     "url": "https://doi.org/10.1016/j.palaeo.2020.110112",
+     "venue": "Palaeogeography Palaeoclimatology Palaeoecology",
+     "year": 2020
+    },
+    {
+     "cited": 44,
+     "title": "China's historical record when searching for tropical cyclones corresponding to Intertropical Convergence Zone (ITCZ) shifts over the past 2 kyr",
+     "url": "https://doi.org/10.5194/cp-15-279-2019",
+     "venue": "Climate of the past",
+     "year": 2019
+    }
+   ]
+  },
+  "hunjunha|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 242,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Chonnam National University, South Korea",
+    "id": "A5005251091",
+    "name": "Hun Jun Ha",
+    "score": 12,
+    "works_count": 26
+   },
+   "name": "Hun Jun Ha",
+   "works": [
+    {
+     "cited": 33,
+     "title": "The Heuksan mud belt on the tide-dominated shelf of Korea: a supply-driven depositional system?",
+     "url": "https://doi.org/10.1007/s00367-015-0418-2",
+     "venue": "Geo-Marine Letters",
+     "year": 2015
+    },
+    {
+     "cited": 28,
+     "title": "Rainfall effects on the erodibility of sediment and microphytobenthos in the intertidal flat",
+     "url": "https://doi.org/10.1016/j.envpol.2018.06.079",
+     "venue": "Environmental Pollution",
+     "year": 2018
+    },
+    {
+     "cited": 26,
+     "title": "Spatiotemporal variation of extracellular polymeric substances (EPS) associated with the microphytobenthos of tidal flats in the Yellow Sea",
+     "url": "https://doi.org/10.1016/j.marpolbul.2021.112780",
+     "venue": "Marine Pollution Bulletin",
+     "year": 2021
+    }
+   ]
+  },
+  "hunjunha|chonnam national university": {
+   "affiliation": "Chonnam National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 242,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Chonnam National University, South Korea",
+    "id": "A5005251091",
+    "name": "Hun Jun Ha",
+    "score": 13,
+    "works_count": 26
+   },
+   "name": "Hun Jun Ha",
+   "works": [
+    {
+     "cited": 33,
+     "title": "The Heuksan mud belt on the tide-dominated shelf of Korea: a supply-driven depositional system?",
+     "url": "https://doi.org/10.1007/s00367-015-0418-2",
+     "venue": "Geo-Marine Letters",
+     "year": 2015
+    },
+    {
+     "cited": 28,
+     "title": "Rainfall effects on the erodibility of sediment and microphytobenthos in the intertidal flat",
+     "url": "https://doi.org/10.1016/j.envpol.2018.06.079",
+     "venue": "Environmental Pollution",
+     "year": 2018
+    },
+    {
+     "cited": 26,
+     "title": "Spatiotemporal variation of extracellular polymeric substances (EPS) associated with the microphytobenthos of tidal flats in the Yellow Sea",
+     "url": "https://doi.org/10.1016/j.marpolbul.2021.112780",
+     "venue": "Marine Pollution Bulletin",
+     "year": 2021
+    }
+   ]
+  },
+  "hyeinkim|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Hyein Kim",
+   "works": []
+  },
+  "hyeonhoan|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 17,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5045010090",
+    "name": "Hyeonho An",
+    "score": 8,
+    "works_count": 7
+   },
+   "name": "Hyeonho An",
+   "works": [
+    {
+     "cited": 8,
+     "title": "Mineralogy, geochemistry, and sources of clay minerals in sediments of the Ulleung Basin, East Sea (Sea of Japan)",
+     "url": "https://doi.org/10.1007/s12303-023-0011-z",
+     "venue": "Geosciences Journal",
+     "year": 2023
+    },
+    {
+     "cited": 3,
+     "title": "High-Resolution Reconstruction of Oxidation–Reduction Conditions: Raman Spectroscopy and μ-XRF Analysis of Manganese Nodule and Crust on Tabletop of Western Pacific Magellan Seamounts",
+     "url": "https://doi.org/10.3390/min14111135",
+     "venue": "Minerals",
+     "year": 2024
+    },
+    {
+     "cited": 3,
+     "title": "Semi-Quantitative Analyses of Ferromanganese Nodules from the Pacific Ocean Using Synchrotron X-ray Powder Diffraction",
+     "url": "https://doi.org/10.3390/min13121555",
+     "venue": "Minerals",
+     "year": 2023
+    }
+   ]
+  },
+  "hyeonseobkim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Social Sciences"
+    ],
+    "hint": "Kangwon National University, South Korea",
+    "id": "A5078255933",
+    "name": "Hyeon-Seob Kim",
+    "score": 9,
+    "works_count": 8
+   },
+   "name": "Hyeon-Seob Kim",
+   "works": [
+    {
+     "cited": 2,
+     "title": "Lateral Viscosity Heterogeneity of Mantle Wedge and Back-Arc Mantle: Implications from the 2010 Mw 8.8 Maule and 2011 Mw 9.0 Tohoku-Oki Postseismic Deformation",
+     "url": "https://doi.org/10.1785/0220250153",
+     "venue": "Seismological Research Letters",
+     "year": 2025
+    },
+    {
+     "cited": 0,
+     "title": "Control of back-arc mantle rheology on far-field postseismic deformation of the Korean Peninsula after the 2011 Mw 9.0 Tohoku-Oki earthquake",
+     "url": "https://doi.org/10.1016/j.epsl.2026.120241",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Numerical Modeling of Subduction Zone Thermal Structure with Firedrake and Gmsh",
+     "url": "https://doi.org/10.1007/s12601-026-00292-8",
+     "venue": "Ocean Science Journal",
+     "year": 2026
+    }
+   ]
+  },
+  "hyesungkim|chungnam national university": {
+   "affiliation": "Chungnam National University",
+   "match": null,
+   "name": "Hye-Sung Kim",
+   "works": []
+  },
+  "hyosangkwon|korea institute of geoscience and mineral resources": {
+   "affiliation": "Korea Institute of Geoscience and Mineral Resources",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 38,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Geoscience and Mineral Resources, South Korea",
+    "id": "A5025608732",
+    "name": "Hyosang Kwon",
+    "score": 23,
+    "works_count": 9
+   },
+   "name": "Hyosang Kwon",
+   "works": [
+    {
+     "cited": 17,
+     "title": "Mercury evidence from the Sino-Korean block for Emeishan volcanism during the Capitanian mass extinction",
+     "url": "https://doi.org/10.1017/s0016756818000481",
+     "venue": "Geological Magazine",
+     "year": 2018
+    },
+    {
+     "cited": 10,
+     "title": "Geological structures in the Tongri-Dogye and Sangdeog areas in the eastern part of the Samcheog Coalfield, Korea",
+     "url": "https://doi.org/10.1007/bf02910134",
+     "venue": "Geosciences Journal",
+     "year": 2000
+    },
+    {
+     "cited": 7,
+     "title": "Responses of the biogeochemical sulfur cycle to Early Permian tectonic and climatic events",
+     "url": "https://doi.org/10.1016/j.epsl.2022.117604",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2022
+    }
+   ]
+  },
+  "hyukchoi|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Hyuk Choi",
+   "works": []
+  },
+  "hyunheerhee|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 164,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Kongju National University, South Korea",
+    "id": "A5100669703",
+    "name": "Hyun Hee Rhee",
+    "score": 6,
+    "works_count": 28
+   },
+   "name": "Hyun Hee Rhee",
+   "works": [
+    {
+     "cited": 35,
+     "title": "Late Quaternary deglacial history across the Larsen B embayment, Antarctica",
+     "url": "https://doi.org/10.1016/j.quascirev.2018.04.011",
+     "venue": "Quaternary Science Reviews",
+     "year": 2018
+    },
+    {
+     "cited": 16,
+     "title": "Timing of the local last glacial maximum in Terra Nova Bay, Antarctica defined by cosmogenic dating",
+     "url": "https://doi.org/10.1016/j.quascirev.2019.105897",
+     "venue": "Quaternary Science Reviews",
+     "year": 2019
+    },
+    {
+     "cited": 16,
+     "title": "Late Quaternary glacial history of Khentey Mountains, Central Mongolia",
+     "url": "https://doi.org/10.1111/bor.12386",
+     "venue": "Boreas",
+     "year": 2019
+    }
+   ]
+  },
+  "inkyeongmoon|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 115,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Economics, Econometrics and Finance"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5101450416",
+    "name": "Inkyeong Moon",
+    "score": 14,
+    "works_count": 42
+   },
+   "name": "Inkyeong Moon",
+   "works": [
+    {
+     "cited": 30,
+     "title": "Geochemical constraints on the genesis of the Algoma-type banded iron formation (BIF) in Yishui County, western Shandong Province, North China Craton",
+     "url": "https://doi.org/10.1016/j.oregeorev.2017.08.005",
+     "venue": "Ore Geology Reviews",
+     "year": 2017
+    },
+    {
+     "cited": 18,
+     "title": "Geochemical studies of banded iron formations (BIFs) in the North China Craton: a review",
+     "url": "https://doi.org/10.1007/s12303-017-0042-4",
+     "venue": "Geosciences Journal",
+     "year": 2017
+    },
+    {
+     "cited": 10,
+     "title": "Geochemical and Mineralogical Characteristics of Garnierite From the Morowali Ni-Laterite Deposit in Sulawesi, Indonesia",
+     "url": "https://doi.org/10.3389/feart.2021.761748",
+     "venue": "Frontiers in Earth Science",
+     "year": 2021
+    }
+   ]
+  },
+  "insungkang|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Insung Kang",
+   "works": []
+  },
+  "jaeillee|korea polar research institute": {
+   "affiliation": "Korea Polar Research Institute",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 2023,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5101415015",
+    "name": "Jae Il Lee",
+    "score": 10,
+    "works_count": 144
+   },
+   "name": "Jae Il Lee",
+   "works": [
+    {
+     "cited": 223,
+     "title": "Erosional response of South China to arc rifting and monsoonal strengthening; a record from the South China Sea",
+     "url": "https://doi.org/10.1016/s0025-3227(01)00301-2",
+     "venue": "Marine Geology",
+     "year": 2002
+    },
+    {
+     "cited": 130,
+     "title": "Reviews and syntheses: Ocean iron fertilization experiments – past, present, and future looking to a future Korean Iron Fertilization Experiment in the Southern Ocean (KIFES) project",
+     "url": "https://doi.org/10.5194/bg-15-5847-2018",
+     "venue": "Biogeosciences",
+     "year": 2018
+    },
+    {
+     "cited": 129,
+     "title": "Nd and Pb isotope variability in the Indus River System: implications for sediment provenance and crustal heterogeneity in the Western Himalaya",
+     "url": "https://doi.org/10.1016/s0012-821x(02)00620-9",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2002
+    }
+   ]
+  },
+  "jaeyoonkeum|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Kangwon National University, South Korea",
+    "id": "A5122767934",
+    "name": "Jaeyoon Keum",
+    "score": 5,
+    "works_count": 6
+   },
+   "name": "Jaeyoon Keum",
+   "works": [
+    {
+     "cited": 1,
+     "title": "Thermal Evolution of the Sulfur‐Rich, Small Terrestrial Planetary Core as Inferred From the Experimental Study of the Fe‐S‐O‐H System",
+     "url": "https://doi.org/10.1029/2025je009141",
+     "venue": "Journal of Geophysical Research Planets",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Comment on egusphere-2026-2922",
+     "url": "https://doi.org/10.5194/egusphere-2026-2922-rc2",
+     "venue": "",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Comment on egusphere-2026-2922",
+     "url": "https://doi.org/10.5194/egusphere-2026-2922-rc1",
+     "venue": "",
+     "year": 2026
+    }
+   ]
+  },
+  "jamesliu|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 225,
+    "fields": [
+     "Biochemistry, Genetics and Molecular Biology",
+     "Engineering",
+     "Physics and Astronomy"
+    ],
+    "hint": "TUM Klinikum, Germany",
+    "id": "A5104074031",
+    "name": "James Liu",
+    "score": 6,
+    "works_count": 15
+   },
+   "name": "James Liu",
+   "works": [
+    {
+     "cited": 154,
+     "title": "CEERS Key Paper. III. The Diversity of Galaxy Structure and Morphology at z = 3–9 with JWST",
+     "url": "https://doi.org/10.3847/2041-8213/acad01",
+     "venue": "The Astrophysical Journal Letters",
+     "year": 2023
+    },
+    {
+     "cited": 3,
+     "title": "Gauge and gravitational anomaly cancellation in type-I superstring theory",
+     "url": "https://doi.org/10.1016/0550-3213(91)90560-k",
+     "venue": "Nuclear Physics B",
+     "year": 1991
+    },
+    {
+     "cited": 1,
+     "title": "RECENT LCLS PERFORMANCE FROM 250 TO 500 eV",
+     "url": "https://openalex.org/W2182129267",
+     "venue": "",
+     "year": 2013
+    }
+   ]
+  },
+  "jangjunbahk|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Chungnam National University, South Korea",
+    "id": "A5128362784",
+    "name": "Jang Jun Bahk",
+    "score": 8,
+    "works_count": 1
+   },
+   "name": "Jang-Jun Bahk",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Sediment transport and depositional hydrodynamics on the eastern Korean continental margin revealed by surface sediment granulometry",
+     "url": "https://doi.org/10.1111/sed.70093",
+     "venue": "Sedimentology",
+     "year": 2026
+    }
+   ]
+  },
+  "jeongwonseo|kangwon national university": {
+   "affiliation": "Kangwon National University",
+   "match": null,
+   "name": "Jeong-Won Seo",
+   "works": []
+  },
+  "jiachengpeng|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Jiacheng Peng",
+   "works": []
+  },
+  "jianfengli|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 6942,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Ningbo University, China",
+    "id": "A5100462027",
+    "name": "Jianfeng Li",
+    "score": 6,
+    "works_count": 212
+   },
+   "name": "Jianfeng Li",
+   "works": [
+    {
+     "cited": 210,
+     "title": "Effect of green roof on ambient CO2 concentration",
+     "url": "https://doi.org/10.1016/j.buildenv.2010.05.025",
+     "venue": "Building and Environment",
+     "year": 2010
+    },
+    {
+     "cited": 206,
+     "title": "Variations and changes of annual precipitation in Central Asia over the last century",
+     "url": "https://doi.org/10.1002/joc.4988",
+     "venue": "International Journal of Climatology",
+     "year": 2017
+    },
+    {
+     "cited": 178,
+     "title": "DISO: A rethink of Taylor diagram",
+     "url": "https://doi.org/10.1002/joc.5972",
+     "venue": "International Journal of Climatology",
+     "year": 2018
+    }
+   ]
+  },
+  "jiazongdu|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 276,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Materials Science"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5024248682",
+    "name": "Jiazong Du",
+    "score": 6,
+    "works_count": 31
+   },
+   "name": "Jiazong Du",
+   "works": [
+    {
+     "cited": 25,
+     "title": "Variations and geological significance of solid acidity during smectite illitization",
+     "url": "https://doi.org/10.1016/j.clay.2021.106035",
+     "venue": "Applied Clay Science",
+     "year": 2021
+    },
+    {
+     "cited": 21,
+     "title": "The effect of iron on the preservation of organic carbon in marine sediments and its implications for carbon sequestration",
+     "url": "https://doi.org/10.1007/s11430-023-1139-9",
+     "venue": "Science China Earth Sciences",
+     "year": 2023
+    },
+    {
+     "cited": 9,
+     "title": "Evolution of surface acidity during smectite illitization: Implication for organic carbon cycle",
+     "url": "https://doi.org/10.1016/j.marpetgeo.2022.105537",
+     "venue": "Marine and Petroleum Geology",
+     "year": 2022
+    }
+   ]
+  },
+  "jiesheng|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2329,
+    "fields": [
+     "Environmental Science",
+     "Medicine"
+    ],
+    "hint": "Weifang Medical University, China",
+    "id": "A5101432359",
+    "name": "Jie Sheng",
+    "score": 6,
+    "works_count": 74
+   },
+   "name": "Jie Sheng",
+   "works": [
+    {
+     "cited": 414,
+     "title": "Targeted hypoxia reduction restores T cell infiltration and sensitizes prostate cancer to immunotherapy",
+     "url": "https://doi.org/10.1172/jci96268",
+     "venue": "Journal of Clinical Investigation",
+     "year": 2018
+    },
+    {
+     "cited": 142,
+     "title": "Online Antenatal Care During the COVID-19 Pandemic: Opportunities and Challenges",
+     "url": "https://doi.org/10.2196/19916",
+     "venue": "Journal of Medical Internet Research",
+     "year": 2020
+    },
+    {
+     "cited": 63,
+     "title": "Prenatal phthalate exposure and placental size and shape at birth: A birth cohort study",
+     "url": "https://doi.org/10.1016/j.envres.2017.09.012",
+     "venue": "Environmental Research",
+     "year": 2017
+    }
+   ]
+  },
+  "jieunchang|kangwon national university": {
+   "affiliation": "Kangwon National University",
+   "match": null,
+   "name": "Jieun Chang",
+   "works": []
+  },
+  "jihunkim|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Jihun Kim",
+   "works": []
+  },
+  "jihunkim|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": null,
+   "name": "Jihun Kim",
+   "works": []
+  },
+  "jingyuanzhang|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Jingyuan Zhang",
+   "works": []
+  },
+  "jinsubpark|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Jinsub Park",
+   "works": []
+  },
+  "joobongjeong|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 87,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5002049402",
+    "name": "Joo Bong Jeong",
+    "score": 17,
+    "works_count": 23
+   },
+   "name": "Joo Bong Jeong",
+   "works": [
+    {
+     "cited": 11,
+     "title": "Influence of submarine topography and associated sedimentary processes on the distribution of live and dead rhodoliths near Udo Island, Korea",
+     "url": "https://doi.org/10.1007/s00367-019-00623-w",
+     "venue": "Geo-Marine Letters",
+     "year": 2019
+    },
+    {
+     "cited": 9,
+     "title": "Evolution and Sedimentation Mechanisms of Estuarine Beach in the Nakdong River Estuary, Korea: Natural and Human Impact",
+     "url": "https://doi.org/10.1007/s12601-022-00070-2",
+     "venue": "Ocean Science Journal",
+     "year": 2022
+    },
+    {
+     "cited": 8,
+     "title": "Roles of Exposure Time and Geochemical Factors in the Characteristics of the Surface Sediments of the Hwangdo Tidal Flat, Taean, Cheonsu Bay, West Coast of Korea",
+     "url": "https://doi.org/10.3390/jmse11091697",
+     "venue": "Journal of Marine Science and Engineering",
+     "year": 2023
+    }
+   ]
+  },
+  "jooheejo|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 124,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5067456606",
+    "name": "Joohee Jo",
+    "score": 14,
+    "works_count": 23
+   },
+   "name": "Joohee Jo",
+   "works": [
+    {
+     "cited": 31,
+     "title": "Morphodynamic evolution of the macrotidal Sittaung River estuary, Myanmar: Tidal versus seasonal controls",
+     "url": "https://doi.org/10.1016/j.margeo.2020.106367",
+     "venue": "Marine Geology",
+     "year": 2020
+    },
+    {
+     "cited": 18,
+     "title": "Role of rainfall-induced runoff discharge and human disturbance on the morphodynamics and sedimentation in the semienclosed macrotidal flats (Shinsi tidal flats, Korea)",
+     "url": "https://doi.org/10.1016/j.margeo.2021.106522",
+     "venue": "Marine Geology",
+     "year": 2021
+    },
+    {
+     "cited": 17,
+     "title": "Influence of dike-induced morphologic and sedimentologic changes on the benthic ecosystem in the sheltered tidal flats, Saemangeum area, west coast of Korea",
+     "url": "https://doi.org/10.1016/j.envpol.2019.113507",
+     "venue": "Environmental Pollution",
+     "year": 2019
+    }
+   ]
+  },
+  "jooheejo|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 124,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5067456606",
+    "name": "Joohee Jo",
+    "score": 19,
+    "works_count": 23
+   },
+   "name": "Joohee Jo",
+   "works": [
+    {
+     "cited": 31,
+     "title": "Morphodynamic evolution of the macrotidal Sittaung River estuary, Myanmar: Tidal versus seasonal controls",
+     "url": "https://doi.org/10.1016/j.margeo.2020.106367",
+     "venue": "Marine Geology",
+     "year": 2020
+    },
+    {
+     "cited": 18,
+     "title": "Role of rainfall-induced runoff discharge and human disturbance on the morphodynamics and sedimentation in the semienclosed macrotidal flats (Shinsi tidal flats, Korea)",
+     "url": "https://doi.org/10.1016/j.margeo.2021.106522",
+     "venue": "Marine Geology",
+     "year": 2021
+    },
+    {
+     "cited": 17,
+     "title": "Influence of dike-induced morphologic and sedimentologic changes on the benthic ecosystem in the sheltered tidal flats, Saemangeum area, west coast of Korea",
+     "url": "https://doi.org/10.1016/j.envpol.2019.113507",
+     "venue": "Environmental Pollution",
+     "year": 2019
+    }
+   ]
+  },
+  "joohyeonkim|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Joohyeon Kim",
+   "works": []
+  },
+  "josedominickguballa|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 8,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "",
+    "id": "A5013078940",
+    "name": "Jose Dominick Guballa",
+    "score": 10,
+    "works_count": 5
+   },
+   "name": "Jose Dominick Guballa",
+   "works": [
+    {
+     "cited": 4,
+     "title": "The Toba Eruption 74,000 Years ago Strengthened the Indian Winter Monsoon‐Evidence From Coccolithophores",
+     "url": "https://doi.org/10.1029/2023pa004823",
+     "venue": "Paleoceanography and Paleoclimatology",
+     "year": 2024
+    },
+    {
+     "cited": 2,
+     "title": "Coccolithophore assemblage composition during the Greenland Interstadial–Stadial 20 transition and their response to the Youngest Toba Tuff (YTT) supereruption ∼74,000 years ago in the northeastern Arabian Sea",
+     "url": "https://doi.org/10.1371/journal.pone.0310041",
+     "venue": "PLoS ONE",
+     "year": 2024
+    },
+    {
+     "cited": 2,
+     "title": "Coccolithophore Assemblage Response to Indian Monsoon–ENSO Teleconnections During the Last Century",
+     "url": "https://doi.org/10.1029/2024pa004911",
+     "venue": "Paleoceanography and Paleoclimatology",
+     "year": 2024
+    }
+   ]
+  },
+  "josejorgepolancotorres|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": null,
+   "name": "Jose Jorge Polanco Torres",
+   "works": []
+  },
+  "junfeichen|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 3543,
+    "fields": [
+     "Engineering",
+     "Environmental Science"
+    ],
+    "hint": "University of Shanghai for Science and Technology, China",
+    "id": "A5013589265",
+    "name": "Junfei Chen",
+    "score": 5,
+    "works_count": 231
+   },
+   "name": "Junfei Chen",
+   "works": [
+    {
+     "cited": 191,
+     "title": "A Machine Learning Ensemble Approach Based on Random Forest and Radial Basis Function Neural Network for Risk Evaluation of Regional Flood Disaster: A Case Study of the Yangtze River Delta, China",
+     "url": "https://doi.org/10.3390/ijerph17010049",
+     "venue": "International Journal of Environmental Research and Public Health",
+     "year": 2019
+    },
+    {
+     "cited": 127,
+     "title": "Assessment of coordinative relationship between comprehensive ecosystem service and urbanization: A case study of Yangtze River Delta urban Agglomerations, China",
+     "url": "https://doi.org/10.1016/j.ecolind.2021.108454",
+     "venue": "Ecological Indicators",
+     "year": 2021
+    },
+    {
+     "cited": 111,
+     "title": "Urban ecosystem services supply-demand assessment from the perspective of the water-energy-food nexus",
+     "url": "https://doi.org/10.1016/j.scs.2023.104401",
+     "venue": "Sustainable Cities and Society",
+     "year": 2023
+    }
+   ]
+  },
+  "jungheechae|chonnam national university": {
+   "affiliation": "Chonnam National University",
+   "match": null,
+   "name": "Jung Hee Chae",
+   "works": []
+  },
+  "junghyunkim|korea polar research institute": {
+   "affiliation": "Korea Polar Research Institute",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 1419,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5100349741",
+    "name": "Jung-Hyun Kim",
+    "score": 11,
+    "works_count": 88
+   },
+   "name": "Jung-Hyun Kim",
+   "works": [
+    {
+     "cited": 522,
+     "title": "Revised calibration of the MBT–CBT paleotemperature proxy based on branched tetraether membrane lipids in surface soils",
+     "url": "https://doi.org/10.1016/j.gca.2012.08.011",
+     "venue": "Geochimica et Cosmochimica Acta",
+     "year": 2012
+    },
+    {
+     "cited": 164,
+     "title": "Disentangling the origins of branched tetraether lipids and crenarchaeol in the lower Amazon River: Implications for GDGT‐based proxies",
+     "url": "https://doi.org/10.4319/lo.2013.58.1.0343",
+     "venue": "Limnology and Oceanography",
+     "year": 2013
+    },
+    {
+     "cited": 126,
+     "title": "Tracing soil organic carbon in the lower Amazon River and its tributaries using GDGT distributions and bulk organic matter properties",
+     "url": "https://doi.org/10.1016/j.gca.2012.05.014",
+     "venue": "Geochimica et Cosmochimica Acta",
+     "year": 2012
+    }
+   ]
+  },
+  "junyoungseo|chonnam national university": {
+   "affiliation": "Chonnam National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 191,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Chonnam National University, South Korea",
+    "id": "A5053760845",
+    "name": "Jun Young Seo",
+    "score": 17,
+    "works_count": 22
+   },
+   "name": "Jun Young Seo",
+   "works": [
+    {
+     "cited": 28,
+     "title": "Dynamics and drivers of tidal flat morphology in China",
+     "url": "https://doi.org/10.1038/s41467-025-57525-y",
+     "venue": "Nature Communications",
+     "year": 2025
+    },
+    {
+     "cited": 15,
+     "title": "Wind-induced switch of estuarine residual circulations and sediment transport in microtidal bay",
+     "url": "https://doi.org/10.1016/j.ecss.2023.108371",
+     "venue": "Estuarine Coastal and Shelf Science",
+     "year": 2023
+    },
+    {
+     "cited": 14,
+     "title": "Disturbance of sedimentary processes in tidal salt marshes invaded by exotic vegetation",
+     "url": "https://doi.org/10.1016/j.scitotenv.2021.149303",
+     "venue": "The Science of The Total Environment",
+     "year": 2021
+    }
+   ]
+  },
+  "keijihorikawa|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 838,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "University of Toyama, Japan",
+    "id": "A5078611331",
+    "name": "Keiji Horikawa",
+    "score": 9,
+    "works_count": 107
+   },
+   "name": "Keiji Horikawa",
+   "works": [
+    {
+     "cited": 83,
+     "title": "Intermediate water formation in the Bering Sea during glacial periods: Evidence from neodymium isotope ratios",
+     "url": "https://doi.org/10.1130/g30225.1",
+     "venue": "Geology",
+     "year": 2010
+    },
+    {
+     "cited": 67,
+     "title": "Southern Ocean source of 14C-depleted carbon in the North Pacific Ocean during the last deglaciation",
+     "url": "https://doi.org/10.1038/ngeo987",
+     "venue": "Nature Geoscience",
+     "year": 2010
+    },
+    {
+     "cited": 65,
+     "title": "Pliocene cooling enhanced by flow of low-salinity Bering Sea water to the Arctic Ocean",
+     "url": "https://doi.org/10.1038/ncomms8587",
+     "venue": "Nature Communications",
+     "year": 2015
+    }
+   ]
+  },
+  "kenikehara|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 5165,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Geological Survey of Japan, Japan",
+    "id": "A5051542070",
+    "name": "Ken Ikehara",
+    "score": 9,
+    "works_count": 468
+   },
+   "name": "Ken Ikehara",
+   "works": [
+    {
+     "cited": 204,
+     "title": "Submarine Mass Movements and Their Consequences",
+     "url": "https://doi.org/10.1007/978-94-007-2162-3_1",
+     "venue": "Springer eBooks",
+     "year": 2011
+    },
+    {
+     "cited": 178,
+     "title": "Transgressive and highstand systems tracts and post-glacial transgression, the East China Sea",
+     "url": "https://doi.org/10.1016/s0037-0738(98)00107-9",
+     "venue": "Sedimentary Geology",
+     "year": 1998
+    },
+    {
+     "cited": 139,
+     "title": "Documenting large earthquakes similar to the 2011 Tohoku-oki earthquake from sediments deposited in the Japan Trench over the past 1500 years",
+     "url": "https://doi.org/10.1016/j.epsl.2016.04.009",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2016
+    }
+   ]
+  },
+  "kensawada|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1755,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Engineering"
+    ],
+    "hint": "Hokkaido University, Japan",
+    "id": "A5053900220",
+    "name": "Ken Sawada",
+    "score": 10,
+    "works_count": 121
+   },
+   "name": "Ken Sawada",
+   "works": [
+    {
+     "cited": 421,
+     "title": "A Cenozoic record of the equatorial Pacific carbonate compensation depth",
+     "url": "https://doi.org/10.1038/nature11360",
+     "venue": "Nature",
+     "year": 2012
+    },
+    {
+     "cited": 177,
+     "title": "Variability of the path of the Kuroshio ocean current over the past 25,000 years",
+     "url": "https://doi.org/10.1038/33391",
+     "venue": "Nature",
+     "year": 1998
+    },
+    {
+     "cited": 118,
+     "title": "Long-chain alkenones and alkyl alkenoates in the coastal and pelagic sediments of the northwest North Pacific, with special reference to the reconstruction of Emiliania huxleyi and Gephyrocapsa oceanica ratios",
+     "url": "https://doi.org/10.1016/s0146-6380(96)00087-3",
+     "venue": "Organic Geochemistry",
+     "year": 1996
+    }
+   ]
+  },
+  "kirstymarycamba|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Kirsty Mary Camba",
+   "works": []
+  },
+  "kotarohoshi|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Kotaro Hoshi",
+   "works": []
+  },
+  "kwangchuljang|gyeongsang national university": {
+   "affiliation": "Gyeongsang National University",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 451,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5090085598",
+    "name": "Kwangchul Jang",
+    "score": 7,
+    "works_count": 77
+   },
+   "name": "Kwangchul Jang",
+   "works": [
+    {
+     "cited": 48,
+     "title": "Rare earth element and neodymium isotope tracing of sedimentary rock weathering",
+     "url": "https://doi.org/10.1016/j.chemgeo.2020.119794",
+     "venue": "Chemical Geology",
+     "year": 2020
+    },
+    {
+     "cited": 42,
+     "title": "Glacial freshwater discharge events recorded by authigenic neodymium isotopes in sediments from the Mendeleev Ridge, western Arctic Ocean",
+     "url": "https://doi.org/10.1016/j.epsl.2013.03.018",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2013
+    },
+    {
+     "cited": 29,
+     "title": "Neodymium isotope constraints on chemical weathering and past glacial activity in Svalbard",
+     "url": "https://doi.org/10.1016/j.epsl.2020.116319",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2020
+    }
+   ]
+  },
+  "kwangheechoi|catholic kwandong university": {
+   "affiliation": "Catholic Kwandong University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 275,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Catholic Kwandong University, South Korea",
+    "id": "A5103901019",
+    "name": "Kwang Hee Choi",
+    "score": 23,
+    "works_count": 55
+   },
+   "name": "Kwang Hee Choi",
+   "works": [
+    {
+     "cited": 67,
+     "title": "Using Cosmogenic 10Be Dating to Unravel the Antiquity of a Rocky Shore Platform on the West Coast of Korea",
+     "url": "https://doi.org/10.2112/jcoastres-d-11-00087.1",
+     "venue": "Journal of Coastal Research",
+     "year": 2012
+    },
+    {
+     "cited": 25,
+     "title": "Cosmogenic Be and OSL Dating of Marine Terraces Along the Central- East Coast of Korea: Spatio-Temporal Variations in Uplift Rates",
+     "url": "https://doi.org/10.2174/1874923201507010028",
+     "venue": "The Open Geography Journal",
+     "year": 2015
+    },
+    {
+     "cited": 25,
+     "title": "Reconstruction of Holocene coastal progradation on the east coast of Korea based on OSL dating and GPR surveys of beach-foredune ridges",
+     "url": "https://doi.org/10.1177/0959683613515728",
+     "venue": "The Holocene",
+     "year": 2013
+    }
+   ]
+  },
+  "kyeongyoonkwak|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": null,
+   "name": "Kyeongyoon Kwak",
+   "works": []
+  },
+  "kyucheulyoo|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1475,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5065769556",
+    "name": "Kyu‐Cheul Yoo",
+    "score": 7,
+    "works_count": 179
+   },
+   "name": "Kyu-Cheul Yoo",
+   "works": [
+    {
+     "cited": 130,
+     "title": "Reviews and syntheses: Ocean iron fertilization experiments – past, present, and future looking to a future Korean Iron Fertilization Experiment in the Southern Ocean (KIFES) project",
+     "url": "https://doi.org/10.5194/bg-15-5847-2018",
+     "venue": "Biogeosciences",
+     "year": 2018
+    },
+    {
+     "cited": 94,
+     "title": "Spatial and temporal influence of glaciers and rivers on the sedimentary environment in Sassenfjorden and Tempelfjorden, Spitsbergen",
+     "url": "https://doi.org/10.1144/sp344.13",
+     "venue": "Geological Society London Special Publications",
+     "year": 2010
+    },
+    {
+     "cited": 59,
+     "title": "Late Holocene glacial advance and ice shelf growth in Barilari Bay, Graham Land, west Antarctic Peninsula",
+     "url": "https://doi.org/10.1130/b31035.1",
+     "venue": "Geological Society of America Bulletin",
+     "year": 2014
+    }
+   ]
+  },
+  "kyungeunlee|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1238,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Maritime and Ocean University, South Korea",
+    "id": "A5100398149",
+    "name": "Kyung Eun Lee",
+    "score": 10,
+    "works_count": 77
+   },
+   "name": "Kyung Eun Lee",
+   "works": [
+    {
+     "cited": 175,
+     "title": "Precession-band variance missing from East Asian monsoon runoff",
+     "url": "https://doi.org/10.1038/s41467-018-05814-0",
+     "venue": "Nature Communications",
+     "year": 2018
+    },
+    {
+     "cited": 87,
+     "title": "A study of the alkenone, TEX86, and planktonic foraminifera in the Benguela Upwelling System: Implications for past sea surface temperature estimates",
+     "url": "https://doi.org/10.1029/2008gc002056",
+     "venue": "Geochemistry Geophysics Geosystems",
+     "year": 2008
+    },
+    {
+     "cited": 73,
+     "title": "High-resolution and high-precision correlation of dark and light layers in the Quaternary hemipelagic sediments of the Japan Sea recovered during IODP Expedition 346",
+     "url": "https://doi.org/10.1186/s40645-018-0167-8",
+     "venue": "Progress in Earth and Planetary Science",
+     "year": 2018
+    }
+   ]
+  },
+  "kyungsikchoi|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2955,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5066359334",
+    "name": "Kyungsik Choi",
+    "score": 19,
+    "works_count": 94
+   },
+   "name": "Kyungsik Choi",
+   "works": [
+    {
+     "cited": 999,
+     "title": "Morphologic and facies trends through the fluvial–marine transition in tide-dominated depositional systems: A schematic framework for environmental and sequence-stratigraphic interpretation",
+     "url": "https://doi.org/10.1016/j.earscirev.2006.10.002",
+     "venue": "Earth-Science Reviews",
+     "year": 2007
+    },
+    {
+     "cited": 325,
+     "title": "Ecological risk assessment of heavy metals in sediments and water from the coastal areas of the Bohai Sea and the Yellow Sea",
+     "url": "https://doi.org/10.1016/j.envint.2020.105512",
+     "venue": "Environment International",
+     "year": 2020
+    },
+    {
+     "cited": 191,
+     "title": "Processes, Morphodynamics, and Facies of Tide-Dominated Estuaries",
+     "url": "https://doi.org/10.1007/978-94-007-0123-6_5",
+     "venue": "Springer eBooks",
+     "year": 2011
+    }
+   ]
+  },
+  "kyungsikchoi|seoul national university": {
+   "affiliation": "Seoul National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 2955,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5066359334",
+    "name": "Kyungsik Choi",
+    "score": 18,
+    "works_count": 94
+   },
+   "name": "Kyungsik Choi",
+   "works": [
+    {
+     "cited": 999,
+     "title": "Morphologic and facies trends through the fluvial–marine transition in tide-dominated depositional systems: A schematic framework for environmental and sequence-stratigraphic interpretation",
+     "url": "https://doi.org/10.1016/j.earscirev.2006.10.002",
+     "venue": "Earth-Science Reviews",
+     "year": 2007
+    },
+    {
+     "cited": 325,
+     "title": "Ecological risk assessment of heavy metals in sediments and water from the coastal areas of the Bohai Sea and the Yellow Sea",
+     "url": "https://doi.org/10.1016/j.envint.2020.105512",
+     "venue": "Environment International",
+     "year": 2020
+    },
+    {
+     "cited": 191,
+     "title": "Processes, Morphodynamics, and Facies of Tide-Dominated Estuaries",
+     "url": "https://doi.org/10.1007/978-94-007-0123-6_5",
+     "venue": "Springer eBooks",
+     "year": 2011
+    }
+   ]
+  },
+  "lilo|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "National Taiwan University, Taiwan",
+    "id": "A5123845709",
+    "name": "Li Lo",
+    "score": 10,
+    "works_count": 8
+   },
+   "name": "Li Lo",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Natural and anthropogenic drivers of organic carbon burial in the eastern China marginal seas during the mid-late Holocene",
+     "url": "https://doi.org/10.1016/j.quascirev.2026.110238",
+     "venue": "Quaternary Science Reviews",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "An evaluation of the EZ25 sea surface temperature proxy in surface sediments from the polar regions",
+     "url": "https://doi.org/10.1016/j.gloplacha.2026.105522",
+     "venue": "Global and Planetary Change",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Changes in the surface and subsurface temperature across Glacial-Interglacial transitions in the Indonesian Throughflow over the past 150-kyr: A perspective from the northern Makassar Strait",
+     "url": "https://doi.org/10.5194/egusphere-egu26-12158",
+     "venue": "",
+     "year": 2026
+    }
+   ]
+  },
+  "luyangwang|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 408,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5100777266",
+    "name": "Luyang Wang",
+    "score": 8,
+    "works_count": 39
+   },
+   "name": "Luyang Wang",
+   "works": [
+    {
+     "cited": 88,
+     "title": "Water Migration and Segregated Ice Formation in Frozen Ground: Current Advances and Future Perspectives",
+     "url": "https://doi.org/10.3389/feart.2022.826961",
+     "venue": "Frontiers in Earth Science",
+     "year": 2022
+    },
+    {
+     "cited": 40,
+     "title": "The effect of desertification on frozen soil on the Qinghai-Tibet plateau",
+     "url": "https://doi.org/10.1016/j.scitotenv.2019.134640",
+     "venue": "The Science of The Total Environment",
+     "year": 2019
+    },
+    {
+     "cited": 28,
+     "title": "Response of soil hydrothermal processes within the active layer to variable alpine vegetation conditions on the Qinghai‒Tibet Plateau",
+     "url": "https://doi.org/10.1016/j.accre.2023.03.003",
+     "venue": "Advances in Climate Change Research",
+     "year": 2023
+    }
+   ]
+  },
+  "mdshamsuzzaman|geological survey of bangladesh": {
+   "affiliation": "Geological Survey of Bangladesh",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "South East Technological University, Ireland",
+    "id": "A5116618191",
+    "name": "Md Shamsuzzaman",
+    "score": 6,
+    "works_count": 6
+   },
+   "name": "Md Shamsuzzaman",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Supplementary material to \"Early carbon recovery after cell-bunding rewetting is constrained by aerated microsites in a cutaway raised bog\"",
+     "url": "https://doi.org/10.5194/egusphere-2026-5248-supplement",
+     "venue": "",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Early carbon recovery after cell-bunding rewetting is constrained by aerated microsites in a cutaway raised bog",
+     "url": "https://doi.org/10.5194/egusphere-2026-5248",
+     "venue": "",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Restoration of a Degraded Raised Bog: Implications for Carbon Flux and Hydrological Recovery",
+     "url": "https://doi.org/10.3897/aca.8.e148818",
+     "venue": "ARPHA Conference Abstracts",
+     "year": 2025
+    }
+   ]
+  },
+  "mengjiaojia|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Mengjiao Jia",
+   "works": []
+  },
+  "mengliu|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Meng Liu",
+   "works": []
+  },
+  "mincheollee|yonsei university": {
+   "affiliation": "Yonsei University",
+   "match": null,
+   "name": "Mincheol Lee",
+   "works": []
+  },
+  "minjiseong|kangwon national university": {
+   "affiliation": "Kangwon National University",
+   "match": null,
+   "name": "Minji Seong",
+   "works": []
+  },
+  "minjiseo|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": null,
+   "name": "Minji Seo",
+   "works": []
+  },
+  "minkyunglee|korea polar research institute": {
+   "affiliation": "Korea Polar Research Institute",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 912,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5100659943",
+    "name": "Min Kyung Lee",
+    "score": 10,
+    "works_count": 82
+   },
+   "name": "Min Kyung Lee",
+   "works": [
+    {
+     "cited": 58,
+     "title": "Late Pleistocene– H olocene records from Lake Ulaan, southern Mongolia: implications for east Asian palaeomonsoonal climate changes",
+     "url": "https://doi.org/10.1002/jqs.2626",
+     "venue": "Journal of Quaternary Science",
+     "year": 2013
+    },
+    {
+     "cited": 48,
+     "title": "Provenances of atmospheric dust over Korea from Sr–Nd isotopes and rare earth elements in early 2006",
+     "url": "https://doi.org/10.1016/j.atmosenv.2010.04.010",
+     "venue": "Atmospheric Environment",
+     "year": 2010
+    },
+    {
+     "cited": 39,
+     "title": "Late pleistocene paleoceanographic changes in the Ross Sea – Glacial-interglacial variations in paleoproductivity, nutrient utilization, and deep-water formation",
+     "url": "https://doi.org/10.1016/j.quascirev.2020.106356",
+     "venue": "Quaternary Science Reviews",
+     "year": 2020
+    }
+   ]
+  },
+  "minoruikehara|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 4227,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "University of Kochi, Japan",
+    "id": "A5103274416",
+    "name": "Minoru Ikehara",
+    "score": 11,
+    "works_count": 457
+   },
+   "name": "Minoru Ikehara",
+   "works": [
+    {
+     "cited": 122,
+     "title": "Reconstruction of paleoproductivity in the Sea of Okhotsk over the last 30 kyr",
+     "url": "https://doi.org/10.1029/2002pa000808",
+     "venue": "Paleoceanography",
+     "year": 2004
+    },
+    {
+     "cited": 117,
+     "title": "A 500,000 year record of Indian summer monsoon dynamics recorded by eastern equatorial Indian Ocean upper water-column structure",
+     "url": "https://doi.org/10.1016/j.quascirev.2013.07.031",
+     "venue": "Quaternary Science Reviews",
+     "year": 2013
+    },
+    {
+     "cited": 117,
+     "title": "Ice-rafted debris (IRD)-based sea-ice expansion events during the past 100 kyrs in the Okhotsk Sea",
+     "url": "https://doi.org/10.1016/j.dsr2.2005.08.007",
+     "venue": "Deep Sea Research Part II Topical Studies in Oceanography",
+     "year": 2005
+    }
+   ]
+  },
+  "minseokjang|kangwon national university": {
+   "affiliation": "Kangwon National University",
+   "match": null,
+   "name": "Min-Seok Jang",
+   "works": []
+  },
+  "minsukim|kangwon national university": {
+   "affiliation": "Kangwon National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 774,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Engineering",
+     "Environmental Science"
+    ],
+    "hint": "Kangwon National University, South Korea",
+    "id": "A5100343642",
+    "name": "Minsu Kim",
+    "score": 9,
+    "works_count": 111
+   },
+   "name": "Minsu Kim",
+   "works": [
+    {
+     "cited": 88,
+     "title": "Fresnel and Fourier hologram generation using orthographic projection images",
+     "url": "https://doi.org/10.1364/oe.17.006320",
+     "venue": "Optics Express",
+     "year": 2009
+    },
+    {
+     "cited": 60,
+     "title": "The New Age of Hyperspectral Oceanography",
+     "url": "https://doi.org/10.5670/oceanog.2004.43",
+     "venue": "Oceanography",
+     "year": 2004
+    },
+    {
+     "cited": 20,
+     "title": "Physics-Based Satellite-Derived Bathymetry (SDB) Using Landsat OLI Images",
+     "url": "https://doi.org/10.3390/rs16050843",
+     "venue": "Remote Sensing",
+     "year": 2024
+    }
+   ]
+  },
+  "myungshinpark|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Myungshin Park",
+   "works": []
+  },
+  "nehdineji|hokkaido university": {
+   "affiliation": "Hokkaido University",
+   "match": null,
+   "name": "Nehdi Neji",
+   "works": []
+  },
+  "nicholaschiaweing|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 71,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5050963003",
+    "name": "Nicholas Chia Wei Ng",
+    "score": 5,
+    "works_count": 22
+   },
+   "name": "Nicholas Chia Wei Ng",
+   "works": [
+    {
+     "cited": 27,
+     "title": "Sr-Nd isotopic fingerprints of Red River sediments and its implication for provenance discrimination in the South China Sea",
+     "url": "https://doi.org/10.1016/j.margeo.2023.106997",
+     "venue": "Marine Geology",
+     "year": 2023
+    },
+    {
+     "cited": 12,
+     "title": "Climate and topography controls on chemical weathering in Changjiang River Basin",
+     "url": "https://doi.org/10.1016/j.gloplacha.2025.104841",
+     "venue": "Global and Planetary Change",
+     "year": 2025
+    },
+    {
+     "cited": 9,
+     "title": "Bedrock (234U/238U) disequilibrium and its impact on inferring sediment comminution age in Taiwan Island",
+     "url": "https://doi.org/10.1016/j.apgeochem.2022.105550",
+     "venue": "Applied Geochemistry",
+     "year": 2022
+    }
+   ]
+  },
+  "niulu|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Niu Lu",
+   "works": []
+  },
+  "noorcahyodaryanto|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Noor Cahyo D Aryanto",
+   "works": []
+  },
+  "ponnusamysaravanan|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 122,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Yunnan University, China",
+    "id": "A5079857835",
+    "name": "Ponnusamy Saravanan",
+    "score": 16,
+    "works_count": 13
+   },
+   "name": "Ponnusamy Saravanan",
+   "works": [
+    {
+     "cited": 46,
+     "title": "Climate variability and evolution of the Indus civilization",
+     "url": "https://doi.org/10.1016/j.quaint.2018.11.012",
+     "venue": "Quaternary International",
+     "year": 2018
+    },
+    {
+     "cited": 27,
+     "title": "Late Holocene long arid phase in the Indian subcontinent as seen in shallow sediments of the eastern Arabian Sea",
+     "url": "https://doi.org/10.1016/j.jseaes.2019.103915",
+     "venue": "Journal of Asian Earth Sciences",
+     "year": 2019
+    },
+    {
+     "cited": 25,
+     "title": "A 23000 year old record of paleoclimatic and environmental changes from the eastern Arabian Sea",
+     "url": "https://doi.org/10.1016/j.marmicro.2020.101905",
+     "venue": "Marine Micropaleontology",
+     "year": 2020
+    }
+   ]
+  },
+  "qianyu|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2468,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Nanjing University, China",
+    "id": "A5030107226",
+    "name": "Qian Yu",
+    "score": 14,
+    "works_count": 185
+   },
+   "name": "Qian Yu",
+   "works": [
+    {
+     "cited": 202,
+     "title": "Effectiveness of China's nature reserves in representing ecological diversity",
+     "url": "https://doi.org/10.1890/100093",
+     "venue": "Frontiers in Ecology and the Environment",
+     "year": 2011
+    },
+    {
+     "cited": 142,
+     "title": "Chemical fractionation of arsenic and heavy metals in fine particle matter and its implications for risk assessment: A case study in Nanjing, China",
+     "url": "https://doi.org/10.1016/j.atmosenv.2014.12.065",
+     "venue": "Atmospheric Environment",
+     "year": 2015
+    },
+    {
+     "cited": 110,
+     "title": "Metal Pollution in Coastal Sediments",
+     "url": "https://doi.org/10.1007/s40726-015-0018-9",
+     "venue": "Current Pollution Reports",
+     "year": 2015
+    }
+   ]
+  },
+  "qinshu|ocean university of china": {
+   "affiliation": "Ocean University of China",
+   "match": null,
+   "name": "Qin Shu",
+   "works": []
+  },
+  "rujianwang|tongji university": {
+   "affiliation": "Tongji University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 1308,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5050796411",
+    "name": "Rujian Wang",
+    "score": 14,
+    "works_count": 106
+   },
+   "name": "Rujian Wang",
+   "works": [
+    {
+     "cited": 95,
+     "title": "Foraminiferal responses to major Pleistocene paleoceanographic changes in the southern South China Sea",
+     "url": "https://doi.org/10.1029/1999pa000431",
+     "venue": "Paleoceanography",
+     "year": 2000
+    },
+    {
+     "cited": 94,
+     "title": "Evaluating Zr/Rb Ratio From XRF Scanning as an Indicator of Grain‐Size Variations of Glaciomarine Sediments in the Southern Ocean",
+     "url": "https://doi.org/10.1029/2020gc009350",
+     "venue": "Geochemistry Geophysics Geosystems",
+     "year": 2020
+    },
+    {
+     "cited": 74,
+     "title": "Development of east Asian summer monsoon environments in the late Miocene: radiolarian evidence from Site 1143 of ODP Leg 184",
+     "url": "https://doi.org/10.1016/s0025-3227(03)00215-9",
+     "venue": "Marine Geology",
+     "year": 2003
+    }
+   ]
+  },
+  "sangbeomha|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 70,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5112838399",
+    "name": "Sangbeom Ha",
+    "score": 9,
+    "works_count": 21
+   },
+   "name": "Sangbeom Ha",
+   "works": [
+    {
+     "cited": 23,
+     "title": "Glaciomarine sediment deposition on the continental slope and rise of the central Ross Sea since the Last Glacial Maximum",
+     "url": "https://doi.org/10.1016/j.margeo.2022.106752",
+     "venue": "Marine Geology",
+     "year": 2022
+    },
+    {
+     "cited": 16,
+     "title": "Holocene sedimentation in the Hupo Trough of the southwestern East Sea (Japan Sea) and development of the East Korea Warm Current",
+     "url": "https://doi.org/10.1177/09596836211003238",
+     "venue": "The Holocene",
+     "year": 2021
+    },
+    {
+     "cited": 10,
+     "title": "Paleoenvironmental reconstruction of glaciomarine sediments in the Drygalski Basin of the western Ross Sea since the Last Glacial Maximum",
+     "url": "https://doi.org/10.1016/j.sedgeo.2023.106495",
+     "venue": "Sedimentary Geology",
+     "year": 2023
+    }
+   ]
+  },
+  "sarangchoi|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5123488447",
+    "name": "Sarang Choi",
+    "score": 6,
+    "works_count": 18
+   },
+   "name": "Sarang Choi",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Oxygen isotope of the Onnuri hornfelsic diabase",
+     "url": "https://doi.org/10.1594/pangaea.989446",
+     "venue": "Publishing Network for Geoscientific and Environmental Data (PANGAEA) (Alfred Wegener Institute for Polar and Marine Research)",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Sample information from the Onnuri Oceanic Core Complex (Central Indian Ridge)",
+     "url": "https://doi.org/10.1594/pangaea.989438",
+     "venue": "Publishing Network for Geoscientific and Environmental Data (PANGAEA) (Alfred Wegener Institute for Polar and Marine Research)",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Major element compositions of clinopyroxene in Onnuri hornfelsic diabase",
+     "url": "https://doi.org/10.1594/pangaea.989443",
+     "venue": "Publishing Network for Geoscientific and Environmental Data (PANGAEA) (Alfred Wegener Institute for Polar and Marine Research)",
+     "year": 2026
+    }
+   ]
+  },
+  "seolhuibang|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5018137508",
+    "name": "Seolhui Bang",
+    "score": 13,
+    "works_count": 13
+   },
+   "name": "Seolhui Bang",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Multi-timescale controls on surface sediment distribution in a channelized open-coast macrotidal flat, southern Ganghwa Island, western Korea",
+     "url": "https://doi.org/10.1016/j.margeo.2026.107883",
+     "venue": "Marine Geology",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Abandoned tidal channels as rapidly infilling sedimentary reservoirs in a macrotidal flat with implications for blue carbon potential",
+     "url": "https://doi.org/10.2110/sepmmisc.26.159",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Multiscale sediment dynamics and morphodynamics of a channelized open-coast tidal flat: implications for facies models",
+     "url": "https://doi.org/10.2110/sepmmisc.26.133",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    }
+   ]
+  },
+  "seolhuibang|seoul national university": {
+   "affiliation": "Seoul National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 0,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5018137508",
+    "name": "Seolhui Bang",
+    "score": 20,
+    "works_count": 13
+   },
+   "name": "Seolhui Bang",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Multi-timescale controls on surface sediment distribution in a channelized open-coast macrotidal flat, southern Ganghwa Island, western Korea",
+     "url": "https://doi.org/10.1016/j.margeo.2026.107883",
+     "venue": "Marine Geology",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Abandoned tidal channels as rapidly infilling sedimentary reservoirs in a macrotidal flat with implications for blue carbon potential",
+     "url": "https://doi.org/10.2110/sepmmisc.26.159",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Multiscale sediment dynamics and morphodynamics of a channelized open-coast tidal flat: implications for facies models",
+     "url": "https://doi.org/10.2110/sepmmisc.26.133",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    }
+   ]
+  },
+  "seonghyeonbae|inha university": {
+   "affiliation": "Inha University",
+   "match": null,
+   "name": "Seong Hyeon Bae",
+   "works": []
+  },
+  "seongwoonjeong|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 21,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Inha University, South Korea",
+    "id": "A5004610716",
+    "name": "Seong Woon Jeong",
+    "score": 15,
+    "works_count": 14
+   },
+   "name": "Seong Woon Jeong",
+   "works": [
+    {
+     "cited": 14,
+     "title": "Disturbance of sedimentary processes in tidal salt marshes invaded by exotic vegetation",
+     "url": "https://doi.org/10.1016/j.scitotenv.2021.149303",
+     "venue": "The Science of The Total Environment",
+     "year": 2021
+    },
+    {
+     "cited": 3,
+     "title": "Benthic sediment disturbances by episodic human-controlled discharge in an altered estuary",
+     "url": "https://doi.org/10.1016/j.margeo.2023.107168",
+     "venue": "Marine Geology",
+     "year": 2023
+    },
+    {
+     "cited": 1,
+     "title": "Data related to \"Breakdown of Stratification and Enhanced Tidal Pumping in a Meso-tidal Bay: Impact of Typhoon on Sediment Dynamics\"",
+     "url": "https://doi.org/10.5281/zenodo.17036081",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2026
+    }
+   ]
+  },
+  "serinlim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Chonnam National University, South Korea",
+    "id": "A5146450146",
+    "name": "Serin Lim",
+    "score": 7,
+    "works_count": 1
+   },
+   "name": "Serin Lim",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Recognition of cryptic bounding surfaces in macrotidal estuarine successions by multi-proxy based OSL-dated sequence stratigraphic analysis from SW Korea",
+     "url": "https://doi.org/10.2110/sepmmisc.26.080",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    }
+   ]
+  },
+  "seungchanjeong|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Seungchan Jeong",
+   "works": []
+  },
+  "seungyeonsohn|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 9,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5086155802",
+    "name": "Seungyeon Sohn",
+    "score": 12,
+    "works_count": 9
+   },
+   "name": "Seungyeon Sohn",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Abandoned tidal channels as rapidly infilling sedimentary reservoirs in a macrotidal flat with implications for blue carbon potential",
+     "url": "https://doi.org/10.2110/sepmmisc.26.159",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Multiscale sediment dynamics and morphodynamics of a channelized open-coast tidal flat: implications for facies models",
+     "url": "https://doi.org/10.2110/sepmmisc.26.133",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Seasonal, annual, and decadal changes in morphology and sedimentation of a channelized, open-coast macrotidal flat",
+     "url": "https://doi.org/10.5194/egusphere-egu26-9229",
+     "venue": "",
+     "year": 2026
+    }
+   ]
+  },
+  "seungyeonsohn|seoul national university": {
+   "affiliation": "Seoul National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 9,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Seoul National University, South Korea",
+    "id": "A5086155802",
+    "name": "Seungyeon Sohn",
+    "score": 17,
+    "works_count": 9
+   },
+   "name": "Seungyeon Sohn",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Abandoned tidal channels as rapidly infilling sedimentary reservoirs in a macrotidal flat with implications for blue carbon potential",
+     "url": "https://doi.org/10.2110/sepmmisc.26.159",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Multiscale sediment dynamics and morphodynamics of a channelized open-coast tidal flat: implications for facies models",
+     "url": "https://doi.org/10.2110/sepmmisc.26.133",
+     "venue": "SEPM (Society for Sedimentary Geology) eBooks",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Seasonal, annual, and decadal changes in morphology and sedimentation of a channelized, open-coast macrotidal flat",
+     "url": "https://doi.org/10.5194/egusphere-egu26-9229",
+     "venue": "",
+     "year": 2026
+    }
+   ]
+  },
+  "shigeyoshiotosaka|the university of tokyo": {
+   "affiliation": "The University of Tokyo",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 1757,
+    "fields": [
+     "Chemistry",
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "The University of Tokyo, Japan",
+    "id": "A5016539762",
+    "name": "Shigeyoshi Otosaka",
+    "score": 7,
+    "works_count": 117
+   },
+   "name": "Shigeyoshi Otosaka",
+   "works": [
+    {
+     "cited": 111,
+     "title": "Sedimentation and remobilization of radiocesium in the coastal area of Ibaraki, 70 km south of the Fukushima Dai-ichi Nuclear Power Plant",
+     "url": "https://doi.org/10.1007/s10661-012-2956-7",
+     "venue": "Environmental Monitoring and Assessment",
+     "year": 2012
+    },
+    {
+     "cited": 94,
+     "title": "Sequestration and Remobilization of Radioiodine ( 129 I) by Soil Organic Matter and Possible Consequences of the Remedial Action at Savannah River Site",
+     "url": "https://doi.org/10.1021/es201343d",
+     "venue": "Environmental Science & Technology",
+     "year": 2011
+    },
+    {
+     "cited": 93,
+     "title": "Collection of Lanthanides and Actinides from Natural Waters with Conventional and Nanoporous Sorbents",
+     "url": "https://doi.org/10.1021/es204192r",
+     "venue": "Environmental Science & Technology",
+     "year": 2012
+    }
+   ]
+  },
+  "shouyeyang|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 11129,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5084215803",
+    "name": "Shouye Yang",
+    "score": 7,
+    "works_count": 399
+   },
+   "name": "Shouye Yang",
+   "works": [
+    {
+     "cited": 411,
+     "title": "A review on the provenance discrimination of sediments in the Yellow Sea",
+     "url": "https://doi.org/10.1016/s0012-8252(03)00033-3",
+     "venue": "Earth-Science Reviews",
+     "year": 2003
+    },
+    {
+     "cited": 255,
+     "title": "Two unique weathering regimes in the Changjiang and Huanghe drainage basins: geochemical evidence from river sediments",
+     "url": "https://doi.org/10.1016/j.sedgeo.2003.08.001",
+     "venue": "Sedimentary Geology",
+     "year": 2003
+    },
+    {
+     "cited": 235,
+     "title": "Revisiting the effects of hydrodynamic sorting and sedimentary recycling on chemical weathering indices",
+     "url": "https://doi.org/10.1016/j.gca.2018.02.015",
+     "venue": "Geochimica et Cosmochimica Acta",
+     "year": 2018
+    }
+   ]
+  },
+  "shraddhaband|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Shraddha Band",
+   "works": []
+  },
+  "shuaicong|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 331,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Ocean University of China, China",
+    "id": "A5065575404",
+    "name": "Shuai Cong",
+    "score": 16,
+    "works_count": 38
+   },
+   "name": "Shuai Cong",
+   "works": [
+    {
+     "cited": 62,
+     "title": "Impact of Typhoon Chan-hom on sediment dynamics and morphological changes on the East China Sea inner shelf",
+     "url": "https://doi.org/10.1016/j.margeo.2021.106578",
+     "venue": "Marine Geology",
+     "year": 2021
+    },
+    {
+     "cited": 19,
+     "title": "Evolution of a tide-dominated abandoned channel: A case of the abandoned Qingshuigou course, Yellow River",
+     "url": "https://doi.org/10.1016/j.margeo.2020.106116",
+     "venue": "Marine Geology",
+     "year": 2020
+    },
+    {
+     "cited": 18,
+     "title": "Rapid oscillation of sediment transport between the Bohai Sea and the Yellow Sea induced by Typhoon Lekima (2019)",
+     "url": "https://doi.org/10.1016/j.margeo.2023.107160",
+     "venue": "Marine Geology",
+     "year": 2023
+    }
+   ]
+  },
+  "shugao|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 10248,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Louisiana State University, USA",
+    "id": "A5100761250",
+    "name": "Shu Gao",
+    "score": 12,
+    "works_count": 358
+   },
+   "name": "Shu Gao",
+   "works": [
+    {
+     "cited": 675,
+     "title": "Holocene development of the Yellow River's subaqueous delta, North Yellow Sea",
+     "url": "https://doi.org/10.1016/j.margeo.2004.06.009",
+     "venue": "Marine Geology",
+     "year": 2004
+    },
+    {
+     "cited": 341,
+     "title": "Anthropogenic, Direct Pressures on Coastal Wetlands",
+     "url": "https://doi.org/10.3389/fevo.2020.00144",
+     "venue": "Frontiers in Ecology and Evolution",
+     "year": 2020
+    },
+    {
+     "cited": 274,
+     "title": "Net sediment transport patterns inferred from grain-size trends, based upon definition of “transport vectors”",
+     "url": "https://doi.org/10.1016/0037-0738(92)90055-v",
+     "venue": "Sedimentary Geology",
+     "year": 1992
+    }
+   ]
+  },
+  "shuhuandu|south china sea institute of oceanology": {
+   "affiliation": "South China Sea Institute of Oceanology",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 199,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Chinese Academy of Sciences, China",
+    "id": "A5101655617",
+    "name": "Shuhuan Du",
+    "score": 9,
+    "works_count": 49
+   },
+   "name": "Shuhuan Du",
+   "works": [
+    {
+     "cited": 17,
+     "title": "Age of the MGS5 segment of the Milanggouwan stratigraphical section and evolution of the desert environment on a kiloyear scale during the Last Interglacial in China's Salawusu River Valley: Evidence from Rb and Sr contents and ratios",
+     "url": "https://doi.org/10.1016/j.chemer.2010.07.002",
+     "venue": "Geochemistry",
+     "year": 2010
+    },
+    {
+     "cited": 17,
+     "title": "Phases of Environmental Evolution Indicated by Primary Chemical Elements and Paleontological Records in the Upper Pleistocene‐Holocene Series for the Salawusu River Valley, China",
+     "url": "https://doi.org/10.1111/j.1755-6724.2007.tb00979.x",
+     "venue": "Acta Geologica Sinica - English Edition",
+     "year": 2007
+    },
+    {
+     "cited": 15,
+     "title": "Changes in intermediate water conditions in the northern South China Sea using Globorotalia inflata over the last 20 ka",
+     "url": "https://doi.org/10.1002/jqs.2974",
+     "venue": "Journal of Quaternary Science",
+     "year": 2017
+    }
+   ]
+  },
+  "shuqingqiao|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2688,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5102419010",
+    "name": "Shuqing Qiao",
+    "score": 10,
+    "works_count": 99
+   },
+   "name": "Shuqing Qiao",
+   "works": [
+    {
+     "cited": 297,
+     "title": "Sediment accumulation and budget in the Bohai Sea, Yellow Sea and East China Sea",
+     "url": "https://doi.org/10.1016/j.margeo.2017.06.004",
+     "venue": "Marine Geology",
+     "year": 2017
+    },
+    {
+     "cited": 143,
+     "title": "Distribution and transport of suspended sediments off the Yellow River (Huanghe) mouth and the nearby Bohai Sea",
+     "url": "https://doi.org/10.1016/j.ecss.2009.07.019",
+     "venue": "Estuarine Coastal and Shelf Science",
+     "year": 2009
+    },
+    {
+     "cited": 126,
+     "title": "Recent organic carbon sequestration in the shelf sediments of the Bohai Sea and Yellow Sea, China",
+     "url": "https://doi.org/10.1016/j.jmarsys.2015.10.018",
+     "venue": "Journal of Marine Systems",
+     "year": 2015
+    }
+   ]
+  },
+  "solinkim|chonnam national university": {
+   "affiliation": "Chonnam National University",
+   "match": null,
+   "name": "Solin Kim",
+   "works": []
+  },
+  "soojungan|kangwon national university": {
+   "affiliation": "Kangwon National University",
+   "match": null,
+   "name": "Soojung An",
+   "works": []
+  },
+  "sookwankim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 655,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5074390804",
+    "name": "Sookwan Kim",
+    "score": 6,
+    "works_count": 200
+   },
+   "name": "Sookwan Kim",
+   "works": [
+    {
+     "cited": 182,
+     "title": "Repeated Pleistocene glaciation of the East Siberian continental margin",
+     "url": "https://doi.org/10.1038/ngeo1904",
+     "venue": "Nature Geoscience",
+     "year": 2013
+    },
+    {
+     "cited": 70,
+     "title": "A large West Antarctic Ice Sheet explains early Neogene sea-level amplitude",
+     "url": "https://doi.org/10.1038/s41586-021-04148-0",
+     "venue": "Nature",
+     "year": 2021
+    },
+    {
+     "cited": 39,
+     "title": "Seismic stratigraphy of the Central Basin in northwestern Ross Sea slope and rise, Antarctica: Clues to the late Cenozoic ice-sheet dynamics and bottom-current activity",
+     "url": "https://doi.org/10.1016/j.margeo.2017.10.013",
+     "venue": "Marine Geology",
+     "year": 2017
+    }
+   ]
+  },
+  "soonyoungchoi|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 60,
+    "fields": [
+     "Chemistry",
+     "Materials Science"
+    ],
+    "hint": "Korea Research Institute of Chemical Technology, South Korea",
+    "id": "A5035669825",
+    "name": "Soonyoung Choi",
+    "score": 6,
+    "works_count": 8
+   },
+   "name": "SoonYoung Choi",
+   "works": [
+    {
+     "cited": 25,
+     "title": "A recyclable metal-free catalytic system for the cationic ring-opening polymerization of glycidol under ambient conditions",
+     "url": "https://doi.org/10.1039/d1gc03063a",
+     "venue": "Green Chemistry",
+     "year": 2021
+    },
+    {
+     "cited": 12,
+     "title": "Design of Topology‐Controlled Polyethers toward Robust Cooperative Hydrogen Bonding",
+     "url": "https://doi.org/10.1002/adfm.202302086",
+     "venue": "Advanced Functional Materials",
+     "year": 2023
+    },
+    {
+     "cited": 4,
+     "title": "Design of Topology‐Controlled Polyethers toward Robust Cooperative Hydrogen Bonding (Adv. Funct. Mater. 33/2023)",
+     "url": "https://doi.org/10.1002/adfm.202370198",
+     "venue": "Advanced Functional Materials",
+     "year": 2023
+    }
+   ]
+  },
+  "soyoungkim|korea polar research institute": {
+   "affiliation": "Korea Polar Research Institute",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 496,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Catholic University of Pusan, South Korea",
+    "id": "A5100373081",
+    "name": "So-Young Kim",
+    "score": 10,
+    "works_count": 41
+   },
+   "name": "So-Young Kim",
+   "works": [
+    {
+     "cited": 51,
+     "title": "Holocene changes in detrital sediment supply to the eastern part of the central Yellow Sea and their forcing mechanisms",
+     "url": "https://doi.org/10.1016/j.jseaes.2015.03.032",
+     "venue": "Journal of Asian Earth Sciences",
+     "year": 2015
+    },
+    {
+     "cited": 34,
+     "title": "Paleoceanographic changes in the Ulleung Basin, East (Japan) Sea, during the last 20,000 years: Evidence from variations in element composition of core sediments",
+     "url": "https://doi.org/10.1016/j.pocean.2010.12.016",
+     "venue": "Progress In Oceanography",
+     "year": 2010
+    },
+    {
+     "cited": 30,
+     "title": "REEs and Sr-Nd isotope variations in a 20 ky-sediment core from the middle Okinawa Trough, East China Sea: An in-depth provenance analysis of siliciclastic components",
+     "url": "https://doi.org/10.1016/j.margeo.2019.105970",
+     "venue": "Marine Geology",
+     "year": 2019
+    }
+   ]
+  },
+  "sujeonglim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Kangwon National University, South Korea",
+    "id": "A5055207712",
+    "name": "Su-jeong Lim",
+    "score": 14,
+    "works_count": 2
+   },
+   "name": "Su-Jeong Lim",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Comment on egusphere-2023-2987",
+     "url": "https://doi.org/10.5194/egusphere-2023-2987-rc1",
+     "venue": "",
+     "year": 2024
+    },
+    {
+     "cited": 0,
+     "title": "Effect of mesh resolution on accurate grounding line definition using 2D finite element software, Elmer/ice",
+     "url": "https://doi.org/10.5194/egusphere-egu23-10914",
+     "venue": "",
+     "year": 2023
+    }
+   ]
+  },
+  "sujinkang|korea institute of ocean science and technology": {
+   "affiliation": "Korea Institute of Ocean Science and Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 705,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5102875984",
+    "name": "Sujin Kang",
+    "score": 12,
+    "works_count": 51
+   },
+   "name": "Sujin Kang",
+   "works": [
+    {
+     "cited": 76,
+     "title": "Elevated nitrogen-containing particles observed in Asian dust aerosol samples collected at the marine boundary layer of the Bohai Sea and the Yellow Sea",
+     "url": "https://doi.org/10.5194/acp-9-6933-2009",
+     "venue": "Atmospheric chemistry and physics",
+     "year": 2009
+    },
+    {
+     "cited": 51,
+     "title": "Effects of salinity on growth, fatty acid synthesis, and expression of stress response genes in the cyclopoid copepod Paracyclopina nana",
+     "url": "https://doi.org/10.1016/j.aquaculture.2016.12.037",
+     "venue": "Aquaculture",
+     "year": 2016
+    },
+    {
+     "cited": 50,
+     "title": "Temporal variation in riverine organic carbon concentrations and fluxes in two contrasting estuary systems: Geum and Seomjin, South Korea",
+     "url": "https://doi.org/10.1016/j.envint.2019.105126",
+     "venue": "Environment International",
+     "year": 2019
+    }
+   ]
+  },
+  "sukyungchu|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Sukyung Chu",
+   "works": []
+  },
+  "sunghankim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2294,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Engineering"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5101675692",
+    "name": "Sunghan Kim",
+    "score": 7,
+    "works_count": 159
+   },
+   "name": "Sunghan Kim",
+   "works": [
+    {
+     "cited": 568,
+     "title": "High-efficiency, long-lifetime deep-blue organic light-emitting diodes",
+     "url": "https://doi.org/10.1038/s41566-021-00763-5",
+     "venue": "Nature Photonics",
+     "year": 2021
+    },
+    {
+     "cited": 274,
+     "title": "Micro-fuel cells—Current development and applications",
+     "url": "https://doi.org/10.1016/j.jpowsour.2007.03.066",
+     "venue": "Journal of Power Sources",
+     "year": 2007
+    },
+    {
+     "cited": 210,
+     "title": "Maximum torque control of an induction machine in the field weakening region",
+     "url": "https://doi.org/10.1109/ias.1993.298955",
+     "venue": "Conference record",
+     "year": 2002
+    }
+   ]
+  },
+  "sunminchoi|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 114,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5035719811",
+    "name": "Sun Min Choi",
+    "score": 14,
+    "works_count": 26
+   },
+   "name": "Sun Min Choi",
+   "works": [
+    {
+     "cited": 14,
+     "title": "Disturbance of sedimentary processes in tidal salt marshes invaded by exotic vegetation",
+     "url": "https://doi.org/10.1016/j.scitotenv.2021.149303",
+     "venue": "The Science of The Total Environment",
+     "year": 2021
+    },
+    {
+     "cited": 14,
+     "title": "Enhanced erodibility of deep-sea sediments by presence of calcium carbonate particles",
+     "url": "https://doi.org/10.1007/s00367-020-00651-x",
+     "venue": "Geo-Marine Letters",
+     "year": 2020
+    },
+    {
+     "cited": 14,
+     "title": "Impact of seasonal vertical stratification on the dispersion patterns of dredging plumes off the south coast of Korea",
+     "url": "https://doi.org/10.1016/j.margeo.2017.09.005",
+     "venue": "Marine Geology",
+     "year": 2017
+    }
+   ]
+  },
+  "suthinunjanngarm|tongji university": {
+   "affiliation": "Tongji University",
+   "match": null,
+   "name": "Suthinun Janngarm",
+   "works": []
+  },
+  "taesoochang|chonnam national university": {
+   "affiliation": "Chonnam National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 900,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Chonnam National University, South Korea",
+    "id": "A5066786175",
+    "name": "Tae Soo Chang",
+    "score": 10,
+    "works_count": 85
+   },
+   "name": "Tae Soo Chang",
+   "works": [
+    {
+     "cited": 78,
+     "title": "The role of particle aggregation/disaggregation in muddy sediment dynamics and seasonal sediment turnover in a back-barrier tidal basin, East Frisian Wadden Sea, southern North Sea",
+     "url": "https://doi.org/10.1016/j.margeo.2006.10.004",
+     "venue": "Marine Geology",
+     "year": 2006
+    },
+    {
+     "cited": 52,
+     "title": "Distinction between sortable silts and aggregated particles in muddy intertidal sediments of the East Frisian Wadden Sea, southern North Sea",
+     "url": "https://doi.org/10.1016/j.sedgeo.2007.03.009",
+     "venue": "Sedimentary Geology",
+     "year": 2007
+    },
+    {
+     "cited": 52,
+     "title": "Late Holocene stratigraphic evolution of a back-barrier tidal basin in the East Frisian Wadden Sea, southern North Sea: transgressive deposition and its preservation potential",
+     "url": "https://doi.org/10.1007/s10347-006-0080-2",
+     "venue": "Facies",
+     "year": 2006
+    }
+   ]
+  },
+  "taewookko|national korea maritime and ocean university": {
+   "affiliation": "National Korea Maritime and Ocean University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 56,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Korea Maritime and Ocean University, South Korea",
+    "id": "A5061410241",
+    "name": "Tae Wook Ko",
+    "score": 13,
+    "works_count": 12
+   },
+   "name": "Tae Wook Ko",
+   "works": [
+    {
+     "cited": 18,
+     "title": "Roles of insolation forcing and CO2 forcing on Late Pleistocene seasonal sea surface temperatures",
+     "url": "https://doi.org/10.1038/s41467-021-26051-y",
+     "venue": "Nature Communications",
+     "year": 2021
+    },
+    {
+     "cited": 11,
+     "title": "Spatial and temporal distribution of C37 alkenones in suspended materials in the northern East China Sea",
+     "url": "https://doi.org/10.1016/j.palaeo.2018.01.004",
+     "venue": "Palaeogeography Palaeoclimatology Palaeoecology",
+     "year": 2018
+    },
+    {
+     "cited": 10,
+     "title": "Holocene centennial variability in sea surface temperature and linkage with solar irradiance",
+     "url": "https://doi.org/10.1038/s41598-022-19050-6",
+     "venue": "Scientific Reports",
+     "year": 2022
+    }
+   ]
+  },
+  "taeyeonkim|korea institute of geoscience and mineral resources": {
+   "affiliation": "Korea Institute of Geoscience and Mineral Resources",
+   "match": null,
+   "name": "Tae Yeon Kim",
+   "works": []
+  },
+  "takashihasegawa|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Takashi Hasegawa",
+   "works": []
+  },
+  "takuyasagawa|kanazawa university": {
+   "affiliation": "Kanazawa University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 1521,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Kanazawa University, Japan",
+    "id": "A5045534050",
+    "name": "Takuya Sagawa",
+    "score": 11,
+    "works_count": 265
+   },
+   "name": "Takuya Sagawa",
+   "works": [
+    {
+     "cited": 85,
+     "title": "Solar forcing of centennial-scale East Asian winter monsoon variability in the mid- to late Holocene",
+     "url": "https://doi.org/10.1016/j.epsl.2014.03.043",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2014
+    },
+    {
+     "cited": 78,
+     "title": "Integrated tephrostratigraphy and stable isotope stratigraphy in the Japan Sea and East China Sea using IODP Sites U1426, U1427, and U1429, Expedition 346 Asian Monsoon",
+     "url": "https://doi.org/10.1186/s40645-018-0168-7",
+     "venue": "Progress in Earth and Planetary Science",
+     "year": 2018
+    },
+    {
+     "cited": 73,
+     "title": "High-resolution and high-precision correlation of dark and light layers in the Quaternary hemipelagic sediments of the Japan Sea recovered during IODP Expedition 346",
+     "url": "https://doi.org/10.1186/s40645-018-0167-8",
+     "venue": "Progress in Earth and Planetary Science",
+     "year": 2018
+    }
+   ]
+  },
+  "tomohisairino|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 3378,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Hokkaido University, Japan",
+    "id": "A5006254465",
+    "name": "Tomohisa Irino",
+    "score": 13,
+    "works_count": 336
+   },
+   "name": "Tomohisa Irino",
+   "works": [
+    {
+     "cited": 396,
+     "title": "Land‐ocean linkages over orbital and millennial timescales recorded in Late Quaternary sediments of the Japan Sea",
+     "url": "https://doi.org/10.1029/1998pa900016",
+     "venue": "Paleoceanography",
+     "year": 1999
+    },
+    {
+     "cited": 154,
+     "title": "Orbital- and millennial-scale variations in Asian dust transport path to the Japan Sea",
+     "url": "https://doi.org/10.1016/j.palaeo.2006.11.027",
+     "venue": "Palaeogeography Palaeoclimatology Palaeoecology",
+     "year": 2007
+    },
+    {
+     "cited": 139,
+     "title": "Documenting large earthquakes similar to the 2011 Tohoku-oki earthquake from sediments deposited in the Japan Trench over the past 1500 years",
+     "url": "https://doi.org/10.1016/j.epsl.2016.04.009",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2016
+    }
+   ]
+  },
+  "ummifayyadhahtalipudin|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Ummi Fayyadhah Talipudin",
+   "works": []
+  },
+  "useongkim|chonnam national university": {
+   "affiliation": "Chonnam National University",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1,
+    "fields": [
+     "Energy",
+     "Engineering"
+    ],
+    "hint": "",
+    "id": "A5030092236",
+    "name": "U Seong Kim",
+    "score": 6,
+    "works_count": 6
+   },
+   "name": "U-Seong Kim",
+   "works": [
+    {
+     "cited": 1,
+     "title": "Electrocatalytic Reduction of Thionyl Chloride by Schiff Base Metal(II) Complexes (1)",
+     "url": "https://openalex.org/W856641176",
+     "venue": "Bulletin of the Korean Chemical Society",
+     "year": 1995
+    },
+    {
+     "cited": 0,
+     "title": "Analysis of the Coupled Turbulent Flow and Macroscopic Solidification in Twin-Roll Continuous Casting Process",
+     "url": "https://doi.org/10.22634/ksme-b.2001.25.3.285",
+     "venue": "Transactions of the Korean Society of Mechanical Engineers B",
+     "year": 2001
+    },
+    {
+     "cited": 0,
+     "title": "Numerical Design of Auto-Catalyst Substrate for Improved Conversion Performance Using Radially Variable Cell Density",
+     "url": "https://doi.org/10.22634/ksme-b.2000.24.12.1596",
+     "venue": "Transactions of the Korean Society of Mechanical Engineers B",
+     "year": 2000
+    }
+   ]
+  },
+  "weiwang|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Wei Wang",
+   "works": []
+  },
+  "wenshenxiao|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1049,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5079042176",
+    "name": "Wenshen Xiao",
+    "score": 8,
+    "works_count": 190
+   },
+   "name": "Wenshen Xiao",
+   "works": [
+    {
+     "cited": 101,
+     "title": "Last Glacial - Holocene climate variability in the Atlantic sector of the Southern Ocean",
+     "url": "https://doi.org/10.1016/j.quascirev.2016.01.023",
+     "venue": "Quaternary Science Reviews",
+     "year": 2016
+    },
+    {
+     "cited": 94,
+     "title": "Evaluating Zr/Rb Ratio From XRF Scanning as an Indicator of Grain‐Size Variations of Glaciomarine Sediments in the Southern Ocean",
+     "url": "https://doi.org/10.1029/2020gc009350",
+     "venue": "Geochemistry Geophysics Geosystems",
+     "year": 2020
+    },
+    {
+     "cited": 90,
+     "title": "Orbital- and millennial-scale Antarctic Circumpolar Current variability in Drake Passage over the past 140,000 years",
+     "url": "https://doi.org/10.1038/s41467-021-24264-9",
+     "venue": "Nature Communications",
+     "year": 2021
+    }
+   ]
+  },
+  "wonnyonkim|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 680,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5044907642",
+    "name": "Wonnyon Kim",
+    "score": 6,
+    "works_count": 85
+   },
+   "name": "Wonnyon Kim",
+   "works": [
+    {
+     "cited": 23,
+     "title": "Characterization of Geochemistry in Hydrothermal Sediments From the Newly Discovered Onnuri Vent Field in the Middle Region of the Central Indian Ridge",
+     "url": "https://doi.org/10.3389/fmars.2022.810949",
+     "venue": "Frontiers in Marine Science",
+     "year": 2022
+    },
+    {
+     "cited": 16,
+     "title": "Movement of the Intertropical C onvergence Z one during the mid‐pleistocene transition and the response of atmospheric and surface ocean circulations in the central equatorial P acific",
+     "url": "https://doi.org/10.1002/2015gc006077",
+     "venue": "Geochemistry Geophysics Geosystems",
+     "year": 2015
+    },
+    {
+     "cited": 11,
+     "title": "Effect of eolian Fe-supply change on the phytoplankton productivity and community in central equatorial Pacific Ocean during the Pleistocene: A lipid biomarker approach",
+     "url": "https://doi.org/10.1016/j.orggeochem.2017.07.010",
+     "venue": "Organic Geochemistry",
+     "year": 2017
+    }
+   ]
+  },
+  "xiaowu|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1211,
+    "fields": [
+     "Engineering",
+     "Materials Science"
+    ],
+    "hint": "University of Electronic Science and Technology of China, China",
+    "id": "A5102671142",
+    "name": "Xiao Wu",
+    "score": 6,
+    "works_count": 63
+   },
+   "name": "Xiao Wu",
+   "works": [
+    {
+     "cited": 75,
+     "title": "Dynamic Cross Feature Fusion for Remote Sensing Pansharpening",
+     "url": "https://doi.org/10.1109/iccv48922.2021.01442",
+     "venue": "IEEE/CVF International Conference on Computer Vision (ICCV)",
+     "year": 2021
+    },
+    {
+     "cited": 74,
+     "title": "Deep Learning in Remote Sensing Image Fusion: Methods, protocols, data, and future perspectives",
+     "url": "https://doi.org/10.1109/mgrs.2024.3495516",
+     "venue": "IEEE Geoscience and Remote Sensing Magazine",
+     "year": 2024
+    },
+    {
+     "cited": 44,
+     "title": "Fully-Connected Transformer for Multi-Source Image Fusion",
+     "url": "https://doi.org/10.1109/tpami.2024.3523364",
+     "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+     "year": 2025
+    }
+   ]
+  },
+  "xinshan|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 484,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5101745765",
+    "name": "Xin Shan",
+    "score": 13,
+    "works_count": 52
+   },
+   "name": "Xin Shan",
+   "works": [
+    {
+     "cited": 63,
+     "title": "Classification, formation, and transport mechanisms of mud clasts",
+     "url": "https://doi.org/10.1080/00206814.2017.1287014",
+     "venue": "International Geology Review",
+     "year": 2017
+    },
+    {
+     "cited": 39,
+     "title": "Water quality variation of a typical urban landscape river replenished with reclaimed water",
+     "url": "https://doi.org/10.1016/j.watcyc.2023.04.001",
+     "venue": "Water Cycle",
+     "year": 2023
+    },
+    {
+     "cited": 36,
+     "title": "Controls on erosion in the western Tarim Basin: Implications for the uplift of northwest Tibet and the Pamir",
+     "url": "https://doi.org/10.1130/ges01378.1",
+     "venue": "Geosphere",
+     "year": 2017
+    }
+   ]
+  },
+  "xuechaowu|tongji university": {
+   "affiliation": "Tongji University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 211,
+    "fields": [
+     "Agricultural and Biological Sciences",
+     "Computer Science",
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5001224340",
+    "name": "Xuechao Wu",
+    "score": 9,
+    "works_count": 31
+   },
+   "name": "Xuechao Wu",
+   "works": [
+    {
+     "cited": 35,
+     "title": "Changes in monsoon precipitation in East Asia under a 2°C interglacial warming",
+     "url": "https://doi.org/10.1126/sciadv.adm7694",
+     "venue": "Science Advances",
+     "year": 2024
+    },
+    {
+     "cited": 20,
+     "title": "Clay mineralogy of the Stari Slankamen (Serbia) loess-paleosol sequence during the last glacial cycle — Implications for dust provenance and interglacial climate",
+     "url": "https://doi.org/10.1016/j.quascirev.2021.106990",
+     "venue": "Quaternary Science Reviews",
+     "year": 2021
+    },
+    {
+     "cited": 18,
+     "title": "Constructing 3D geological models based on large-scale geological maps",
+     "url": "https://doi.org/10.1515/geo-2020-0270",
+     "venue": "Open Geosciences",
+     "year": 2021
+    }
+   ]
+  },
+  "xuefashi|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 11426,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5001962785",
+    "name": "Xuefa Shi",
+    "score": 9,
+    "works_count": 610
+   },
+   "name": "Xuefa Shi",
+   "works": [
+    {
+     "cited": 297,
+     "title": "Sediment accumulation and budget in the Bohai Sea, Yellow Sea and East China Sea",
+     "url": "https://doi.org/10.1016/j.margeo.2017.06.004",
+     "venue": "Marine Geology",
+     "year": 2017
+    },
+    {
+     "cited": 173,
+     "title": "Distribution of sedimentary organic matter in estuarine–inner shelf regions of the East China Sea: Implications for hydrodynamic forces and anthropogenic impact",
+     "url": "https://doi.org/10.1016/j.marchem.2012.08.004",
+     "venue": "Marine Chemistry",
+     "year": 2012
+    },
+    {
+     "cited": 155,
+     "title": "Provenance discrimination of siliciclastic sediments in the middle Okinawa Trough since 30ka: Constraints from rare earth element compositions",
+     "url": "https://doi.org/10.1016/j.margeo.2010.06.002",
+     "venue": "Marine Geology",
+     "year": 2010
+    }
+   ]
+  },
+  "xuguangfeng|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 193,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5102872771",
+    "name": "Xuguang Feng",
+    "score": 7,
+    "works_count": 37
+   },
+   "name": "Xuguang Feng",
+   "works": [
+    {
+     "cited": 28,
+     "title": "Response of heterogeneous rainfall variability in East Asia to Hadley circulation reorganization during the late Quaternary",
+     "url": "https://doi.org/10.1016/j.quascirev.2020.106562",
+     "venue": "Quaternary Science Reviews",
+     "year": 2020
+    },
+    {
+     "cited": 27,
+     "title": "Sea-level oscillations in the East China Sea and their implications for global seawater redistribution during 14.0–10.0 kyr BP",
+     "url": "https://doi.org/10.1016/j.palaeo.2018.08.015",
+     "venue": "Palaeogeography Palaeoclimatology Palaeoecology",
+     "year": 2018
+    },
+    {
+     "cited": 25,
+     "title": "Millennial-scale interaction between the East Asian winter monsoon and El Niño-related tropical Pacific precipitation in the Holocene",
+     "url": "https://doi.org/10.1016/j.palaeo.2021.110442",
+     "venue": "Palaeogeography Palaeoclimatology Palaeoecology",
+     "year": 2021
+    }
+   ]
+  },
+  "yechanpark|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "",
+    "id": "A5150953089",
+    "name": "Yechan Park",
+    "score": 8,
+    "works_count": 2
+   },
+   "name": "Yechan Park",
+   "works": [
+    {
+     "cited": 0,
+     "title": "A tide-influenced estuary in transition: timing, along-strike facies variation, and asynchronous Holocene evolution of the Seomjin River estuary, southern coast of Korea",
+     "url": "https://doi.org/10.17632/bxx8gvw9st",
+     "venue": "Mendeley Data",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "A tide-influenced estuary in transition: timing, along-strike facies variation, and asynchronous Holocene evolution of the Seomjin River estuary, southern coast of Korea",
+     "url": "https://doi.org/10.17632/bxx8gvw9st.1",
+     "venue": "Mendeley Data",
+     "year": 2026
+    }
+   ]
+  },
+  "yewonkim|pusan national university": {
+   "affiliation": "Pusan National University",
+   "match": null,
+   "name": "Yewon Kim",
+   "works": []
+  },
+  "yibocui|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Yibo Cui",
+   "works": []
+  },
+  "yoonji|gyeongsang national university": {
+   "affiliation": "Gyeongsang National University",
+   "match": null,
+   "name": "Yoon Ji",
+   "works": []
+  },
+  "youngjaekim|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 3484,
+    "fields": [
+     "Computer Science"
+    ],
+    "hint": "Sogang University, South Korea",
+    "id": "A5100458491",
+    "name": "Youngjae Kim",
+    "score": 6,
+    "works_count": 198
+   },
+   "name": "Youngjae Kim",
+   "works": [
+    {
+     "cited": 735,
+     "title": "DFTL",
+     "url": "https://doi.org/10.1145/1508244.1508271",
+     "venue": "International Conference on Architectural Support for Programming Languages and Operating Systems (ASPLOS)",
+     "year": 2009
+    },
+    {
+     "cited": 269,
+     "title": "FlashSim: A Simulator for NAND Flash-Based Solid-State Drives",
+     "url": "https://doi.org/10.1109/simul.2009.17",
+     "venue": "",
+     "year": 2009
+    },
+    {
+     "cited": 130,
+     "title": "DFTL",
+     "url": "https://doi.org/10.1145/1508284.1508271",
+     "venue": "ACM SIGPLAN Notices",
+     "year": 2009
+    }
+   ]
+  },
+  "youngjinjoe|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 171,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Polar Research Institute, South Korea",
+    "id": "A5003220897",
+    "name": "Young Jin Joe",
+    "score": 7,
+    "works_count": 38
+   },
+   "name": "Young Jin Joe",
+   "works": [
+    {
+     "cited": 29,
+     "title": "Late Quaternary depositional and glacial history of the Arliss Plateau off the East Siberian margin in the western Arctic Ocean",
+     "url": "https://doi.org/10.1016/j.quascirev.2019.106099",
+     "venue": "Quaternary Science Reviews",
+     "year": 2019
+    },
+    {
+     "cited": 22,
+     "title": "Seismostratigraphic and Geomorphic Evidence for the Glacial History of the Northwestern Chukchi Margin, Arctic Ocean",
+     "url": "https://doi.org/10.1029/2020jf006030",
+     "venue": "Journal of Geophysical Research Earth Surface",
+     "year": 2021
+    },
+    {
+     "cited": 15,
+     "title": "Glacial and environmental changes in northern Svalbard over the last 16.3 ka inferred from neodymium isotopes",
+     "url": "https://doi.org/10.1016/j.gloplacha.2021.103483",
+     "venue": "Global and Planetary Change",
+     "year": 2021
+    }
+   ]
+  },
+  "youngkyuahn|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 55,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Inha University, South Korea",
+    "id": "A5007918737",
+    "name": "Youngkyu Ahn",
+    "score": 8,
+    "works_count": 15
+   },
+   "name": "Youngkyu Ahn",
+   "works": [
+    {
+     "cited": 18,
+     "title": "Non-linear response of glacier melting to Holocene warming in Svalbard recorded by sedimentary iron (oxyhydr)oxides",
+     "url": "https://doi.org/10.1016/j.epsl.2023.118054",
+     "venue": "Earth and Planetary Science Letters",
+     "year": 2023
+    },
+    {
+     "cited": 15,
+     "title": "Glacial and environmental changes in northern Svalbard over the last 16.3 ka inferred from neodymium isotopes",
+     "url": "https://doi.org/10.1016/j.gloplacha.2021.103483",
+     "venue": "Global and Planetary Change",
+     "year": 2021
+    },
+    {
+     "cited": 9,
+     "title": "Post-glaciation depositional changes in Wijdefjorden, northern Svalbard, using grain-size end-member modelling",
+     "url": "https://doi.org/10.1016/j.margeo.2024.107306",
+     "venue": "Marine Geology",
+     "year": 2024
+    }
+   ]
+  },
+  "youngkyupark|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Young Kyu Park",
+   "works": []
+  },
+  "youngnamkim|chungnam national university": {
+   "affiliation": "Chungnam National University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 416,
+    "fields": [
+     "Environmental Science",
+     "Medicine"
+    ],
+    "hint": "Chungnam National University, South Korea",
+    "id": "A5089344129",
+    "name": "Youngnam Kim",
+    "score": 8,
+    "works_count": 50
+   },
+   "name": "Youngnam Kim",
+   "works": [
+    {
+     "cited": 40,
+     "title": "Distributions and potential sources of traditional and emerging polycyclic aromatic hydrocarbons in sediments from the lower reach of the Yangtze River, China",
+     "url": "https://doi.org/10.1016/j.scitotenv.2021.152831",
+     "venue": "The Science of The Total Environment",
+     "year": 2022
+    },
+    {
+     "cited": 31,
+     "title": "Effect-directed identification of novel aryl hydrocarbon receptor-active aromatic compounds in coastal sediments collected from a highly industrialized area",
+     "url": "https://doi.org/10.1016/j.scitotenv.2021.149969",
+     "venue": "The Science of The Total Environment",
+     "year": 2021
+    },
+    {
+     "cited": 28,
+     "title": "Spatial distribution and source identification of traditional and emerging persistent toxic substances in the offshore sediment of South Korea",
+     "url": "https://doi.org/10.1016/j.scitotenv.2021.147996",
+     "venue": "The Science of The Total Environment",
+     "year": 2021
+    }
+   ]
+  },
+  "yuhyeonpark|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 304,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Pusan National University, South Korea",
+    "id": "A5025112963",
+    "name": "Yu-Hyeon Park",
+    "score": 10,
+    "works_count": 28
+   },
+   "name": "Yu-Hyeon Park",
+   "works": [
+    {
+     "cited": 57,
+     "title": "Holocene sea-ice conditions and circulation at the Chukchi-Alaskan margin, Arctic Ocean, inferred from biomarker proxies",
+     "url": "https://doi.org/10.1177/0959683616645939",
+     "venue": "The Holocene",
+     "year": 2016
+    },
+    {
+     "cited": 40,
+     "title": "Distribution, source and transportation of glycerol dialkyl glycerol tetraethers in surface sediments from the western Arctic Ocean and the northern Bering Sea",
+     "url": "https://doi.org/10.1016/j.marchem.2014.07.001",
+     "venue": "Marine Chemistry",
+     "year": 2014
+    },
+    {
+     "cited": 37,
+     "title": "Distribution of detrital minerals and sediment color in western Arctic Ocean and northern Bering Sea sediments: Changes in the provenance of western Arctic Ocean sediments since the last glacial period",
+     "url": "https://doi.org/10.1016/j.polar.2016.07.005",
+     "venue": "Polar Science",
+     "year": 2016
+    }
+   ]
+  },
+  "yuifujimi|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Yui Fujimi",
+   "works": []
+  },
+  "yunhaili|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1190,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Environmental Science"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5101640728",
+    "name": "Yunhai Li",
+    "score": 10,
+    "works_count": 64
+   },
+   "name": "Yunhai Li",
+   "works": [
+    {
+     "cited": 141,
+     "title": "The source of natural and anthropogenic heavy metals in the sediments of the Minjiang River Estuary (SE China): Implications for historical pollution",
+     "url": "https://doi.org/10.1016/j.scitotenv.2014.06.046",
+     "venue": "The Science of The Total Environment",
+     "year": 2014
+    },
+    {
+     "cited": 128,
+     "title": "Dispersal pattern of suspended sediment in the shear frontal zone off the Huanghe (Yellow River) mouth",
+     "url": "https://doi.org/10.1016/j.csr.2006.12.002",
+     "venue": "Continental Shelf Research",
+     "year": 2006
+    },
+    {
+     "cited": 83,
+     "title": "East Asia Winter Monsoon changes inferred from environmentally sensitive grain-size component records during the last 2300 years in mud area southwest off Cheju Island, ECS",
+     "url": "https://doi.org/10.1007/s11430-006-0604-1",
+     "venue": "Science China Earth Sciences",
+     "year": 2006
+    }
+   ]
+  },
+  "yunjikim|korea institute of ocean science & technology": {
+   "affiliation": "Korea Institute of Ocean Science & Technology",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Korea Institute of Ocean Science and Technology, South Korea",
+    "id": "A5135478892",
+    "name": "Yunji Kim",
+    "score": 11,
+    "works_count": 2
+   },
+   "name": "Yunji Kim",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Planktic–benthic foraminiferal isotope differentiation and sedimentary carbon variability on the Hupo Basin Slope, Southwestern East Sea",
+     "url": "https://doi.org/10.3389/fmars.2026.1977666",
+     "venue": "Frontiers in Marine Science",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Integrated controls on the labile biogenic silica distribution in a muddy land–shelf continuum",
+     "url": "https://doi.org/10.1016/j.rsma.2026.105399",
+     "venue": "Regional Studies in Marine Science",
+     "year": 2026
+    }
+   ]
+  },
+  "yunjisong|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Yun Ji Song",
+   "works": []
+  },
+  "yunyingzhang|south china sea institute of oceanology": {
+   "affiliation": "South China Sea Institute of Oceanology",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1827,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Economics, Econometrics and Finance"
+    ],
+    "hint": "Hebei Agricultural University, China",
+    "id": "A5060680735",
+    "name": "Yunying Zhang",
+    "score": 5,
+    "works_count": 94
+   },
+   "name": "Yunying Zhang",
+   "works": [
+    {
+     "cited": 127,
+     "title": "Alternating Trench Advance and Retreat: Insights From Paleozoic Magmatism in the Eastern Tianshan, Central Asian Orogenic Belt",
+     "url": "https://doi.org/10.1029/2018tc005051",
+     "venue": "Tectonics",
+     "year": 2018
+    },
+    {
+     "cited": 105,
+     "title": "Geometry, kinematics and tectonic models of the Kazakhstan Orocline, Central Asian Orogenic Belt",
+     "url": "https://doi.org/10.1016/j.jseaes.2017.07.029",
+     "venue": "Journal of Asian Earth Sciences",
+     "year": 2017
+    },
+    {
+     "cited": 97,
+     "title": "Carboniferous bimodal volcanic rocks in the Eastern Tianshan, NW China: Evidence for arc rifting",
+     "url": "https://doi.org/10.1016/j.gr.2016.02.004",
+     "venue": "Gondwana Research",
+     "year": 2016
+    }
+   ]
+  },
+  "yupengren|ocean university of china": {
+   "affiliation": "Ocean University of China",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 0,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Engineering",
+     "Environmental Science"
+    ],
+    "hint": "Ocean University of China, China",
+    "id": "A5124943162",
+    "name": "Yupeng Ren",
+    "score": 16,
+    "works_count": 8
+   },
+   "name": "Yupeng Ren",
+   "works": [
+    {
+     "cited": 0,
+     "title": "Numerical simulation results of turbidity currents over different bedforms and expeimental data",
+     "url": "https://doi.org/10.5281/zenodo.22207328",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Numerical simulation results of turbidity currents over different bedforms and expeimental data",
+     "url": "https://doi.org/10.5281/zenodo.22255834",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2026
+    },
+    {
+     "cited": 0,
+     "title": "Numerical simulation results of turbidity currents over different bedforms",
+     "url": "https://doi.org/10.5281/zenodo.22207329",
+     "venue": "Zenodo (CERN European Organization for Nuclear Research)",
+     "year": 2026
+    }
+   ]
+  },
+  "yusukekodama|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Yusuke Kodama",
+   "works": []
+  },
+  "yusukeokazaki|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1653,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Kyushu University, Japan",
+    "id": "A5059020086",
+    "name": "Yusuke Okazaki",
+    "score": 11,
+    "works_count": 111
+   },
+   "name": "Yusuke Okazaki",
+   "works": [
+    {
+     "cited": 309,
+     "title": "Deepwater Formation in the North Pacific During the Last Glacial Termination",
+     "url": "https://doi.org/10.1126/science.1190612",
+     "venue": "Science",
+     "year": 2010
+    },
+    {
+     "cited": 114,
+     "title": "Inter-laboratory comparison of oxygen isotope compositions from biogenic silica",
+     "url": "https://doi.org/10.1016/j.gca.2011.08.011",
+     "venue": "Geochimica et Cosmochimica Acta",
+     "year": 2011
+    },
+    {
+     "cited": 87,
+     "title": "Productivity changes in the Bering Sea during the late Quaternary",
+     "url": "https://doi.org/10.1016/j.dsr2.2005.07.003",
+     "venue": "Deep Sea Research Part II Topical Studies in Oceanography",
+     "year": 2005
+    }
+   ]
+  },
+  "yuyingzhang|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 4974,
+    "fields": [
+     "Environmental Science",
+     "Medicine"
+    ],
+    "hint": "Lawrence Livermore National Laboratory, USA",
+    "id": "A5100661124",
+    "name": "Yuying Zhang",
+    "score": 10,
+    "works_count": 132
+   },
+   "name": "Yuying Zhang",
+   "works": [
+    {
+     "cited": 910,
+     "title": "The DOE E3SM Coupled Model Version 1: Overview and Evaluation at Standard Resolution",
+     "url": "https://doi.org/10.1029/2018ms001603",
+     "venue": "Journal of Advances in Modeling Earth Systems",
+     "year": 2019
+    },
+    {
+     "cited": 394,
+     "title": "An Overview of the Atmospheric Component of the Energy Exascale Earth System Model",
+     "url": "https://doi.org/10.1029/2019ms001629",
+     "venue": "Journal of Advances in Modeling Earth Systems",
+     "year": 2019
+    },
+    {
+     "cited": 297,
+     "title": "The DOE E3SM Coupled Model Version 1: Description and Results at High Resolution",
+     "url": "https://doi.org/10.1029/2019ms001870",
+     "venue": "Journal of Advances in Modeling Earth Systems",
+     "year": 2019
+    }
+   ]
+  },
+  "zhengquanyao|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 2103,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5001811503",
+    "name": "Zhengquan Yao",
+    "score": 11,
+    "works_count": 148
+   },
+   "name": "Zhengquan Yao",
+   "works": [
+    {
+     "cited": 297,
+     "title": "Sediment accumulation and budget in the Bohai Sea, Yellow Sea and East China Sea",
+     "url": "https://doi.org/10.1016/j.margeo.2017.06.004",
+     "venue": "Marine Geology",
+     "year": 2017
+    },
+    {
+     "cited": 189,
+     "title": "The abrupt onset of the modern South Asian Monsoon winds",
+     "url": "https://doi.org/10.1038/srep29838",
+     "venue": "Scientific Reports",
+     "year": 2016
+    },
+    {
+     "cited": 112,
+     "title": "Refinement of Miocene sea level and monsoon events from the sedimentary archive of the Maldives (Indian Ocean)",
+     "url": "https://doi.org/10.1186/s40645-018-0165-x",
+     "venue": "Progress in Earth and Planetary Science",
+     "year": 2018
+    }
+   ]
+  },
+  "zhidong|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Zhi Dong",
+   "works": []
+  },
+  "zhifeiliu|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 8971,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5060860214",
+    "name": "Zhifei Liu",
+    "score": 11,
+    "works_count": 282
+   },
+   "name": "Zhifei Liu",
+   "works": [
+    {
+     "cited": 895,
+     "title": "Constraints on the early uplift history of the Tibetan Plateau",
+     "url": "https://doi.org/10.1073/pnas.0703595105",
+     "venue": "Proceedings of the National Academy of Sciences",
+     "year": 2008
+    },
+    {
+     "cited": 631,
+     "title": "Ages and magnetic structures of the South China Sea constrained by deep tow magnetic surveys and IODP Expedition 349",
+     "url": "https://doi.org/10.1002/2014gc005567",
+     "venue": "Geochemistry Geophysics Geosystems",
+     "year": 2014
+    },
+    {
+     "cited": 612,
+     "title": "Source-to-sink transport processes of fluvial sediments in the South China Sea",
+     "url": "https://doi.org/10.1016/j.earscirev.2015.08.005",
+     "venue": "Earth-Science Reviews",
+     "year": 2015
+    }
+   ]
+  },
+  "zhiweihe|tongji university": {
+   "affiliation": "Tongji University",
+   "match": {
+    "by": "affiliation",
+    "cited_by_count": 380,
+    "fields": [
+     "Earth and Planetary Sciences",
+     "Economics, Econometrics and Finance"
+    ],
+    "hint": "Tongji University, China",
+    "id": "A5110931065",
+    "name": "Zhiwei He",
+    "score": 13,
+    "works_count": 31
+   },
+   "name": "Zhiwei He",
+   "works": [
+    {
+     "cited": 52,
+     "title": "Sedimentary cycling of zinc and nickel and their isotopes on an upwelling margin: Implications for oceanic budgets and paleoenvironment proxies",
+     "url": "https://doi.org/10.1016/j.gca.2022.12.026",
+     "venue": "Geochimica et Cosmochimica Acta",
+     "year": 2022
+    },
+    {
+     "cited": 46,
+     "title": "A Flux‐Free Fusion Technique for Rapid Determination of Major and Trace Elements in Silicate Rocks by LA‐ICP‐MS",
+     "url": "https://doi.org/10.1111/j.1751-908x.2015.00352.x",
+     "venue": "Geostandards and Geoanalytical Research",
+     "year": 2015
+    },
+    {
+     "cited": 45,
+     "title": "Why was iron lost without significant isotope fractionation during the lateritic process in tropical environments?",
+     "url": "https://doi.org/10.1016/j.geoderma.2016.12.003",
+     "venue": "Geoderma",
+     "year": 2016
+    }
+   ]
+  },
+  "zhongyi|": {
+   "affiliation": "",
+   "match": null,
+   "name": "Zhong Yi",
+   "works": []
+  },
+  "zhongyuanluo|tongji university": {
+   "affiliation": "Tongji University",
+   "match": null,
+   "name": "Zhongyuan Luo",
+   "works": []
+  },
+  "zhuangcaitian|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 732,
+    "fields": [
+     "Earth and Planetary Sciences"
+    ],
+    "hint": "Ministry of Natural Resources, China",
+    "id": "A5028725559",
+    "name": "Zhuangcai Tian",
+    "score": 7,
+    "works_count": 62
+   },
+   "name": "Zhuangcai Tian",
+   "works": [
+    {
+     "cited": 90,
+     "title": "Deep-sea Sediment Resuspension by Internal Solitary Waves in the Northern South China Sea",
+     "url": "https://doi.org/10.1038/s41598-019-47886-y",
+     "venue": "Scientific Reports",
+     "year": 2019
+    },
+    {
+     "cited": 62,
+     "title": "Internal solitary waves induced deep-water nepheloid layers and seafloor geomorphic changes on the continental slope of the northern South China Sea",
+     "url": "https://doi.org/10.1063/5.0045124",
+     "venue": "Physics of Fluids",
+     "year": 2021
+    },
+    {
+     "cited": 44,
+     "title": "Bottom and Intermediate Nepheloid Layer Induced by Shoaling Internal Solitary Waves: Impacts of the Angle of the Wave Group Velocity Vector and Slope Gradients",
+     "url": "https://doi.org/10.1029/2018jc014721",
+     "venue": "Journal of Geophysical Research Oceans",
+     "year": 2019
+    }
+   ]
+  },
+  "ziqichew|": {
+   "affiliation": "",
+   "match": {
+    "by": "topic",
+    "cited_by_count": 1,
+    "fields": [
+     "Arts and Humanities",
+     "Earth and Planetary Sciences",
+     "Social Sciences"
+    ],
+    "hint": "University of California San Diego, USA",
+    "id": "A5118138418",
+    "name": "Zi-Qi Chew",
+    "score": 8,
+    "works_count": 2
+   },
+   "name": "Zi-Qi Chew",
+   "works": [
+    {
+     "cited": 1,
+     "title": "Broad-spectrum fishing and small fish use in Late Neolithic Taiwan: New insights from otolith-based analysis",
+     "url": "https://doi.org/10.1016/j.jas.2025.106422",
+     "venue": "Journal of Archaeological Science",
+     "year": 2025
+    },
+    {
+     "cited": 0,
+     "title": "Small Fish, Big Implications: Otolith Evidence for Sustainable Indigenous Fisheries in Prehistoric Taiwan",
+     "url": "https://doi.org/10.2139/ssrn.5294076",
+     "venue": "SSRN Electronic Journal",
+     "year": 2025
+    }
+   ]
+  }
+ },
+ "source": "OpenAlex (api.openalex.org) — tools/fetch_openalex.py"
+}

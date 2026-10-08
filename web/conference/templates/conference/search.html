@@ -39,7 +39,7 @@
     </div>`;
   }
   function absCard(a) {
-    return `<div class="talk"><div class="talk-body">
+    return `<div class="talk" data-abs-id="${a.id}"><div class="talk-body">
       <a class="talk-title" href="${a.url}">${esc(a.title)}</a>
       <div class="talk-meta">
         ${SHOW_CONF ? `<span class="conf-tag" translate="no">${esc(a.conf_name)}</span>` : ''}

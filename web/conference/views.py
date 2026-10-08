@@ -10,7 +10,6 @@
 """
 import datetime as dt
 import json
-import re
 from collections import defaultdict
 
 from django.conf import settings
@@ -19,7 +18,7 @@ from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from . import changelog
+from . import changelog, enrich, people
 from .models import Conference, Session, Talk
 
 ALARM_MIN = 5             # 캘린더 알림: 발표 N분 전
@@ -167,43 +166,21 @@ def program(request, slug, day=None):
     return render(request, "conference/program.html", ctx)
 
 
-_HONORIFIC = re.compile(r"^(Prof\.?|Professor|Dr\.?|Mr\.?|Ms\.?|Mrs\.?)\s+", re.I)
-
-
 def scholar_people(talk, abstract):
-    """Google Scholar 링크를 달 사람 — 제1저자와 교신저자 (005).
+    """학술 검색을 붙일 사람 — 제1저자와 교신저자 (005). 고르는 규칙은 people.pick.
 
-    Scholar 는 API 가 없고 자동으로 긁는 것을 막아 목록을 가져오지 않는다. 이름으로 찾는
-    링크만 단다. 동명이인을 가를 수 있게 그 사람의 소속을 곁에 적는다.
-    [{name, roles: ["1st author", "corresponding"], affiliation}]
+    미리 받은 OpenAlex 결과(enrich/<slug>.openalex.json, 006)가 있으면 `openalex` 에 붙인다.
     """
-    out = []
-
-    def add(name, role, affiliation=""):
-        name = _HONORIFIC.sub("", re.sub(r"\s*\(.*?\)", "", name or "")).strip(" ,;*")
-        if not name:
-            return
-        hit = next((p for p in out if p["name"].lower() == name.lower()), None)
-        if hit:
-            if role not in hit["roles"]:
-                hit["roles"].append(role)
-            hit["affiliation"] = hit["affiliation"] or affiliation
-        else:
-            out.append({"name": name, "roles": [role], "affiliation": affiliation})
-
-    def affil_of(author):
-        refs = author.get("affiliations") or []
-        affs = abstract.affiliations or []
-        return "; ".join(affs[r - 1] for r in refs if isinstance(r, int) and 0 < r <= len(affs))
-
     if abstract and abstract.authors:
-        first = abstract.authors[0]
-        add(first.get("name"), "1st author", affil_of(first))
-        for a in abstract.authors:
-            if a.get("corresponding"):
-                add(a.get("name"), "corresponding", affil_of(a))
-    elif talk and talk.kind in ("talk", "plenary", "keynote", "poster"):
-        add(talk.speaker, "speaker")
+        out = people.pick(abstract.authors, abstract.affiliations)
+    elif talk:
+        out = people.pick([], [], talk.speaker, talk.kind)
+    else:
+        return []
+    conf = (talk or abstract).conference
+    cache = enrich.openalex(conf.slug)
+    for p in out:
+        p["openalex"] = cache.get(people.key(p["name"], p["affiliation"]))
     return out
 
 
@@ -212,7 +189,9 @@ def talk_detail(request, slug, pk):
     t = get_object_or_404(conf.talks.select_related("session", "abstract", "room"), pk=pk)
     return render(request, "conference/talk_detail.html",
                   {"conf": conf, "talk": t, "abstract": t.abstract, "session": t.session,
-                   "obj_title": t.title, "people": scholar_people(t, t.abstract)})
+                   "obj_title": t.title, "people": scholar_people(t, t.abstract),
+                   "tr_title": enrich.translate(slug, t.title),
+                   "tr_text": enrich.translate(slug, t.abstract.text if t.abstract else "")})
 
 
 def abstract_detail(request, slug, pk):
@@ -221,7 +200,8 @@ def abstract_detail(request, slug, pk):
     talk = a.talks.select_related("room", "session").first()
     return render(request, "conference/talk_detail.html",
                   {"conf": conf, "talk": talk, "abstract": a, "session": a.session,
-                   "obj_title": a.title, "people": scholar_people(talk, a)})
+                   "obj_title": a.title, "people": scholar_people(talk, a),
+                   "tr_title": enrich.translate(slug, a.title), "tr_text": enrich.translate(slug, a.text)})
 
 
 def sessions(request, slug):
@@ -246,7 +226,9 @@ def session_detail(request, slug, code):
     linked = {t.abstract_id for t in talks if t.abstract_id}
     extra = [a for a in s.abstracts.select_related("conference") if a.id not in linked]   # 구두 미편성 · 포스터
     return render(request, "conference/session_detail.html",
-                  {"conf": conf, "session": s, "talks": talks, "extra": extra})
+                  {"conf": conf, "session": s, "talks": talks, "extra": extra,
+                   "tr_title": enrich.translate(slug, s.title),
+                   "tr_text": enrich.translate(slug, s.description)})
 
 
 def search(request, slug=None):
@@ -370,6 +352,28 @@ def talk_ics(request, slug, pk):
     ]
     resp = HttpResponse("\r\n".join(lines) + "\r\n", content_type="text/calendar; charset=utf-8")
     return resp
+
+
+def i18n_json(request, lang, slug=None):
+    """목록 화면이 제목 아래에 붙일 번역 (006). {talks: {pk: 제목}, abstracts: {pk: 제목}, sessions: {code: 제목}}"""
+    talks, abstracts, sess = {}, {}, {}
+    for conf in _confs(slug):
+        tr = enrich.translations(conf.slug, lang)
+        if not tr:
+            continue
+        for pk, title in conf.talks.exclude(kind="break").values_list("pk", "title"):
+            if (t := tr.get(enrich.text_key(title))):
+                talks[pk] = t
+        for pk, title in conf.abstracts.values_list("pk", "title"):
+            if (t := tr.get(enrich.text_key(title))):
+                abstracts[pk] = t
+        if slug:
+            for code, title in conf.sessions.values_list("code", "title"):
+                if (t := tr.get(enrich.text_key(title))):
+                    sess[code] = t
+    if not (talks or abstracts or sess) and lang not in {l for c in _confs(slug) for l in enrich.languages(c.slug)}:
+        raise Http404
+    return _json({"talks": talks, "abstracts": abstracts, "sessions": sess})
 
 
 def not_found(request):

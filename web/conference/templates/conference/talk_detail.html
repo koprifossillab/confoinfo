@@ -14,6 +14,7 @@
   {% endif %}
 
   <h1 class="detail-title" data-xlate>{{ obj_title }}</h1>
+  {% for lang, t in tr_title.items %}<p class="tr-title" lang="{{ lang }}" data-tr="{{ lang }}" hidden>{{ t }}</p>{% endfor %}
 
   {% if session %}
   <a class="detail-session" href="{% url 'session_detail' conf.slug session.code %}">
@@ -38,7 +39,12 @@
       <p class="detail-corr" translate="no">✉ Corresponding: {{ abstract.corresponding|join:", " }}</p>
     {% endif %}
     {% if abstract.text %}
-      <div class="detail-abstract" data-xlate>{{ abstract.text|linebreaks }}</div>
+      {% if tr_text %}
+      {# 미리 번역해 둔 본문 (006) — 원문/번역 탭. 고른 언어의 번역이 있을 때만 JS 가 탭을 보인다 #}
+      <div class="tr-tabs" hidden><button type="button" class="on" data-tr-tab="">Original</button>{% for lang in tr_text %}<button type="button" data-tr-tab="{{ lang }}" data-tr="{{ lang }}" hidden>{{ lang|upper }}</button>{% endfor %}</div>
+      {% endif %}
+      <div class="detail-abstract" data-xlate data-tr-orig>{{ abstract.text|linebreaks }}</div>
+      {% for lang, t in tr_text.items %}<div class="detail-abstract" lang="{{ lang }}" data-tr-body="{{ lang }}" hidden>{{ t|linebreaks }}</div>{% endfor %}
     {% endif %}
     {% if abstract.keywords %}
       <div class="kw">{% for k in abstract.keywords %}<span class="kwchip">{{ k }}</span>{% endfor %}</div>
@@ -58,19 +64,30 @@
 
   {% if people %}
   <section class="scholar">
-    <div class="note-h">📚 Earlier work on Google Scholar</div>
+    <div class="note-h">📚 Earlier work</div>
     {% for p in people %}
     <div class="scholar-row">
       <span class="scholar-name" translate="no">{{ p.name }}</span>
       <span class="scholar-role">{{ p.roles|join:" · " }}</span>
       {% if p.affiliation %}<div class="scholar-aff" translate="no">{{ p.affiliation }}</div>{% endif %}
+      {% with oa=p.openalex %}{% if oa.match and oa.works %}
+      {# 미리 받아 둔 대표 논문 셋 (tools/fetch_openalex.py, 006) #}
+      <ol class="works">
+        {% for w in oa.works %}
+        <li><a href="{{ w.url }}" target="_blank" rel="noopener">{{ w.title }}</a>
+          <span class="work-meta" translate="no">{{ w.year|default:"" }}{% if w.venue %} · {{ w.venue }}{% endif %} · cited {{ w.cited }}</span></li>
+        {% endfor %}
+      </ol>
+      <div class="work-src">Most-cited on <a href="https://openalex.org/{{ oa.match.id }}" target="_blank" rel="noopener" translate="no">OpenAlex</a>{% if oa.match.hint %} · <span translate="no">{{ oa.match.hint }}</span>{% endif %}{% if oa.match.by != "affiliation" %} · matched by name and research topic{% endif %}</div>
+      {% endif %}{% endwith %}
       <div class="scholar-links">
+        <span class="scholar-gs">Google Scholar:</span>
         <a href="https://scholar.google.com/citations?view_op=search_authors&amp;mauthors={{ p.name|urlencode:'' }}" target="_blank" rel="noopener">Profile</a>
         <a href="https://scholar.google.com/scholar?q={{ 'author:"'|urlencode:'' }}{{ p.name|urlencode:'' }}{{ '"'|urlencode:'' }}" target="_blank" rel="noopener">Papers</a>
       </div>
     </div>
     {% endfor %}
-    <p class="scholar-note">Searches by name — people with the same name may appear. Check the affiliation.</p>
+    <p class="scholar-note">Found by name — a different person with the same name may appear. Check the affiliation.</p>
   </section>
   {% endif %}
 </article>

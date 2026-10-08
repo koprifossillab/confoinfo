@@ -92,7 +92,8 @@ class ViewTests(TestCase):
         self.assertContains(r, '<html lang="en">')
         # 제1저자이자 교신저자는 한 줄로 (005)
         self.assertEqual(r.context["people"],
-                         [{"name": "Kim Ex", "roles": ["1st author", "corresponding"], "affiliation": ""}])
+                         [{"name": "Kim Ex", "roles": ["1st author", "corresponding"], "affiliation": "",
+                           "openalex": None}])
         self.assertContains(r, "mauthors=Kim%20Ex")
         self.assertContains(r, "scholar?q=author%3A%22Kim%20Ex%22")
         # 초록 없는 기조 강연은 연사로, 직함·괄호는 뗀다

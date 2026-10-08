@@ -1,5 +1,5 @@
 {# 프로그램에 자리가 없는 초록 하나 (포스터 · 미편성). 변수: a (Abstract), show_conf #}
-<div class="talk">
+<div class="talk" data-abs-id="{{ a.id }}">
   <div class="talk-body">
     <a class="talk-title" href="{% url 'abstract_detail' a.conference.slug a.id %}">{{ a.title }}</a>
     <div class="talk-meta">

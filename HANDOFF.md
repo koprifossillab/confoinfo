@@ -44,5 +44,8 @@
 - 색은 `style.css` 머리의 토큰으로만 — 글자색에 `--navy` 를 쓰면 다크에서 안 읽힌다. 글자는 `--link`
 - `STATIC_URL` 은 서브경로를 직접 단다 — 상대경로로 되돌리면 구운 사이트의 CSS 가 404 다 (001)
 - 미리 보기는 `/confoinfo/` 아래로 띄워야 한다 — `build_site.sh` 가 끝에 명령을 찍어 준다
+- **덧붙임 자료(`enrich/`)는 이 서버에서 미리 만든다** — 번역은 원문 해시가 열쇠라 원문이 바뀌면 안 나온다
+  (`tools/i18n_todo.py <slug> ko` 가 다시 할 것을 뽑는다). 대표 논문은 `tools/fetch_openalex.py <slug>` (006)
+- **STRATI 2026 은 덧붙임 자료를 만들지 않는다** — 지난 학회다(사용자, 2026-10-08)
 - 헤드리스 화면 확인은 `playwright==1.49.1`(requirements-dev) — 이 서버의 크로미움 판에 맞췄다.
   `page.clock.install(time=…)` 으로 학회 기간을 흉내 낸다

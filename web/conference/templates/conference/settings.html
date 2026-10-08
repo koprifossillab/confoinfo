@@ -44,6 +44,12 @@
 
 <h2 class="set-h">Translate</h2>
 <div class="field">
+  <label class="setting" style="padding: 0 0 10px; border: none">
+    <span class="setting-t">Show translations
+      <small>Titles and abstracts translated in advance appear under the original.
+        Available now: {% for l in tr_langs %}<b>{{ l }}</b>{% if not forloop.last %}, {% endif %}{% empty %}none{% endfor %}.</small></span>
+    <input type="checkbox" id="cfg-tr">
+  </label>
   <label class="field-label" for="cfg-lang">Translate to</label>
   <select id="cfg-lang" class="xlate-lang" translate="no"></select>
   <p class="hint">Language for the 🌐 Translate links on talks and sessions (Papago · Google).
@@ -86,6 +92,9 @@
     });
   });
 
+  const tr = document.getElementById('cfg-tr');
+  tr.checked = CONFO.getCfg().tr !== false;
+  tr.addEventListener('change', () => CONFO.setCfg({ tr: tr.checked }));
   const cb = document.getElementById('cfg-breaks');
   cb.checked = CONFO.getCfg().breaks;
   cb.addEventListener('change', () => CONFO.setCfg({ breaks: cb.checked }));

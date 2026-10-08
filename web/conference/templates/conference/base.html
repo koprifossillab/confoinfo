@@ -10,7 +10,9 @@
   <script>(function(){try{var c=JSON.parse(localStorage.getItem("confoinfo_cfg")||"{}"),d=document.documentElement,t=c.theme;if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",t);if(c.font==="serif"||c.font==="system")d.setAttribute("data-font",c.font);}catch(e){}})();</script>
   <link rel="stylesheet" href="{% static 'conference/style.css' %}">
   {% if conf.color %}<style>:root { --navy: {{ conf.color }}; }</style>{% endif %}
-  <script>window.CONFO = { root: "{% url 'home' %}", version: "{{ version }}" };</script>
+  <script>window.CONFO = { root: "{% url 'home' %}", version: "{{ version }}",
+    trLangs: [{% for l in tr_langs %}"{{ l }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+    trUrl: "{% if conf %}{% url 'i18n' conf.slug 'LANG' %}{% else %}{% url 'i18n_all' 'LANG' %}{% endif %}" };</script>
 </head>
 <body>
   <header class="appbar">

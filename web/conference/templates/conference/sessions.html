@@ -7,7 +7,7 @@
 {% if group %}<h2 class="group-h">{{ group }}</h2>{% endif %}
 <ul class="slist">
   {% for s in items %}
-  <li>
+  <li data-code="{{ s.code }}">
     <a href="{% url 'session_detail' conf.slug s.code %}">
       <span class="badge" translate="no">{{ s.code }}</span>
       <span class="stitle">{{ s.title|default:"(title TBD)" }}{% if s.conveners %}<small class="sconv">{{ s.conveners }}</small>{% endif %}</span>

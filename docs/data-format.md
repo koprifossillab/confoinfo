@@ -116,3 +116,16 @@ python tools/csv2conf.py docs/examples/example-program.csv \
 ```
 
 `docs/examples/` 의 것은 가상의 학회라 `conferences/` 에 넣지 않는다.
+
+## 덧붙임 자료 `enrich/` (006)
+
+학회 자료와 따로, **이 서버에서 미리 만들어 저장소에 넣는** 것들. 사이트를 구울 때 그대로
+들어가고, 사용자의 브라우저는 바깥을 부르지 않는다.
+
+| 파일 | 무엇 | 만드는 길 |
+|---|---|---|
+| `enrich/<slug>.openalex.json` | 제1저자·교신저자마다 OpenAlex 저자 짝과 대표 논문 셋 | `python tools/fetch_openalex.py <slug>` — 받은 사람은 건너뛴다 |
+| `enrich/<slug>.<lang>.json` | 제목·초록·세션 소개의 번역 `{"t": {원문 열쇠: 번역}}` | 사람(또는 Claude 세션)이 번역해 넣는다. 열쇠는 `enrich.text_key(원문)` |
+
+**번역의 열쇠는 원문의 해시다** — 원문이 고쳐지면 그 번역은 저절로 안 나온다(낡은 번역을
+보이지 않는다). 다시 번역할 것은 `tools/i18n_todo.py <slug> <lang>` 이 뽑는다.

@@ -79,6 +79,7 @@ TEMPLATES = [
         "OPTIONS": {"context_processors": [
             "django.template.context_processors.request",
             "conference.context.version",
+            "conference.context.translations",
         ]},
     }
 ]
@@ -137,3 +138,6 @@ USE_TZ = True
 
 # 학회 자료(`<slug>.json`)가 놓인 곳. `import_conference --all` 이 이 안을 전부 읽는다.
 CONFERENCES_DIR = Path(os.environ.get("CONFOINFO_CONFERENCES_DIR", PROJECT_ROOT / "conferences"))
+
+# 미리 받아 둔 덧붙임 자료 — 저자의 대표 논문(OpenAlex) 같은 것 (006, conference/enrich.py)
+ENRICH_DIR = Path(os.environ.get("CONFOINFO_ENRICH_DIR", PROJECT_ROOT / "enrich"))
