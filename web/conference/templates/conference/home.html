@@ -1,0 +1,22 @@
+{% extends "conference/base.html" %}
+{% block content %}
+{% if not n_confs %}
+  <p class="empty">No conferences loaded yet.<br>
+    <small>Put a <code>conferences/&lt;slug&gt;.json</code> file in place and run
+    <code>manage.py import_conference --all</code>.</small></p>
+{% endif %}
+{% for key, label, confs in sections %}
+<h2 class="home-h">{{ label }}</h2>
+{% for c in confs %}
+<a class="conf-card" href="{% url 'program' c.slug %}"{% if c.color %} style="--cc: {{ c.color }}"{% endif %}>
+  <div class="conf-short">{{ c.short_name }}{% if key == "ongoing" %}<span class="conf-live">LIVE</span>{% endif %}</div>
+  <div class="conf-name">{{ c.name }}</div>
+  <div class="conf-meta">
+    {% if c.start_date %}<span>📅 {{ c.start_date|date:"M j" }}{% if c.end_date and c.end_date != c.start_date %} – {{ c.end_date|date:"M j" }}{% endif %}, {{ c.start_date|date:"Y" }}</span>{% endif %}
+    {% if c.venue %}<span>📍 {{ c.venue }}</span>{% endif %}
+    <span>{{ c.n_talks }} talks · {{ c.n_sessions }} sessions{% if c.n_abstracts %} · {{ c.n_abstracts }} abstracts{% endif %}</span>
+  </div>
+</a>
+{% endfor %}
+{% endfor %}
+{% endblock %}

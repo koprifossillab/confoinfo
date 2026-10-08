@@ -1,0 +1,14 @@
+{# 발표 하나. 변수: t (Talk), show_conf (학회를 가로지르는 목록이면 학회 이름을 단다) #}
+<div class="talk" data-id="{{ t.id }}" data-start="{{ t.start|time:'H:i' }}" data-end="{{ t.end|time:'H:i' }}">
+  <div class="talk-time">{{ t.start|time:"H:i" }}{% if t.end %}–{{ t.end|time:"H:i" }}{% endif %}</div>
+  <div class="talk-body">
+    <a class="talk-title" href="{% url 'talk_detail' t.conference.slug t.id %}">{{ t.title }}</a>
+    <div class="talk-meta">
+      {% if show_conf %}<span class="conf-tag">{{ t.conference.short_name }}</span>{% endif %}
+      {% if t.session %}<span class="badge" title="{{ t.session.title }}">{{ t.session.code }}</span>{% endif %}
+      {% if t.speaker %}<span class="author">{{ t.speaker }}</span>{% endif %}
+    </div>
+    {% if show_place %}<div class="talk-place">📅 {{ t.date|date:"D M j" }}{% if t.room %} · 📍 {{ t.room.name }}{% endif %}</div>{% endif %}
+  </div>
+  {% if t.bookmarkable %}<button class="bm" data-id="{{ t.id }}" aria-label="bookmark" title="Bookmark">☆</button>{% endif %}
+</div>

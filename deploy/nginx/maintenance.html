@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 컨테이너를 갈아 끼우는 데 보통 5초, 길어도 30초다. 5초마다 다시 시도한다.
+     사람이 새로고침을 누르게 두면 언제 끝났는지 몰라 계속 누르게 된다. -->
+<meta http-equiv="refresh" content="5">
+<title>Updating — confoinfo</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    margin: 0; min-height: 100vh; display: flex;
+    align-items: center; justify-content: center;
+    font: 15px/1.7 ui-sans-serif, system-ui, "Noto Sans KR", sans-serif;
+    background: #0f1115; color: #e6e9ef;
+  }
+  @media (prefers-color-scheme: light) {
+    body { background: #f6f7f9; color: #1a1d23; }
+    .box { background: #fff; border-color: #e0e3e9; }
+    .dim { color: #6b7280; }
+  }
+  .box {
+    max-width: 420px; margin: 20px; padding: 26px 28px;
+    background: #171a21; border: 1px solid #262b36; border-radius: 12px;
+  }
+  h1 { margin: 0 0 10px; font-size: 17px; }
+  p { margin: 0 0 8px; }
+  .dim { color: #8b93a3; font-size: 13px; }
+  .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: #ffb454; margin-right: 7px; vertical-align: middle;
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100% { opacity: 1 } 50% { opacity: .25 } }
+  /* confoinfo 표시. nginx 가 그냥 파일로 내는 자리라 Django 템플릿을 못 쓴다 */
+  .brand {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 16px; color: #6fa8dc;
+  }
+  .brand .logomark { width: 26px; height: 26px; flex: 0 0 auto; display: block; }
+  .brand .wordmark { font-size: 15px; font-weight: 750; letter-spacing: .3px; }
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="brand">
+      <span class="logomark" style="font-size:22px;line-height:26px">🗓️</span>
+      <span class="wordmark">confoinfo</span>
+    </div>
+    <h1><span class="dot"></span>Updating — back in a few seconds</h1>
+    <p>The planner is switching to a new version. This usually takes under 10 seconds.</p>
+    <p class="dim">This page retries every 5 seconds. Your bookmarks and notes are
+       stored on your device and are not affected.</p>
+    <p class="dim">새 판으로 바꾸는 중입니다. 곧 돌아옵니다.</p>
+  </div>
+</body>
+</html>

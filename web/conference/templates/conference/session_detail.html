@@ -1,0 +1,16 @@
+{% extends "conference/base.html" %}
+{% block title %}{{ session.code }} · {{ conf.short_name }}{% endblock %}
+{% block content %}
+<h1 class="page-h"><span class="badge">{{ session.code }}</span></h1>
+<p class="session-title">{{ session.title|default:"(title TBD)" }}</p>
+
+{% if talks %}
+<h2 class="room-h">Oral program</h2>
+{% for t in talks %}{% include "conference/_talk_item.html" with show_place=True %}{% endfor %}
+{% endif %}
+
+{% if extra %}
+<h2 class="room-h">Other abstracts</h2>
+{% for a in extra %}{% include "conference/_abstract_item.html" %}{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{
+ "conference": {
+  "slug": "example2026",
+  "short_name": "EXAMPLE 2026",
+  "name": "Example Society Autumn Meeting 2026 (sample data)",
+  "start_date": "2026-11-05",
+  "end_date": "2026-11-06",
+  "timezone": "Asia/Seoul",
+  "venue": "Example Hall, Seoul",
+  "color": "#2f6b3a",
+  "lunch_at": "12:00",
+  "source": "docs/examples — csv2conf.py 시험용 가상 자료"
+ },
+ "rooms": [
+  {"name": "Main Hall", "short": "Main", "floor": "1F"},
+  {"name": "Room A", "short": "A", "floor": "2F"},
+  {"name": "Room B", "short": "B", "floor": "2F"}
+ ],
+ "sessions": [
+  {"code": "K", "group": "Keynote", "title": "Keynote lectures"},
+  {"code": "P1", "group": "Oral", "title": "Paleozoic faunas"},
+  {"code": "P2", "group": "Oral", "title": "Mesozoic ecosystems"}
+ ]
+}

@@ -1,0 +1,217 @@
+{% extends "conference/base.html" %}
+{# strati2026 4972d35 congress/templates/congress/program.html 에서 왔다 #}
+{% block title %}Program · {{ conf.short_name }}{% endblock %}
+{% block content %}
+{% if not days %}
+  <p class="empty">No timetable for this conference.{% if conf.sessions.exists %} See <a href="{% url 'sessions' conf.slug %}"><b>Sessions</b></a>.{% endif %}</p>
+{% else %}
+<div class="daybar">
+  {% for d in days %}
+    <a href="?day={{ d|date:'Y-m-d' }}"
+       class="daychip {% if d == selected %}on{% endif %}">{{ d|date:'D' }}<b>{{ d|date:'M j' }}</b></a>
+  {% endfor %}
+</div>
+
+<div id="nowbanner" class="nowbanner" hidden></div>
+
+<div class="roomtabs" role="tablist">
+  {% if plenary %}<button class="roomtab on" data-panel="plenary" data-room="Plenary">Plenary</button>{% endif %}
+  {% for room, items in columns %}
+    <button class="roomtab {% if not plenary and forloop.first %}on{% endif %}"
+            data-panel="r{{ forloop.counter }}" data-room="{{ room.name }}">{{ room.label }}</button>
+  {% endfor %}
+</div>
+
+<div id="ctxbar" class="ctxbar" hidden>
+  <b>{{ selected|date:'D M j' }}</b><span class="ctxsep">·</span><span id="ctxroom"></span>
+</div>
+
+{% if plenary %}
+<section class="room panel on" data-panel="plenary">
+  <h2 class="room-h">Plenary &amp; all rooms</h2>
+  {% for t in plenary %}{% include "conference/_talk_item.html" %}{% endfor %}
+</section>
+{% endif %}
+
+{% for room, items in columns %}
+<section class="room panel {% if not plenary and forloop.first %}on{% endif %}" data-panel="r{{ forloop.counter }}">
+  <h2 class="room-h">{{ room.name }}{% if room.floor %} · {{ room.floor }}{% endif %}</h2>
+  {% for kind, item in items %}
+    {% if kind == "talk" %}{% with t=item %}{% include "conference/_talk_item.html" %}{% endwith %}
+    {% else %}{% with b=item %}{% include "conference/_break_item.html" %}{% endwith %}{% endif %}
+  {% endfor %}
+</section>
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<button id="nowbtn" class="nowbtn" hidden>● Now</button>
+<script>
+(function () {
+  const tabs = [...document.querySelectorAll('.roomtab')];
+  const panels = [...document.querySelectorAll('.panel')];
+  if (!tabs.length) return;
+  const ROOM_KEY = 'confoinfo_room_{{ conf.slug }}';   // 학회마다 보던 룸
+  const appbar = document.querySelector('.appbar');
+  const roomtabsEl = document.querySelector('.roomtabs');
+  const ctxbar = document.getElementById('ctxbar');
+  const ctxroom = document.getElementById('ctxroom');
+
+  function activate(panel) {
+    tabs.forEach(t => t.classList.toggle('on', t.dataset.panel === panel));
+    panels.forEach(p => p.classList.toggle('on', p.dataset.panel === panel));
+    const t = tabs.find(t => t.dataset.panel === panel);
+    if (t) {
+      sessionStorage.setItem(ROOM_KEY, t.dataset.room);
+      if (ctxroom) ctxroom.textContent = t.dataset.room;   // 플로팅은 풀 룸 이름
+    }
+    placeNow();
+    updateCtx();
+  }
+
+  // 날짜·룸 버튼이 위로 스크롤돼 안 보이면 현재 날짜/룸을 상단에 플로팅
+  function updateCtx() {
+    if (!ctxbar || !roomtabsEl) return;
+    const abBottom = appbar ? appbar.getBoundingClientRect().bottom : 0;
+    if (roomtabsEl.getBoundingClientRect().bottom <= abBottom + 1) {
+      ctxbar.style.top = abBottom + 'px';
+      ctxbar.hidden = false;
+    } else {
+      ctxbar.hidden = true;
+    }
+  }
+
+  // ── 현재 시각 빨간 줄 ──────────────────────────────────────────────
+  const SEL_DAY = "{{ selected|date:'Y-m-d' }}";   // 현재 보고 있는 날짜
+  const ALL_DAYS = [{% for d in days %}"{{ d|date:'Y-m-d' }}"{% if not forloop.last %}, {% endif %}{% endfor %}];
+  const nowbtn = document.getElementById('nowbtn');
+  const nowbanner = document.getElementById('nowbanner');
+
+  const ONGOING = {% if conf.status == "ongoing" %}true{% else %}false{% endif %};
+  const TZ = "{{ conf.timezone|escapejs }}";       // 개최지 시각으로 본다 (기기 시간대와 무관)
+  const parseMin = CONFO.parseMin;
+
+  // now(분) → 활성 패널 내 y픽셀. 진행 중 카드 안에서 시간 비례 보간.
+  function nowY(panel, now) {
+    const cards = [...panel.querySelectorAll('[data-start]')]
+      .map(el => ({ el, s: parseMin(el.dataset.start), e: parseMin(el.dataset.end) }))
+      .filter(c => c.s != null);
+    if (!cards.length) return null;
+    cards.forEach(c => { if (c.e == null || c.e < c.s) c.e = c.s; });
+    const top = c => c.el.offsetTop, bot = c => c.el.offsetTop + c.el.offsetHeight;
+    if (now <= cards[0].s) return top(cards[0]);
+    const last = cards[cards.length - 1];
+    if (now >= last.e) return bot(last);
+    for (let i = 0; i < cards.length; i++) {
+      const c = cards[i];
+      if (now < c.s) {                  // 직전 카드와의 빈틈 → 경계 보간
+        const p = cards[i - 1];
+        const f = (now - p.e) / (c.s - p.e || 1);
+        return bot(p) + f * (top(c) - bot(p));
+      }
+      if (now <= c.e) {                 // 이 카드 진행 중
+        const f = c.e > c.s ? (now - c.s) / (c.e - c.s) : 0;
+        return top(c) + f * (c.el.offsetHeight);
+      }
+    }
+    return bot(last);
+  }
+
+  // 지금(분) 기준, 이 날짜의 어느 룸에든 진행 중인 발표가 있는지
+  function talkInProgress(now) {
+    return [...document.querySelectorAll('.talk[data-start]')].some(el => {
+      const s = parseMin(el.dataset.start), e = parseMin(el.dataset.end);
+      return s != null && now >= s && now < (e != null && e > s ? e : s + 1);
+    });
+  }
+
+  // 오늘이 학회일이 아니면 상단 배너로 알림 (진행중 아님 메시지는 현재 시각 줄에 표시)
+  function updateBanner(sn) {
+    if (!nowbanner) return;
+    // 학회 기간에만 띄운다 — 지난 학회나 다가올 학회를 둘러볼 때는 늘 뜨는 띠가 된다
+    if (ONGOING && !ALL_DAYS.includes(sn.date)) {
+      nowbanner.textContent = 'No talks are scheduled today.';
+      nowbanner.hidden = false;
+    } else {
+      nowbanner.hidden = true;
+    }
+  }
+
+  let lineY = null;                     // 현재 줄의 문서상 y (점프용)
+  let firstPlace = true;                // 첫 로드 1회만 현재 시각으로 자동 스크롤
+  function placeNow() {
+    document.querySelectorAll('.nowline').forEach(n => n.remove());
+    lineY = null;
+    if (nowbtn) nowbtn.hidden = true;
+    const sn = CONFO.zoneNow(TZ);
+    updateBanner(sn);
+    if (sn.date !== SEL_DAY) return;    // 오늘을 보고 있을 때만 줄 표시
+    const panel = panels.find(p => p.classList.contains('on'));
+    if (!panel) return;
+    panel.style.position = 'relative';   // 측정(offsetTop) 전에 offsetParent 고정
+    const y = nowY(panel, sn.min);
+    if (y == null) return;
+    const line = document.createElement('div');
+    line.className = 'nowline';
+    line.style.top = y + 'px';
+    // 진행 중인 발표가 없으면 현재 시각 줄(아침=첫 발표 위 / 저녁=마지막 발표 아래)에 안내
+    const lbl = talkInProgress(sn.min) ? ''
+      : '<span class="nowlbl">No talk in session right now</span>';
+    line.innerHTML = '<span class="nowdot"></span>' + lbl;
+    panel.appendChild(line);
+    lineY = line.getBoundingClientRect().top + window.scrollY;
+    updateBtn();
+    if (firstPlace) { firstPlace = false; jumpToNow(); }   // 첫 로드 시 한 번 이동
+  }
+
+  function jumpToNow() {
+    if (lineY == null) return;
+    window.scrollTo({ top: Math.max(0, lineY - window.innerHeight * 0.4),
+                      behavior: 'smooth' });
+  }
+  // 줄이 화면 밖에 있으면 플로팅 버튼 노출
+  function updateBtn() {
+    if (!nowbtn) return;
+    if (lineY == null) { nowbtn.hidden = true; return; }
+    const top = lineY - window.scrollY, bottom = top;
+    nowbtn.hidden = top > 60 && bottom < window.innerHeight - 60;
+  }
+  if (nowbtn) nowbtn.addEventListener('click', jumpToNow);
+  window.addEventListener('scroll', () => { updateBtn(); updateCtx(); }, { passive: true });
+  window.addEventListener('resize', () => { placeNow(); updateCtx(); });
+  setInterval(placeNow, 60000);        // 1분마다 갱신
+
+  // ── 좌우 스와이프로 룸 전환 (모바일) ───────────────────────────────
+  let sx = 0, sy = 0, swiping = false;
+  const surface = document.querySelector('.content') || document.body;
+  surface.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { swiping = false; return; }
+    sx = e.touches[0].clientX; sy = e.touches[0].clientY; swiping = true;
+  }, { passive: true });
+  surface.addEventListener('touchend', e => {
+    if (!swiping) return;
+    swiping = false;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - sx, dy = t.clientY - sy;
+    // 가로로 충분히, 세로보다 우세하게 움직였을 때만 스와이프로 인정
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    const cur = tabs.findIndex(b => b.classList.contains('on'));
+    if (cur < 0) return;
+    const ni = cur + (dx < 0 ? 1 : -1);      // ←(왼쪽으로 밀기): 다음 룸
+    if (ni < 0 || ni >= tabs.length) return;
+    activate(tabs[ni].dataset.panel);
+    // 선택 탭이 탭바 중앙에 오도록 — 탭바만 가로 스크롤(페이지 세로 이동 없음)
+    const bar = tabs[ni].parentElement, b = tabs[ni];
+    bar.scrollTo({ left: b.offsetLeft - bar.clientWidth / 2 + b.clientWidth / 2,
+                   behavior: 'smooth' });
+  }, { passive: true });
+
+  // 초기 활성 탭: 이전에 보던 룸 이름이 오늘도 있으면 유지, 아니면 첫 탭
+  const want = sessionStorage.getItem(ROOM_KEY);
+  const match = tabs.find(t => t.dataset.room === want);
+  activate((match || tabs[0]).dataset.panel);
+  tabs.forEach(t => t.addEventListener('click', () => activate(t.dataset.panel)));
+})();
+</script>
+{% endblock %}

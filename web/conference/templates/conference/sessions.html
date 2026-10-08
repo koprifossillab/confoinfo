@@ -1,0 +1,20 @@
+{% extends "conference/base.html" %}
+{% block title %}Sessions · {{ conf.short_name }}{% endblock %}
+{% block content %}
+<h1 class="page-h">Sessions</h1>
+{% if not groups %}<p class="empty">No sessions in this program.</p>{% endif %}
+{% for group, items in groups %}
+{% if group %}<h2 class="group-h">{{ group }}</h2>{% endif %}
+<ul class="slist">
+  {% for s in items %}
+  <li>
+    <a href="{% url 'session_detail' conf.slug s.code %}">
+      <span class="badge">{{ s.code }}</span>
+      <span class="stitle">{{ s.title|default:"(title TBD)" }}</span>
+      <span class="scount">{% if s.n_talks %}{{ s.n_talks }} talk{{ s.n_talks|pluralize }}{% elif s.n_abs %}{{ s.n_abs }} abstract{{ s.n_abs|pluralize }}{% endif %}</span>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% endfor %}
+{% endblock %}

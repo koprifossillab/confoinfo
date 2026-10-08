@@ -1,0 +1,250 @@
+{% extends "conference/base.html" %}
+{# strati2026 4972d35 congress/templates/congress/timetable.html 에서 왔다.
+   학회를 주면 그 학회의 북마크만, 안 주면 모든 학회의 것을 날짜순으로 그린다.
+   현재 시각 줄은 구간마다 그 학회의 시간대로 본다. #}
+{% block title %}My Plan · {{ conf.short_name|default:"confoinfo" }}{% endblock %}
+{% block content %}
+<h1 class="page-h">My Plan</h1>
+<p class="hint">Bookmarked talks{% if conf %} at {{ conf.short_name }}{% else %} across all conferences{% endif %}, with your notes.
+  {% if conf %}<a href="{% url 'plan_all' %}"><b>All conferences →</b></a>{% endif %}</p>
+<a id="cal-all" class="cal-btn" href="#" hidden>📅 Add all to Calendar</a>
+<div id="tt"><p class="empty">Loading…</p></div>
+<button id="nowbtn" class="nowbtn" hidden>● Now</button>
+{% endblock %}
+{% block scripts %}
+<script>
+(async function () {
+  const CONF = "{{ conf.slug|default:''|escapejs }}";   // 비면 모든 학회
+  const ids = CONFO.getBM();
+  const box = document.getElementById('tt');
+  if (!ids.length) { box.innerHTML = '<p class="empty">No bookmarks yet. Tap ☆ on talks to add them.</p>'; return; }
+  // 북마크한 발표만 요청 → 페이로드 최소화 (전체 프로그램을 받지 않음)
+  const res = await fetch('{% url "api_talks" %}?v={{ version }}&ids=' + ids.join(','));
+  const payload = await res.json();
+  const all = payload.talks.filter(t => !CONF || t.conf === CONF);
+  const allBreaks = payload.breaks || [];
+  const set = new Set(ids);
+  const mine = all.filter(t => set.has(t.id));
+  if (!mine.length) { box.innerHTML = '<p class="empty">' + (CONF ? 'No bookmarks at this conference yet.' : 'No bookmarks found.') + '</p>'; return; }
+
+  // 절대 시간 기반: 발표/겹침은 시간 비례, 빈 시간은 압축
+  const PX = 7;            // 분당 픽셀 (15분 발표 ≈ 105px → 정보 다 보임)
+  const MIN_CARD = 96;     // 카드 최소 높이
+  const SINGLE_MAX = 180;  // 단독(긴) 발표 카드 최대 높이(plenary 등 과도한 여백 방지)
+  function parseMin(s) {
+    const m = /^(\d{1,2}):(\d{2})$/.exec(s || ""); return m ? +m[1]*60 + +m[2] : null;
+  }
+  function endMin(t) {             // 종료시간 없으면 시작+20분으로 가정(박스 높이용)
+    const s = parseMin(t.start), e = parseMin(t.end);
+    return e != null && e > s ? e : (s != null ? s + 20 : null);
+  }
+  function fmtDur(m) {
+    m = Math.round(m); const h = Math.floor(m/60), mm = m%60;
+    return (h?h+'h':'') + (h&&mm?' ':'') + (mm?mm+'m':(h?'':'0m'));
+  }
+
+  // 구간 = (날짜, 학회). 학회 둘이 같은 날 열리면 구간이 둘이다 — 시간대가 다를 수 있다
+  mine.sort((a,b)=>a.date.localeCompare(b.date)||a.conf.localeCompare(b.conf)||a.start.localeCompare(b.start));
+  const days = [...new Set(mine.map(t => t.date + '|' + t.conf))];
+  const multiConf = new Set(mine.map(t => t.conf)).size > 1;
+  function dayTitle(t) {
+    const d = new Date(t.date + 'T00:00:00Z');
+    const s = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+    return (multiConf || !CONF) ? `${s} · ${CONFO.esc(t.conf_name)}` : s;
+  }
+
+  // opts: {top,height}=클러스터 절대배치 / {minHeight}=단독 비례 높이 / 없으면 기본
+  function talkCard(t, opts) {
+    opts = opts || {};
+    const place = [t.room, t.floor].filter(Boolean).join(' · ');
+    let cls = 'talk', style = '';
+    if (opts.top != null) { cls = 'talk gtalk'; style = ` style="top:${opts.top}px;height:${opts.height}px"`; }
+    else if (opts.minHeight) { style = ` style="min-height:${opts.minHeight}px"`; }
+    // 메모: 전체폭(단독) 카드에만 내용 표시(겹침 그리드 카드는 잘리므로 제외 — 📝 표시만)
+    const note = CONFO.getNote(t.id);
+    const noteHtml = (opts.top == null && note)
+      ? `<div class="talk-note">📝 ${CONFO.esc(note)}</div>` : '';
+    return `<div class="${cls}" data-id="${t.id}" data-start="${t.start}" data-end="${t.end||''}"${style}>
+      <div class="talk-time">${t.start}${t.end?'–'+t.end:''}</div>
+      <div class="talk-body">
+        <a class="talk-title" href="${t.url}">${CONFO.esc(t.title)}</a>
+        <div class="talk-meta">${t.session?`<span class="badge">${t.session}</span>`:''}
+          ${t.author?`<span class="author">${CONFO.esc(t.author)}</span>`:''}</div>
+        ${place?`<div class="talk-place">📍 ${CONFO.esc(place)}</div>`:''}
+        ${noteHtml}
+      </div>
+      <button class="bm" data-id="${t.id}">★</button>
+    </div>`;
+  }
+  // 블록 사이 빈 시간: 휴식이면 라벨, 아니면 압축(··· Xh Ym ···)
+  function gapEl(fromMin, toMin, brk) {
+    if (brk) {
+      const icon = /lunch/i.test(brk.label) ? '🍽️' : '☕';
+      return `<div class="gap gap-brk">${icon} ${brk.label} · ${brk.start}–${brk.end}</div>`;
+    }
+    const g = toMin - fromMin;
+    if (g >= 12) return `<div class="gap">··· ${fmtDur(g)} ···</div>`;
+    if (g > 0) return `<div class="gap-sm"></div>`;
+    return '';
+  }
+
+  // 시간이 겹치는 talk들을 한 묶음(클러스터)으로 — running max-end 기준
+  function clusterize(items) {
+    const sorted = [...items].sort((a,b)=> a.start.localeCompare(b.start) || (endMin(a)-endMin(b)));
+    const out = []; let cur = null, curEnd = -1;
+    for (const t of sorted) {
+      const s = parseMin(t.start);
+      if (cur && s < curEnd) { cur.push(t); curEnd = Math.max(curEnd, endMin(t)); }
+      else { cur = [t]; out.push(cur); curEnd = endMin(t); }
+    }
+    return out;
+  }
+  // 클러스터 내 컬럼 배정(겹치지 않으면 같은 컬럼 재사용)
+  function assignColumns(cluster) {
+    const cols = []; const colOf = new Map();
+    for (const t of [...cluster].sort((a,b)=> a.start.localeCompare(b.start))) {
+      const s = parseMin(t.start);
+      let ci = cols.findIndex(c => c.lastEnd <= s);
+      if (ci < 0) { ci = cols.length; cols.push({ lastEnd: -1 }); }
+      cols[ci].lastEnd = endMin(t); colOf.set(t.id, ci);
+    }
+    return { ncols: cols.length, colOf };
+  }
+  function renderBlock(blk) {
+    if (blk.c.length === 1) {                       // 단독 → 전체폭, 비례 높이(잘림 방지 min-height)
+      const t = blk.c[0];
+      const h = Math.min(Math.max((endMin(t) - parseMin(t.start)) * PX, MIN_CARD), SINGLE_MAX);
+      return talkCard(t, { minHeight: Math.round(h) });
+    }
+    // 2개 이상 동시: 비례 그리드 + 카드 폭 86%(옆 카드 살짝 보임) + 좌우 스크롤
+    const cs = blk.s, ce = blk.e;
+    const { ncols, colOf } = assignColumns(blk.c);
+    const H = Math.round((ce - cs) * PX) + 6;
+    const BAR = 14;            // 가로 스크롤바 자리 → 세로 스크롤바 방지
+    const flex = ncols >= 2 ? 'flex:0 0 86%' : 'flex:0 0 100%';
+    let cols = '';
+    for (let c = 0; c < ncols; c++) {
+      let inner = '';
+      blk.c.filter(t => colOf.get(t.id) === c).forEach(t => {
+        const top = Math.round((parseMin(t.start) - cs) * PX);
+        const height = Math.max(Math.round((endMin(t) - parseMin(t.start)) * PX), MIN_CARD);
+        inner += talkCard(t, { top, height });
+      });
+      cols += `<div class="gcol" style="${flex};height:${H}px">${inner}</div>`;
+    }
+    return `<div class="cluster" style="height:${H + BAR}px">${cols}</div>`;
+  }
+
+  let html = '';
+  days.forEach(day => {
+    const items = mine.filter(t => t.date + '|' + t.conf === day)
+                      .sort((a,b)=>a.start.localeCompare(b.start));
+    // 북마크한 talk 직전(같은 룸)의 휴식만 후보로 — 그 발표로 이어지는 break
+    const cand = [];
+    items.forEach(t => {
+      const b = allBreaks.find(b => b.conf === t.conf && b.date === t.date && b.room === t.room && b.end === t.start);
+      if (b) cand.push(b);
+    });
+    // 룸마다 5분쯤 어긋나 겹치는 휴식은 하나만 표시
+    cand.sort((a,b) => a.start.localeCompare(b.start) || a.end.localeCompare(b.end));
+    const breaks = [];
+    cand.forEach(b => {
+      if (!breaks.some(x => x.start < b.end && b.start < x.end)) breaks.push(b);
+    });
+    const breaksByEnd = {};
+    breaks.forEach(b => { breaksByEnd[parseMin(b.end)] = b; });
+
+    // 겹침 클러스터(시작시각 순) → 블록. 블록 사이는 압축된 빈 시간/휴식.
+    const blocks = clusterize(items).map(c => ({
+      c, s: Math.min(...c.map(t=>parseMin(t.start))), e: Math.max(...c.map(endMin)),
+    }));
+
+    html += `<section class="room" data-date="${items[0].date}" data-tz="${CONFO.esc(items[0].tz)}"><h2 class="room-h">${dayTitle(items[0])}</h2>`;
+    blocks.forEach((blk, i) => {
+      const brk = breaksByEnd[blk.s];
+      if (i === 0) { if (brk) html += gapEl(parseMin(brk.start), blk.s, brk); }
+      else html += gapEl(blocks[i-1].e, blk.s, brk);
+      html += renderBlock(blk);
+    });
+    html += `</section>`;
+  });
+  box.innerHTML = html;
+  CONFO.refresh();
+
+  const calAll = document.getElementById('cal-all');
+  calAll.href = '{% url "calendar_ics" %}?ids=' + mine.map(t => t.id).join(',');
+  calAll.hidden = false;
+
+  // ── 현재 시각 빨간 줄 + 점프 버튼 (오늘 섹션에만) ──────────────────
+  const nowbtn = document.getElementById('nowbtn');
+  // now(분) → 섹션 내 y픽셀. 카드 실측(rect)으로 — 그리드 절대배치에서도 정확.
+  function nowY(sec, now) {
+    const y0 = sec.getBoundingClientRect().top;
+    const cards = [...sec.querySelectorAll('[data-start]')].map(el => {
+      const r = el.getBoundingClientRect();
+      let s = parseMin(el.dataset.start), e = parseMin(el.dataset.end);
+      if (e == null || e < s) e = s;
+      return { s, e, top: r.top - y0, bot: r.bottom - y0 };
+    }).filter(c => c.s != null);
+    if (!cards.length) return null;
+    // 진행 중인 카드 안: 시간 비례 보간 (동시 발표면 가장 위 카드 기준)
+    const active = cards.filter(c => now >= c.s && now < c.e).sort((a,b)=> a.top-b.top)[0];
+    if (active) {
+      const f = active.e > active.s ? (now - active.s)/(active.e - active.s) : 0;
+      return active.top + f*(active.bot - active.top);
+    }
+    const minS = Math.min(...cards.map(c=>c.s)), maxE = Math.max(...cards.map(c=>c.e));
+    if (now <= minS) return Math.min(...cards.map(c=>c.top));
+    if (now >= maxE) return Math.max(...cards.map(c=>c.bot));
+    // 빈틈: 직전 종료 카드와 다음 시작 카드 사이 보간
+    const before = cards.filter(c=> c.e <= now).sort((a,b)=> b.e-a.e)[0];
+    const after  = cards.filter(c=> c.s >= now).sort((a,b)=> a.s-b.s)[0];
+    if (before && after) {
+      const f = (now - before.e)/((after.s - before.e) || 1);
+      return before.bot + f*(after.top - before.bot);
+    }
+    return before ? before.bot : (after ? after.top : 0);
+  }
+
+  let lineY = null, firstPlace = true;
+  function jumpToNow() {
+    if (lineY == null) return;
+    window.scrollTo({ top: Math.max(0, lineY - window.innerHeight*0.4), behavior: 'smooth' });
+  }
+  function updateBtn() {
+    if (!nowbtn) return;
+    if (lineY == null) { nowbtn.hidden = true; return; }
+    const top = lineY - window.scrollY;
+    nowbtn.hidden = top > 60 && top < window.innerHeight - 60;
+  }
+  function placeNow() {
+    document.querySelectorAll('.nowline').forEach(n => n.remove());
+    lineY = null;
+    if (nowbtn) nowbtn.hidden = true;
+    // 구간마다 그 학회의 오늘인지 본다. 오늘인 구간 가운데 첫 것에만 줄을 긋는다
+    let sn = null;
+    const sec = [...document.querySelectorAll('#tt .room')].find(s => {
+      const z = CONFO.zoneNow(s.dataset.tz);
+      if (z.date === s.dataset.date) { sn = z; return true; }
+      return false;
+    });
+    if (!sec) return;
+    sec.style.position = 'relative';
+    const y = nowY(sec, sn.min);
+    if (y == null) return;
+    const line = document.createElement('div');
+    line.className = 'nowline'; line.style.top = y + 'px';
+    line.innerHTML = '<span class="nowdot"></span>';
+    sec.appendChild(line);
+    lineY = line.getBoundingClientRect().top + window.scrollY;
+    updateBtn();
+    if (firstPlace) { firstPlace = false; jumpToNow(); }
+  }
+  if (nowbtn) nowbtn.addEventListener('click', jumpToNow);
+  window.addEventListener('scroll', updateBtn, { passive: true });
+  window.addEventListener('resize', placeNow);
+  setInterval(placeNow, 60000);
+  placeNow();
+})();
+</script>
+{% endblock %}

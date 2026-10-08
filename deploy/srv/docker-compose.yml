@@ -1,0 +1,24 @@
+# /srv/confoinfo/docker-compose.yml — 운영. deploy/host/sync_to_srv.sh 가 여기로 옮긴다.
+#
+# DiaRUGA(8090)·ForGIA(8092)·GSM(8094)·WegenersDream(8095) 옆에 **8096** 으로 뜬다.
+# 바깥은 nginx 의 /confoinfo/ 서브경로가 받는다 (deploy/nginx/confoinfo-subpath.conf).
+name: confoinfo
+
+services:
+  web:
+    image: koprifossillab/confoinfo:${IMAGE_TAG:?IMAGE_TAG 를 .env 에 넣을 것}
+    user: "1000:1000"
+    env_file: [.env]
+    environment:
+      TZ: Asia/Seoul
+    volumes:
+      # DB 는 디렉토리째 — WAL 의 -wal·-shm 이 옆에 생긴다
+      - /srv/confoinfo/db:/srv/confoinfo/db
+    ports:
+      - "127.0.0.1:8096:9090"
+    restart: unless-stopped
+    logging:
+      driver: json-file
+      options:
+        max-size: "20m"
+        max-file: "5"

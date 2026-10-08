@@ -1,0 +1,8 @@
+# 호스트 venv 하나에 전부 까는 입구 (DiaRUGA 와 같은 꼴).
+#
+#   python3.12 -m venv ~/venv/confoinfo && . ~/venv/confoinfo/bin/activate
+#   pip install -r requirements.txt
+#
+# 이 저장소의 venv 는 ~/venv/confoinfo 이다 (저장소 안의 .venv 가 아니다).
+-r requirements-web.txt
+-r requirements-dev.txt

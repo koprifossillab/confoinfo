@@ -1,0 +1,8 @@
+key,date,start,end,room,session,title,speaker,kind,authors,abstract,keywords
+k1,2026-11-05,09:30,10:20,,K,Opening keynote: why timetables matter,Jane Example,keynote,Jane Example,"A short sample abstract for the keynote.",timetables;planning
+b1,2026-11-05,10:20,10:40,Main Hall,,Coffee break,,break,,,
+a1,2026-11-05,10:40,11:00,Room A,P1,Trilobite moult assemblages from an example formation,Kim Sample,talk,Kim Sample;Lee Example,"Sample abstract text about trilobites.",trilobites;Cambrian
+a2,2026-11-05,11:00,11:20,Room A,P1,Brachiopod turnover across a sample boundary,Park Demo,talk,,,
+a3,2026-11-05,13:00,13:20,Room A,P1,Afternoon talk after lunch,Choi Test,talk,,,
+b2,2026-11-05,10:40,11:00,Room B,P2,Dinosaur trackways in an example basin,Han Example,talk,Han Example,"Sample abstract text about trackways.",ichnology
+b3,2026-11-06,09:00,09:20,Room B,P2,Day-two talk in Room B,Yoon Sample,talk,,,

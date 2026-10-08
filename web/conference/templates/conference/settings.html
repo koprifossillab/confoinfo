@@ -1,0 +1,29 @@
+{% extends "conference/base.html" %}
+{% block title %}Settings · confoinfo{% endblock %}
+{% block content %}
+<h1 class="page-h">Settings</h1>
+<div class="settings">
+  <label class="setting">
+    <span class="setting-t">Show breaks
+      <small>Coffee breaks and lunch between talks, in Program and My Plan.</small></span>
+    <input type="checkbox" id="cfg-breaks">
+  </label>
+</div>
+<p class="settings-info">Bookmarks and notes are kept <b>on this device only</b> (browser storage).
+  Nothing is sent to the server.</p>
+<button id="reset" class="reset-btn">Clear bookmarks &amp; notes on this device</button>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  const cb = document.getElementById('cfg-breaks');
+  cb.checked = CONFO.getCfg().breaks;
+  cb.addEventListener('change', () => CONFO.setCfg({ breaks: cb.checked }));
+  document.getElementById('reset').addEventListener('click', () => {
+    if (!confirm('Clear all bookmarks and notes on this device?')) return;
+    CONFO.resetLocal();
+    location.reload();
+  });
+})();
+</script>
+{% endblock %}

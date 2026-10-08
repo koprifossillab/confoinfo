@@ -1,0 +1,12 @@
+# 개발에만 쓰는 것. **컨테이너 이미지에는 안 들어간다.**
+#
+#   pip install -r requirements.txt
+#   python web/manage.py test conference
+
+# PDF 학회 자료를 파싱할 때 (sources/<slug>/parse_*.py). strati2026 과 같은 판
+pymupdf==1.27.*
+pdfplumber==0.11.*
+
+# 화면 확인(헤드리스 크로미움). 1.49.1 로 고정한 것은 이 서버의 ~/.cache/ms-playwright
+# 에 이미 있는 크로미움 판(1148)과 맞추려는 것이다 — 판을 올리면 브라우저를 새로 받는다.
+playwright==1.49.1

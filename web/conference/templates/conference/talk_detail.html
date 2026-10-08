@@ -1,0 +1,81 @@
+{% extends "conference/base.html" %}
+{# strati2026 4972d35 congress/templates/congress/talk_detail.html 에서 왔다. 사진 칸은 2단계 #}
+{% block title %}{{ obj_title }} · {{ conf.short_name }}{% endblock %}
+{% block content %}
+<article class="detail">
+  {% if talk %}
+  <div class="detail-when">
+    {% if talk.session %}<span class="badge">{{ talk.session.code }}</span>{% endif %}
+    {{ talk.date|date:"D M j" }} · {{ talk.start|time:"H:i" }}{% if talk.end %}–{{ talk.end|time:"H:i" }}{% endif %}
+    {% if talk.room %} · {{ talk.room.name }}{% if talk.room.floor %} ({{ talk.room.floor }}){% endif %}{% endif %}
+    {% if talk.bookmarkable %}<button class="bm big" data-id="{{ talk.id }}" aria-label="bookmark">☆</button>{% endif %}
+  </div>
+  {% endif %}
+
+  <h1 class="detail-title">{{ obj_title }}</h1>
+
+  {% if session %}
+  <a class="detail-session" href="{% url 'session_detail' conf.slug session.code %}">
+    <span class="badge">{{ session.code }}</span> {{ session.title|default:"(title TBD)" }}
+  </a>
+  {% endif %}
+
+  {% if talk and talk.bookmarkable %}
+  <a class="cal-btn" href="{% url 'calendar_ics' %}?ids={{ talk.id }}">📅 Add to Calendar</a>
+  <p class="tz-note">Times are local to the venue ({{ conf.timezone }}).</p>
+
+  <section class="note">
+    <label class="note-h" for="note">📝 My note <span class="note-status" id="note-status"></span></label>
+    <textarea id="note" data-id="{{ talk.id }}" rows="2"
+              placeholder="Add a note — saved on this device…"></textarea>
+  </section>
+  {% endif %}
+
+  {% if abstract %}
+    <p class="detail-authors">{{ abstract.author_line }}</p>
+    {% if abstract.corresponding %}
+      <p class="detail-corr">✉ Corresponding: {{ abstract.corresponding|join:", " }}</p>
+    {% endif %}
+    {% if abstract.text %}
+      <div class="detail-abstract">{{ abstract.text|linebreaks }}</div>
+    {% endif %}
+    {% if abstract.keywords %}
+      <div class="kw">{% for k in abstract.keywords %}<span class="kwchip">{{ k }}</span>{% endfor %}</div>
+    {% endif %}
+    {% if abstract.affiliations %}
+      <details class="affil"><summary>Affiliations</summary>
+        <ol>{% for a in abstract.affiliations %}<li>{{ a }}</li>{% endfor %}</ol>
+      </details>
+    {% endif %}
+  {% elif talk and talk.kind != "break" %}
+    {% if talk.speaker %}<p class="detail-authors">{{ talk.speaker }}</p>{% endif %}
+    {% if talk.kind == "talk" %}<p class="empty">No abstract linked for this talk.</p>{% endif %}
+  {% endif %}
+</article>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const ta = document.getElementById('note');
+  if (!ta) return;
+  const id = parseInt(ta.dataset.id, 10);
+  const status = document.getElementById('note-status');
+  ta.value = CONFO.getNote(id);
+  function autoSize() { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; }
+  autoSize();
+  let timer;
+  ta.addEventListener('input', () => {
+    autoSize();
+    if (status) status.textContent = '…';
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      CONFO.setNote(id, ta.value);
+      if (status) { status.textContent = 'Saved'; setTimeout(() => {
+        if (status.textContent === 'Saved') status.textContent = '';
+      }, 1500); }
+    }, 400);
+  });
+})();
+</script>
+{% endblock %}
