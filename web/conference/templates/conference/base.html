@@ -35,7 +35,7 @@
   <nav class="tabbar">
     {% with u=request.resolver_match.url_name %}
     {% if conf %}
-    <a href="{% url 'program' conf.slug %}" class="tab {% if u == 'program' %}on{% endif %}">
+    <a href="{% url 'program' conf.slug %}" class="tab {% if u == 'program' or u == 'program_day' %}on{% endif %}">
       <span class="ic">🗓️</span><span>Program</span></a>
     <a href="{% url 'sessions' conf.slug %}" class="tab {% if u == 'sessions' or u == 'session_detail' %}on{% endif %}">
       <span class="ic">📚</span><span>Sessions</span></a>

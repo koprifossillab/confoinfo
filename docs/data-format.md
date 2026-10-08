@@ -2,8 +2,10 @@
 
 학회 하나 = 파일 하나 = `conferences/<slug>.json`. **파일 이름과 `conference.slug` 가
 같아야 한다**(시험이 본다). 이 파일이 정본이고 DB 는 그것을 읽은 사본이다 —
-`python web/manage.py import_conference --all` 이 맞추고, 컨테이너는 기동할 때마다
-그렇게 한다.
+`python web/manage.py import_conference --all` 이 맞추고, `tools/build_site.sh` 는
+구울 때마다 임시 DB 에 새로 읽는다.
+
+`main` 에 밀면 CI 가 사이트를 다시 구워 GitHub Pages 에 올린다 — 자료만 고쳐도 된다.
 
 검사만 할 때:
 
@@ -83,7 +85,7 @@ python web/manage.py import_conference --check conferences/<slug>.json
 | `sessions` 에 없는 세션 | 경고 — 세션 없이 둔다 |
 | `abstracts` 에 없는 초록 | **오류** |
 | `key` 겹침 · 날짜/시각 꼴 · 모르는 `kind` · 시간대 이름 | **오류** — 그 파일은 안 읽는다 |
-| `slug` 가 다른 화면의 경로(`search`·`plan`·`settings`·`api`·`healthz`) | **오류** |
+| `slug` 가 다른 화면의 경로(`search`·`plan`·`settings`·`static`) | **오류** |
 
 ## 휴식
 

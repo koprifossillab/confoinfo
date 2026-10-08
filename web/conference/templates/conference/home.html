@@ -1,15 +1,14 @@
 {% extends "conference/base.html" %}
 {% block content %}
-{% if not n_confs %}
-  <p class="empty">No conferences loaded yet.<br>
-    <small>Put a <code>conferences/&lt;slug&gt;.json</code> file in place and run
-    <code>manage.py import_conference --all</code>.</small></p>
+{% if not confs %}
+  <p class="empty">No conferences loaded yet.</p>
 {% endif %}
-{% for key, label, confs in sections %}
-<h2 class="home-h">{{ label }}</h2>
+{# 진행 중·다가올·지난 갈래는 아래 JS 가 개최지의 오늘을 보고 가른다 — 구운 날이 아니라 여는 날 기준이어야 한다 #}
+<div id="conf-sections">
 {% for c in confs %}
-<a class="conf-card" href="{% url 'program' c.slug %}"{% if c.color %} style="--cc: {{ c.color }}"{% endif %}>
-  <div class="conf-short">{{ c.short_name }}{% if key == "ongoing" %}<span class="conf-live">LIVE</span>{% endif %}</div>
+<a class="conf-card" href="{% url 'program' c.slug %}" data-tz="{{ c.timezone }}"
+   data-start="{{ c.start_date|date:'Y-m-d' }}" data-end="{{ c.end_date|default:c.start_date|date:'Y-m-d' }}"{% if c.color %} style="--cc: {{ c.color }}"{% endif %}>
+  <div class="conf-short">{{ c.short_name }}</div>
   <div class="conf-name">{{ c.name }}</div>
   <div class="conf-meta">
     {% if c.start_date %}<span>📅 {{ c.start_date|date:"M j" }}{% if c.end_date and c.end_date != c.start_date %} – {{ c.end_date|date:"M j" }}{% endif %}, {{ c.start_date|date:"Y" }}</span>{% endif %}
@@ -18,5 +17,27 @@
   </div>
 </a>
 {% endfor %}
-{% endfor %}
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+(function () {
+  const box = document.getElementById('conf-sections');
+  const cards = [...box.querySelectorAll('.conf-card')];
+  const groups = { ongoing: [], upcoming: [], past: [] };
+  cards.forEach(c => {
+    const today = CONFO.zoneNow(c.dataset.tz).date, s = c.dataset.start, e = c.dataset.end || s;
+    const k = !s || today < s ? 'upcoming' : today > e ? 'past' : 'ongoing';
+    if (k === 'ongoing') c.querySelector('.conf-short').insertAdjacentHTML('beforeend', '<span class="conf-live">LIVE</span>');
+    groups[k].push(c);
+  });
+  groups.past.reverse();                       // 지난 것은 최근 것부터 (카드는 시작일 순으로 온다)
+  box.innerHTML = '';
+  [['ongoing', 'Now'], ['upcoming', 'Upcoming'], ['past', 'Past']].forEach(([k, label]) => {
+    if (!groups[k].length) return;
+    box.insertAdjacentHTML('beforeend', `<h2 class="home-h">${label}</h2>`);
+    groups[k].forEach(c => box.appendChild(c));
+  });
+})();
+</script>
 {% endblock %}

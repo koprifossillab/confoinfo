@@ -28,15 +28,21 @@ STRATI 2026 하나를 위해 만든 `jikhanjung/strati2026` 을 범용으로 옮
 저장소의 전부다. 새 학회가 화면을 고쳐야 열린다면 그 차이를 자료 형식으로 올릴
 수 있는지부터 본다.
 
-**사람의 자료(북마크·메모)는 서버에 없다** — 브라우저 `localStorage` 에 있다
-(`confoinfo_state`). 로그인도 없다. 2단계에서 strati2026 의 익명 기기 동기화를 옮기면
-그때부터 DB 에 사람의 자료가 생긴다 — 백업 규약이 그때 붙는다(P01 4절).
+**서버가 없다 — 정적 사이트다** ([002](devlog/20261008_002_github-pages.md)). Django 는
+개발 서버와 굽는 도구로만 쓴다. `tools/build_site.sh` 가 화면을 전부 파일로 구워
+`https://koprifossillab.github.io/confoinfo/` 에 올린다. 그래서 **뷰는 요청과 무관해야
+한다** — `request.GET`·`timezone.now()` 를 뷰에 들이면 구운 사이트에서만 틀린다. 오늘을
+고르는 일·검색·여러 발표의 캘린더는 브라우저가 정적 JSON(`talks.json`·`search.json`)으로 한다.
+경로도 전부 파일 이름이 될 수 있어야 한다(쿼리 문자열로 갈리는 화면을 두지 않는다).
+
+**사람의 자료(북마크·메모)는 브라우저 `localStorage` 에만 있다** (`confoinfo_state`).
+로그인도 기기 간 동기화도 없다 — 서버가 없으니 strati2026 의 동기화는 못 옮긴다.
 
 ## 이름
 
 **`confoinfo` 하나다** — 저장소 `koprifossillab/confoinfo` 가 소문자라 그대로 따른다.
-경로(`/srv/confoinfo`·`~/venv/confoinfo`)·URL(`/confoinfo/`)·DB(`confoinfo.db`)·
-Docker Hub(`koprifossillab/confoinfo`)·`localStorage` 키(`confoinfo_*`) 전부.
+경로(`~/venv/confoinfo`)·URL(`koprifossillab.github.io/confoinfo/`)·DB(`confoinfo.db`)·
+`localStorage` 키(`confoinfo_*`) 전부.
 환경변수는 `CONFOINFO_*`. 파이썬 패키지는 `confoinfoweb`(설정)·`conference`(앱).
 화면에서는 학회 이름이 앞에 서고 confoinfo 는 머리글의 작은 글씨로만 나온다.
 
@@ -82,16 +88,12 @@ DiaRUGA·ForGIA 의 규칙을 그대로 물려받는다. 지난 devlog 는 그�
 **strati2026 에서 온 파일은 머리에 출처 판을 적는다** (`strati2026 4972d35 …에서
 왔다`). 저쪽이 고친 것을 따라갈 때 대조할 자리다.
 
-배포·데이터 안전 규약은 `.guides/web/README.md` (형제 프로젝트들의 표준). **없으면
-devdocs 클론이 안 걸린 것이다** — `../devdocs` 를 형제로 두고 `ln -s ../devdocs/guides
-.guides`. 이 저장소에는 커밋하지 않는다(devdocs 는 private).
-
 ## 환경
 
 ```bash
 workon ci               # ~/venv/confoinfo + ~/projects/confoinfo (저장소 안의 .venv 가 아니다)
 python --version        # 3.12.3
-pip install -r requirements.txt     # = -web(Django·whitenoise·gunicorn) + -dev(pymupdf·pdfplumber·playwright)
+pip install -r requirements.txt     # = -web(Django) + -dev(pymupdf·pdfplumber·playwright)
 ```
 
 ```bash
@@ -101,24 +103,19 @@ python web/manage.py runserver                    # http://127.0.0.1:8000/
 python web/manage.py test conference              # 시험 — 학회 자료 파일 검사도 여기 있다
 ```
 
-DB 는 저장소 뿌리의 `confoinfo.db`(gitignore) — 학회 자료의 사본이라 지워도 된다.
-위치를 바꾸려면 `.env`(`.env.template` 참고).
+```bash
+tools/build_site.sh                               # → site/ (서브경로 /confoinfo · 링크 검사까지)
+```
 
-```
-/srv/confoinfo/   db/  bin/  www/  backup/  docker-compose.yml  .env     ← 배포
-```
+DB 는 저장소 뿌리의 `confoinfo.db`(gitignore) — 학회 자료의 사본이라 지워도 된다.
+굽는 것은 임시 DB 를 따로 쓴다. 위치를 바꾸려면 `.env`(`.env.template` 참고).
 
 ## 배포
 
-DiaRUGA·ForGIA 와 같은 틀이다. 같은 서버에 **8096** 으로 뜨고 nginx 의 `/confoinfo/`
-서브경로가 받는다(사내 VPN 이 80 만 통과시킨다).
-
-1. 판을 `web/confoinfoweb/version.py` · `CHANGELOG.md` 에 올리고 `main` 에 민다
-2. `vX.Y.Z` 태그를 민다 → CI 가 시험을 돌리고 `koprifossillab/confoinfo:vX.Y.Z` 를 Docker Hub 에 올린다
-3. 서버에서 `/srv/confoinfo/bin/deploy.sh vX.Y.Z` — 받고, 갈아 끼우고, health 게이트, smoke
-
-**학회 자료가 이미지에 들어간다.** 자료만 고쳐도 판을 올린다 — 기동 때 entrypoint 가
-`import_conference --all` 을 돈다. 배포 파일이 바뀌었으면 `deploy/host/sync_to_srv.sh`.
+**`main` 에 밀면 끝이다.** `.github/workflows/pages.yml` 이 시험 → 굽기(깨진 링크가 있으면
+실패) → GitHub Pages 로 올린다. 학회 자료만 고쳐도 같다. 판 번호는
+`web/confoinfoweb/version.py` · `CHANGELOG.md` — 정적 JSON 의 `?v=` 라 판을 올리면 브라우저
+캐시가 끊긴다. CSS·JS 는 이름에 해시가 붙어 따로 올릴 것이 없다.
 
 ## 커밋
 

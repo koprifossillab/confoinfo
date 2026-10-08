@@ -7,9 +7,10 @@
 [STRATI 2026 Companion](https://github.com/jikhanjung/strati2026) 을 여러 학회에 쓰도록 옮긴 것이다.
 
 - **화면**: 학회 목록 → Program(날짜·룸 탭) / Sessions / Search / My Plan · 캘린더(.ics) · 메모
-- **북마크·메모**: 로그인 없이 브라우저 localStorage. 모든 학회의 북마크가 한 My Plan 에 모인다
+- **북마크·메모**: 로그인 없이 브라우저 localStorage(기기마다 따로). 모든 학회의 북마크가 한 My Plan 에 모인다
 - **자료**: `confoinfo/1` 형식 — [docs/data-format.md](docs/data-format.md). CSV 에서 만드는 도구가 있다
-- **스택**: Django 5.2 · SQLite · whitenoise · gunicorn · Docker (`koprifossillab/confoinfo`)
+- **사이트**: `https://koprifossillab.github.io/confoinfo/` — 서버 없는 정적 사이트(GitHub Pages).
+  Django 5.2 로 화면을 그리고 `tools/build_site.sh` 가 파일로 굽는다. `main` 에 밀면 CI 가 올린다
 
 ## 학회
 
@@ -37,6 +38,7 @@ python web/manage.py migrate
 python web/manage.py import_conference --all
 python web/manage.py runserver
 python web/manage.py test conference
+tools/build_site.sh          # 정적 사이트 → site/
 ```
 
-배포는 [CLAUDE.md](CLAUDE.md) 의 "배포", 지금 상태는 [HANDOFF.md](HANDOFF.md).
+지금 상태는 [HANDOFF.md](HANDOFF.md).

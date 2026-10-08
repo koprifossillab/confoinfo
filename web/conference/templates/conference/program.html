@@ -7,7 +7,7 @@
 {% else %}
 <div class="daybar">
   {% for d in days %}
-    <a href="?day={{ d|date:'Y-m-d' }}"
+    <a href="{% url 'program_day' conf.slug d|date:'Y-m-d' %}"
        class="daychip {% if d == selected %}on{% endif %}">{{ d|date:'D' }}<b>{{ d|date:'M j' }}</b></a>
   {% endfor %}
 </div>
@@ -48,6 +48,13 @@
 {% block scripts %}
 <button id="nowbtn" class="nowbtn" hidden>● Now</button>
 <script>
+{% if is_root %}
+(function () {
+  const today = CONFO.zoneNow("{{ conf.timezone|escapejs }}").date;
+  const days = {{ day_urls|safe }};
+  if (days[today] && today !== "{{ selected|date:'Y-m-d' }}") location.replace(days[today]);
+})();
+{% endif %}
 (function () {
   const tabs = [...document.querySelectorAll('.roomtab')];
   const panels = [...document.querySelectorAll('.panel')];
@@ -88,8 +95,10 @@
   const nowbtn = document.getElementById('nowbtn');
   const nowbanner = document.getElementById('nowbanner');
 
-  const ONGOING = {% if conf.status == "ongoing" %}true{% else %}false{% endif %};
-  const TZ = "{{ conf.timezone|escapejs }}";       // 개최지 시각으로 본다 (기기 시간대와 무관)
+  const TZ = "{{ conf.timezone|escapejs }}";
+  const TODAY = CONFO.zoneNow(TZ).date;
+  // 학회 기간인가 — 구운 날이 아니라 여는 날의 개최지 시각으로 본다
+  const ONGOING = "{{ conf.start_date|date:'Y-m-d' }}" <= TODAY && TODAY <= "{{ conf.end_date|default:conf.start_date|date:'Y-m-d' }}";       // 개최지 시각으로 본다 (기기 시간대와 무관)
   const parseMin = CONFO.parseMin;
 
   // now(분) → 활성 패널 내 y픽셀. 진행 중 카드 안에서 시간 비례 보간.

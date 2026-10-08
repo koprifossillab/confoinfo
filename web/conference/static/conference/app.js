@@ -76,6 +76,62 @@
     return m ? +m[1] * 60 + +m[2] : null;
   }
 
+  // 대소문자·악센트를 지운 글 — 검색에서 "montanez" 가 "Montañez" 에 걸리게
+  function fold(s) {
+    return (s || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  }
+
+  // ── 캘린더(.ics) ─────────────────────────────────────────────────────
+  // 정적 사이트라 여러 발표를 묶은 .ics 는 여기서 만든다. 발표 하나짜리는
+  // 서버가 구운 talk.ics 가 있다 (views.talk_ics 와 같은 꼴).
+  const ALARM_MIN = 5, DEFAULT_TALK_MIN = 20;
+  function tzOffsetMin(utcMs, tz) {          // 그 순간 tz 의 UTC 오프셋(분)
+    const f = new Intl.DateTimeFormat("en-CA", { timeZone: tz, hour12: false,
+      year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" })
+      .formatToParts(new Date(utcMs));
+    const g = t => +f.find(p => p.type === t).value;
+    const asUtc = Date.UTC(g("year"), g("month") - 1, g("day"), g("hour") % 24, g("minute"));
+    return (asUtc - utcMs) / 60000;
+  }
+  function zonedToUtc(date, hm, tz) {        // "2026-06-29", "14:35", "Asia/Shanghai" → Date
+    const [y, mo, d] = date.split("-").map(Number), [h, mi] = hm.split(":").map(Number);
+    const guess = Date.UTC(y, mo - 1, d, h, mi);
+    let t = guess - tzOffsetMin(guess, tz) * 60000;
+    t = guess - tzOffsetMin(t, tz) * 60000;  // 서머타임 경계에서 한 번 더
+    return new Date(t);
+  }
+  function icsStamp(dt) { return dt.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
+  function icsEsc(s) {
+    return (s || "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+  }
+  function buildIcs(talks, calname) {
+    const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//confoinfo//EN", "CALSCALE:GREGORIAN",
+               "METHOD:PUBLISH", "X-WR-CALNAME:" + icsEsc(calname || "confoinfo")];
+    const stamp = icsStamp(new Date());
+    talks.forEach(t => {
+      const s = zonedToUtc(t.date, t.start, t.tz);
+      const e = t.end && t.end > t.start ? zonedToUtc(t.date, t.end, t.tz)
+                                         : new Date(s.getTime() + DEFAULT_TALK_MIN * 60000);
+      const loc = t.room ? t.room + (t.floor ? ` (${t.floor})` : "") : "";
+      L.push("BEGIN:VEVENT", `UID:talk-${t.id}@confoinfo`, "DTSTAMP:" + stamp,
+             "DTSTART:" + icsStamp(s), "DTEND:" + icsStamp(e), "SUMMARY:" + icsEsc(t.title),
+             "LOCATION:" + icsEsc(loc),
+             "DESCRIPTION:" + icsEsc([t.conf_name, t.session, t.author].filter(Boolean).join(" · ")),
+             "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:Reminder",
+             `TRIGGER:-PT${ALARM_MIN}M`, "END:VALARM", "END:VEVENT");
+    });
+    L.push("END:VCALENDAR");
+    return L.join("\r\n") + "\r\n";
+  }
+  function downloadIcs(talks, calname) {
+    const blob = new Blob([buildIcs(talks, calname)], { type: "text/calendar;charset=utf-8" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "confoinfo.ics";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+  }
+
   // ── 화면 도우미 ──────────────────────────────────────────────────────
   function esc(s) {
     return (s || "").replace(/[&<>"']/g, c => (
@@ -111,6 +167,6 @@
   window.CONFO = Object.assign(window.CONFO || {}, {
     root: ROOT,
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
-    getCfg, setCfg, resetLocal, zoneNow, parseMin,
+    getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
   });
 })();

@@ -2,26 +2,26 @@
 화면. strati2026 4972d35 `congress/views.py` 에서 왔다 — 학회 하나 아래로 넣고
 (`/<slug>/…`), 학회를 고르는 첫 화면과 학회를 가로지르는 검색·내 계획을 더했다.
 
-동기화·기기 연결·사진·운영 설정(`/api/sync/`·`/api/pair/*`·`/api/photos/*`·
-`/manage/`)은 아직 안 옮겼다 — 2단계다 (P01 4절).
+**모든 응답이 요청과 무관하다 — 쿼리 문자열도, 요청 시각도 안 본다** (002).
+`build_site` 가 이 화면들을 파일로 구워 GitHub Pages 에 올리기 때문이다. 그래서
+날짜는 경로(`/<slug>/day/<날짜>/`)로 가르고, "오늘" 을 고르는 일·검색·내 계획·여러
+발표의 캘린더는 브라우저(JS)가 정적 JSON 을 받아 한다. 여기에 `request.GET` 이나
+`timezone.now()` 를 들이면 구운 사이트에서만 틀린다.
 """
 import datetime as dt
+import json
 from collections import defaultdict
 
 from django.db.models import Count, Q
-from django.http import HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.utils import timezone
 
-from confoinfoweb.version import VERSION
-
-from .models import Abstract, Conference, Session, Talk
+from .models import Conference, Session, Talk
 
 ALARM_MIN = 5             # 캘린더 알림: 발표 N분 전
 MIN_BREAK_MIN = 10        # 이보다 짧은 빈 시간은 휴식으로 보지 않는다
 DEFAULT_TALK_MIN = 20     # 끝 시각이 없는 발표의 길이 (캘린더·내 계획의 칸 높이)
-SEARCH_LIMIT = 200
 
 
 # ── 휴식 ─────────────────────────────────────────────────────────────────
@@ -100,43 +100,47 @@ def _talk_payload(t):
     }
 
 
+def _json(data):
+    # 한글·악센트를 \uXXXX 로 풀지 않는다 — 파일이 작아지고 사람이 읽을 수 있다
+    return JsonResponse(data, json_dumps_params={"ensure_ascii": False, "separators": (",", ":")})
+
+
+def _confs(slug):
+    return [_conf(slug)] if slug else list(Conference.objects.all())
+
+
 # ── 첫 화면: 학회 고르기 ─────────────────────────────────────────────────
 
 def home(request):
-    confs = list(Conference.objects.annotate(
+    """학회 카드를 시작일 순으로. 진행 중·다가올·지난 갈래는 JS 가 오늘을 보고 가른다."""
+    confs = Conference.objects.annotate(
         n_talks=Count("talks", filter=~Q(talks__kind="break"), distinct=True),
         n_sessions=Count("sessions", distinct=True),
         n_abstracts=Count("abstracts", distinct=True),
-    ))
-    groups = {"ongoing": [], "upcoming": [], "past": []}
-    for c in confs:
-        groups[c.status()].append(c)
-    # 다가오는 것은 가까운 것부터, 지난 것은 최근 것부터
-    far = dt.date.max
-    groups["upcoming"].sort(key=lambda c: (c.start_date or far, c.slug))
-    sections = [("ongoing", "Now", groups["ongoing"]),
-                ("upcoming", "Upcoming", groups["upcoming"]),
-                ("past", "Past", groups["past"])]
-    return render(request, "conference/home.html",
-                  {"sections": [s for s in sections if s[2]], "n_confs": len(confs)})
+    ).order_by("start_date", "slug")
+    return render(request, "conference/home.html", {"confs": confs})
 
 
 # ── 학회 하나 ────────────────────────────────────────────────────────────
 
-def program(request, slug):
-    """일자별 프로그램. ?day=YYYY-MM-DD"""
+def program(request, slug, day=None):
+    """일자별 프로그램. `/<slug>/` 는 첫째 날이고, 학회 기간이면 JS 가 오늘로 넘긴다."""
     conf = _conf(slug)
     days = _days(conf)
-    ctx = {"conf": conf, "days": days}
+    ctx = {"conf": conf, "days": days, "is_root": day is None}
     if not days:
+        if day is not None:
+            raise Http404
         return render(request, "conference/program.html", ctx)
-    day_param = request.GET.get("day")
-    if day_param:
-        sel = next((d for d in days if d.isoformat() == day_param), days[0])
+    if day is None:
+        sel = days[0]
     else:
-        # 고른 날이 없으면 개최지의 오늘을, 일정에 없으면 첫째 날을
-        today = conf.today()
-        sel = today if today in days else days[0]
+        try:
+            sel = dt.date.fromisoformat(day)
+        except ValueError:
+            raise Http404
+        if sel not in days:
+            raise Http404
     talks = list(conf.talks.filter(date=sel).select_related("session", "abstract", "room"))
 
     rooms = sorted({t.room for t in talks if t.room}, key=lambda r: (r.order, r.name))
@@ -153,7 +157,9 @@ def program(request, slug):
         items.sort(key=lambda it: it[1].start if it[0] == "talk" else it[1]["start"])
         columns.append((r, items))
 
-    ctx.update({"selected": sel, "columns": columns, "plenary": plenary})
+    day_urls = {d.isoformat(): reverse("program_day", args=[slug, d.isoformat()]) for d in days}
+    ctx.update({"selected": sel, "columns": columns, "plenary": plenary,
+                "day_urls": json.dumps(day_urls)})
     return render(request, "conference/program.html", ctx)
 
 
@@ -200,31 +206,13 @@ def session_detail(request, slug, code):
 
 
 def search(request, slug=None):
-    """발표(제목·발표자·세션)와 프로그램에 없는 초록(제목·저자·키워드)을 찾는다.
-
-    학회를 주면 그 안에서, 안 주면 모든 학회에서.
-    """
+    """검색 화면. 찾는 것은 JS 가 search.json 을 받아 브라우저에서 한다."""
     conf = _conf(slug) if slug else None
-    q = (request.GET.get("q") or "").strip()
-    talks, abstracts = [], []
-    if q:
-        tq = Talk.objects.exclude(kind="break").filter(
-            Q(title__icontains=q) | Q(speaker__icontains=q) |
-            Q(abstract__search_text__icontains=q) |       # 공저자·키워드
-            Q(session__title__icontains=q) | Q(session__code__iexact=q)).distinct()
-        aq = Abstract.objects.filter(talks__isnull=True).filter(
-            Q(title__icontains=q) | Q(search_text__icontains=q))
-        if conf:
-            tq, aq = tq.filter(conference=conf), aq.filter(conference=conf)
-        talks = list(tq.select_related("session", "room", "conference")[:SEARCH_LIMIT])
-        abstracts = list(aq.select_related("session", "conference")[:SEARCH_LIMIT])
-    return render(request, "conference/search.html",
-                  {"conf": conf, "q": q, "talks": talks, "abstracts": abstracts,
-                   "limit": SEARCH_LIMIT})
+    return render(request, "conference/search.html", {"conf": conf})
 
 
 def plan(request, slug=None):
-    """내 계획. 북마크는 localStorage 에 있어 JS 가 /api/talks/ 로 그린다.
+    """내 계획. 북마크는 localStorage 에 있어 JS 가 talks.json 으로 그린다.
 
     학회를 주면 그 학회의 것만, 안 주면 모든 학회의 북마크를 날짜순으로.
     """
@@ -237,39 +225,59 @@ def settings_page(request):
     return render(request, "conference/settings.html", {})
 
 
-# ── API ──────────────────────────────────────────────────────────────────
+# ── 정적 JSON (build_site 가 파일로 굽는다) ──────────────────────────────
 
-def api_talks(request):
-    """?ids=1,2,3 의 발표와, 그 발표로 이어지는 휴식(같은 날·같은 룸)."""
-    want = {int(x) for x in (request.GET.get("ids") or "").split(",") if x.strip().isdigit()}
-    sel = list(Talk.objects.filter(pk__in=want)
-               .select_related("session", "room", "conference"))
-    data = [_talk_payload(t) for t in sel]
+def talks_json(request, slug=None):
+    """발표 전부와 휴식 전부 — 내 계획이 북마크한 것만 골라 그린다.
 
-    # 휴식은 그날 그 룸의 일정 전체에서 끌어낸다. 내 북마크만으로는 빈 시간이
-    # 휴식인지 그냥 안 고른 발표인지 모른다.
-    keys = {(t.conference_id, t.date, t.room_id) for t in sel if t.room_id}
-    starts = {(t.conference_id, t.date, t.room_id, _hm(t.start)) for t in sel if t.room_id}
-    grouped = defaultdict(list)
-    if keys:
-        q = Q()
-        for c, d, r in keys:
-            q |= Q(conference_id=c, date=d, room_id=r)
-        for t in Talk.objects.filter(q).select_related("conference", "room"):
-            grouped[(t.conference_id, t.date, t.room_id)].append(t)
-    breaks = []
-    for (c, d, r), ts in grouped.items():
-        conf, room = ts[0].conference, ts[0].room
-        for b in derive_breaks(ts, conf.lunch_at):
-            end = _hm(b["end"])
-            if (c, d, r, end) not in starts:
-                continue   # 북마크한 발표로 이어지는 휴식만
-            breaks.append({"conf": conf.slug, "date": d.isoformat(), "room": room.name,
-                           "start": _hm(b["start"]), "end": end, "label": b["label"]})
-    resp = JsonResponse({"talks": data, "breaks": breaks})
-    # 자료는 배포 때만 바뀐다 → 판 쿼리(?v=)로 무효화하므로 길게 캐시해도 된다
-    resp["Cache-Control"] = "public, max-age=86400"
-    return resp
+    strati2026 의 `/api/talks/?ids=` 는 북마크한 것만 받았다. 정적 사이트에는 쿼리가
+    없어 통째로 낸다(STRATI 2026 이 gzip 전 100 KB 남짓). 학회가 많아져 무거우면
+    학회별 파일만 받게 바꾼다 — 전체 내 계획이 학회 목록을 보고 필요한 것만 받으면 된다.
+    """
+    talks, breaks = [], []
+    for conf in _confs(slug):
+        ts = list(conf.talks.select_related("session", "room", "conference"))
+        talks += [_talk_payload(t) for t in ts if t.bookmarkable]
+        grouped = defaultdict(list)
+        for t in ts:
+            if t.room_id:
+                grouped[(t.date, t.room)].append(t)
+        for (d, room), items in grouped.items():
+            found = [{"start": t.start, "end": t.end, "label": t.title}
+                     for t in items if t.kind == "break" and t.end]
+            found += derive_breaks(items, conf.lunch_at)
+            breaks += [{"conf": conf.slug, "date": d.isoformat(), "room": room.name,
+                        "start": _hm(b["start"]), "end": _hm(b["end"]), "label": b["label"]}
+                       for b in found]
+    return _json({"talks": talks, "breaks": breaks})
+
+
+def search_json(request, slug=None):
+    """검색 색인. `x` 는 제목 밖에서 찾을 글 — 발표자·공저자·키워드·세션 제목.
+
+    초록 본문은 안 넣는다(STRATI 2026 만으로 1 MB 가 넘는다). 프로그램에 자리가 없는
+    초록(포스터·미편성)은 `talks` 와 따로 `abstracts` 에.
+    """
+    talks, abstracts = [], []
+    for conf in _confs(slug):
+        for t in conf.talks.exclude(kind="break").select_related("session", "room", "abstract"):
+            extra = [t.speaker]
+            if t.abstract:
+                extra.append(t.abstract.search_text)
+            if t.session:
+                extra += [t.session.code, t.session.title]
+            p = _talk_payload(t)
+            p["x"] = " ".join(e for e in extra if e)
+            talks.append(p)
+        for a in conf.abstracts.filter(talks__isnull=True).select_related("session"):
+            abstracts.append({
+                "id": a.id, "conf": conf.slug, "conf_name": conf.short_name,
+                "title": a.title, "authors": a.author_line,
+                "session": a.session.code if a.session else "",
+                "url": reverse("abstract_detail", args=[conf.slug, a.id]),
+                "x": " ".join(e for e in [a.search_text, a.session.title if a.session else ""] if e),
+            })
+    return _json({"talks": talks, "abstracts": abstracts})
 
 
 def _ics_escape(s):
@@ -282,49 +290,39 @@ def _ics_utc(date, t, tz):
     return local.astimezone(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 
 
-def calendar_ics(request):
-    """북마크한 발표를 폰 캘린더에 넣는다(.ics). 일정마다 N분 전 알림."""
-    ids = [int(x) for x in request.GET.get("ids", "").split(",") if x.strip().isdigit()]
-    talks = (Talk.objects.filter(id__in=ids).exclude(kind="break")
-             .select_related("session", "room", "conference").order_by("date", "start"))
-    confs = {t.conference.short_name for t in talks}
-    calname = confs.pop() if len(confs) == 1 else "confoinfo"
-    stamp = timezone.now().astimezone(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
-    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//confoinfo//EN",
-             "CALSCALE:GREGORIAN", "METHOD:PUBLISH", f"X-WR-CALNAME:{_ics_escape(calname)}"]
-    for t in talks:
-        tz = t.conference.tz
-        end_t = t.end or (dt.datetime.combine(dt.date.min, t.start)
-                          + dt.timedelta(minutes=DEFAULT_TALK_MIN)).time()
-        loc = ""
-        if t.room:
-            loc = t.room.name + (f" ({t.room.floor})" if t.room.floor else "")
-        desc = " · ".join(p for p in [t.conference.short_name,
-                                       t.session.code if t.session else "", t.speaker] if p)
-        lines += [
-            "BEGIN:VEVENT",
-            f"UID:talk-{t.id}@confoinfo",
-            f"DTSTAMP:{stamp}",
-            f"DTSTART:{_ics_utc(t.date, t.start, tz)}",
-            f"DTEND:{_ics_utc(t.date, end_t, tz)}",
-            f"SUMMARY:{_ics_escape(t.title)}",
-            f"LOCATION:{_ics_escape(loc)}",
-            f"DESCRIPTION:{_ics_escape(desc)}",
-            "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:Reminder",
-            f"TRIGGER:-PT{ALARM_MIN}M", "END:VALARM",
-            "END:VEVENT",
-        ]
-    lines.append("END:VCALENDAR")
+def talk_ics(request, slug, pk):
+    """발표 하나를 폰 캘린더에(.ics). N분 전 알림. 여러 발표는 내 계획의 JS 가 만든다."""
+    conf = _conf(slug)
+    t = get_object_or_404(conf.talks.exclude(kind="break").select_related("session", "room"), pk=pk)
+    tz = conf.tz
+    end_t = t.end or (dt.datetime.combine(dt.date.min, t.start)
+                      + dt.timedelta(minutes=DEFAULT_TALK_MIN)).time()
+    loc = ""
+    if t.room:
+        loc = t.room.name + (f" ({t.room.floor})" if t.room.floor else "")
+    desc = " · ".join(p for p in [conf.short_name, t.session.code if t.session else "",
+                                   t.speaker] if p)
+    # DTSTAMP 는 발표 시작 시각으로 둔다 — 구울 때마다 파일이 바뀌지 않게
+    stamp = _ics_utc(t.date, t.start, tz)
+    lines = [
+        "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//confoinfo//EN",
+        "CALSCALE:GREGORIAN", "METHOD:PUBLISH", f"X-WR-CALNAME:{_ics_escape(conf.short_name)}",
+        "BEGIN:VEVENT",
+        f"UID:talk-{t.id}@confoinfo",
+        f"DTSTAMP:{stamp}",
+        f"DTSTART:{_ics_utc(t.date, t.start, tz)}",
+        f"DTEND:{_ics_utc(t.date, end_t, tz)}",
+        f"SUMMARY:{_ics_escape(t.title)}",
+        f"LOCATION:{_ics_escape(loc)}",
+        f"DESCRIPTION:{_ics_escape(desc)}",
+        "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:Reminder",
+        f"TRIGGER:-PT{ALARM_MIN}M", "END:VALARM",
+        "END:VEVENT", "END:VCALENDAR",
+    ]
     resp = HttpResponse("\r\n".join(lines) + "\r\n", content_type="text/calendar; charset=utf-8")
-    resp["Content-Disposition"] = 'attachment; filename="confoinfo.ics"'
     return resp
 
 
-def healthz(request):
-    """smoke.sh 가 본다 — 판이 갈렸는가, 자료가 있는가(빈 DB 를 물고도 200 은 나온다)."""
-    return JsonResponse({
-        "status": "ok",
-        "version": VERSION,
-        "conferences": Conference.objects.count(),
-        "talks": Talk.objects.count(),
-    })
+def not_found(request):
+    """GitHub Pages 의 404.html 로 굽는다."""
+    return render(request, "conference/404.html", {}, status=404)

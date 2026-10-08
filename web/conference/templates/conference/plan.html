@@ -19,7 +19,8 @@
   const box = document.getElementById('tt');
   if (!ids.length) { box.innerHTML = '<p class="empty">No bookmarks yet. Tap ☆ on talks to add them.</p>'; return; }
   // 북마크한 발표만 요청 → 페이로드 최소화 (전체 프로그램을 받지 않음)
-  const res = await fetch('{% url "api_talks" %}?v={{ version }}&ids=' + ids.join(','));
+  // 정적 사이트라 북마크만 골라 받을 수 없다 — 통째로 받고 여기서 고른다 (views.talks_json)
+  const res = await fetch('{% if conf %}{% url "talks" conf.slug %}{% else %}{% url "talks_all" %}{% endif %}?v={{ version }}');
   const payload = await res.json();
   const all = payload.talks.filter(t => !CONF || t.conf === CONF);
   const allBreaks = payload.breaks || [];
@@ -172,7 +173,10 @@
   CONFO.refresh();
 
   const calAll = document.getElementById('cal-all');
-  calAll.href = '{% url "calendar_ics" %}?ids=' + mine.map(t => t.id).join(',');
+  calAll.addEventListener('click', e => {
+    e.preventDefault();
+    CONFO.downloadIcs(mine, CONF ? mine[0].conf_name : 'confoinfo');
+  });
   calAll.hidden = false;
 
   // ── 현재 시각 빨간 줄 + 점프 버튼 (오늘 섹션에만) ──────────────────

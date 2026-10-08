@@ -1,9 +1,10 @@
 """
 confoinfo 설정. strati2026 4972d35 `config/settings.py` 를 바탕으로, 환경 규약
-(`.env` · `/srv/<앱>/db/` · 서브경로 · 시험 DB)은 DiaRUGA·ForGIA 를 따랐다 (P01).
+(`.env` · 서브경로 · 시험 DB)은 DiaRUGA·ForGIA 를 따랐다 (P01).
 
 학회 자료는 저장소의 `conferences/*.json` 이 정본이고 DB 는 그것을 읽어 들인
-사본이다. 기동할 때마다 `import_conference --all` 이 다시 맞춘다(entrypoint).
+사본이다. 운영 서버는 없다 — `tools/build_site.sh` 가 화면을 파일로 구워
+GitHub Pages 에 올린다 (002).
 """
 import os
 import tempfile
@@ -49,10 +50,9 @@ ALLOWED_HOSTS = [
 ]
 ALLOWED_HOSTS += [h.strip() for h in os.environ.get("CONFOINFO_HOSTS", "").split(",") if h.strip()]
 
-# 서브경로 아래에 얹을 때 쓴다 (예: "/confoinfo"). 빈 값이면 뿌리(/)에 붙는다.
-# 사내 VPN 이 80 만 통과시켜 DiaRUGA·ForGIA 와 같이 phyloserver 블록 안에
-# 서브경로로 들어간다. JS 는 base.html 이 내보내는 window.CONFO.root 를 쓴다 —
-# 절대경로를 박아 두면 여기만 바꿔서는 안 돌아간다.
+# 서브경로 아래에 얹을 때 쓴다. GitHub Pages 는 koprifossillab.github.io/confoinfo/
+# 라 build_site 가 "/confoinfo" 로 굽는다. 개발 서버는 빈 값(뿌리). JS 는 base.html 이
+# 내보내는 window.CONFO.root 와 {% url %} 을 쓴다 — 절대경로를 박지 않는다.
 FORCE_SCRIPT_NAME = os.environ.get("CONFOINFO_SCRIPT_NAME", "").rstrip("/") or None
 
 CSRF_TRUSTED_ORIGINS = [
@@ -65,9 +65,8 @@ INSTALLED_APPS = [
 ]
 
 # 로그인도 세션도 없다 — 북마크·메모는 브라우저 localStorage 에 있다.
+# 운영 서버가 없다(GitHub Pages, 002). 이것은 개발 서버와 build_site 의 것이다.
 MIDDLEWARE = [
-    "django.middleware.security.SecurityMiddleware",
-    "django.middleware.gzip.GZipMiddleware",
     "django.middleware.common.CommonMiddleware",
 ]
 
@@ -112,25 +111,19 @@ DATABASES = {
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # **서브경로를 직접 붙인다.** 상대경로("static/")로 두면 Django 가 SCRIPT_NAME 을
-# 붙여 주기는 하는데, 처음 읽힌 값을 캐시한다 — gunicorn 에서는 whitenoise 가
-# 요청이 오기 전에 읽어서 접두 없는 "/static/" 이 굳었고 CSS 가 404 였다(001).
-# whitenoise 는 FORCE_SCRIPT_NAME 을 떼고 "/static/" 으로 받는다 — nginx 가
-# /confoinfo/ 를 떼고 넘기므로 그것이 맞다.
+# 붙여 주기는 하는데 처음 읽힌 값을 캐시해, 요청 밖(build_site)이나 기동 때 먼저
+# 읽히면 접두 없는 "/static/" 이 굳는다 — 실제로 CSS·JS 가 404 였다(001).
 STATIC_URL = (FORCE_SCRIPT_NAME or "") + "/static/"
-STATIC_ROOT = BASE_DIR / "staticfiles"
+# build_site 가 collectstatic 을 구운 사이트 안(site/static)으로 돌린다
+STATIC_ROOT = Path(os.environ.get("CONFOINFO_STATIC_ROOT", BASE_DIR / "staticfiles"))
 
-# 해시가 붙은 파일 이름(캐시 무효화)은 collectstatic 을 거친 이미지에서만 쓴다.
-# 개발·시험에서는 manifest 가 없어 Manifest 저장소가 템플릿을 못 그린다.
-# Dockerfile 이 빌드 때 collectstatic 을 돌리고 이 값을 1 로 둔다.
+# 해시가 붙은 파일 이름(캐시 무효화)은 구운 사이트에서만 쓴다. 개발·시험에서는
+# manifest 가 없어 Manifest 저장소가 템플릿을 못 그린다.
 _MANIFEST = os.environ.get("CONFOINFO_STATIC_MANIFEST", "0") == "1"
-# whitenoise 는 collectstatic 이 끝난 이미지에서만 낀다. 개발은 runserver 가
-# 정적 파일을 내주고, 없는 STATIC_ROOT 를 보며 경고를 내지도 않는다.
-if _MANIFEST:
-    MIDDLEWARE.insert(2, "whitenoise.middleware.WhiteNoiseMiddleware")
 STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
     "staticfiles": {"BACKEND": (
-        "whitenoise.storage.CompressedManifestStaticFilesStorage" if _MANIFEST
+        "django.contrib.staticfiles.storage.ManifestStaticFilesStorage" if _MANIFEST
         else "django.contrib.staticfiles.storage.StaticFilesStorage")},
 }
 

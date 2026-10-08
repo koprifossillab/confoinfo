@@ -19,3 +19,4 @@ web/staticfiles/
 # 학회 원본 PDF — 용량이 크고 배포처의 것이다. 파서의 산출물(output/)만 추적한다
 sources/*/data/
 sources/*/build/
+site/

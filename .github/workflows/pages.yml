@@ -1,0 +1,56 @@
+# 시험 → 사이트 굽기 → GitHub Pages (002).
+#
+# `main` 에 밀면 https://koprifossillab.github.io/confoinfo/ 가 갈린다. 학회 자료
+# (conferences/*.json)만 고쳐도 같다. PR 에서는 시험과 굽기(링크 검사)까지만 한다.
+#
+# **처음 한 번 저장소 admin 이 켜야 한다** — Settings → Pages → Source: GitHub Actions.
+# 안 켜져 있으면 deploy job 만 실패하고 시험·굽기는 그대로 돈다.
+name: 사이트
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 배포가 겹치면 뒤엣것만 남긴다. 도는 중인 배포는 끊지 않는다
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: 시험 · 굽기
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - run: pip install -r requirements-web.txt
+      # 학회 자료 파일이 전부 검사를 통과하는가도 여기서 본다 (test_data_files)
+      - run: python web/manage.py test conference --verbosity 2
+      # 깨진 링크가 하나라도 있으면 build_site 가 실패로 끝난다
+      - run: PYTHON=python tools/build_site.sh site /confoinfo
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+
+  deploy:
+    name: Pages 에 올리기
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

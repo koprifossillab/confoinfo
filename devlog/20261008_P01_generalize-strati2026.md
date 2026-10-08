@@ -1,7 +1,8 @@
 # [계획] strati2026 을 어느 학회에나 쓰게 옮긴다
 
 **작성일** 2026-10-08
-**상태** 1단계까지 같은 날 끝냈다([001](20261008_001_stage1-generic-viewer.md)). 2단계부터는 5절의 물음이 정해진 뒤
+**상태** 1단계까지 같은 날 끝냈다([001](20261008_001_stage1-generic-viewer.md)). 5절 ①② 는 같은 날 정했다 —
+**GitHub Pages 정적 사이트 · 동기화 없음 · 초록 본문 공개**([002](20261008_002_github-pages.md)). 3절의 배포 표와 4절의 2단계는 그것으로 바뀌었다
 **읽은 것** `jikhanjung/strati2026` 4972d35 (2026-06-30, v0.1.37) — `README.md`·`CLAUDE.md`·
 `congress/` 전체·`static/`·`deploy/`·`devlog/` 제목 39개 · 환경은 `~/projects/ForGIA`(P01·`deploy/`)
 

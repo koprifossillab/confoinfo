@@ -1,19 +1,86 @@
 {% extends "conference/base.html" %}
+{# 찾는 일은 브라우저가 한다 — search.json 을 한 번 받아 둔다 (정적 사이트, 002) #}
 {% block title %}Search · {{ conf.short_name|default:"confoinfo" }}{% endblock %}
 {% block content %}
-<form class="searchbar" method="get">
-  <input type="search" name="q" value="{{ q }}" autofocus
-         placeholder="{% if conf %}Title, author, session…{% else %}Search all conferences…{% endif %}">
+<form class="searchbar" id="sform">
+  <input type="search" name="q" id="q" autofocus autocomplete="off"
+         placeholder="{% if conf %}Title, author, keyword, session…{% else %}Search all conferences…{% endif %}">
   <button type="submit">Go</button>
 </form>
+<div id="results"></div>
+{% endblock %}
+{% block scripts %}
+<script>
+(async function () {
+  const LIMIT = 200;
+  const SHOW_CONF = {% if conf %}false{% else %}true{% endif %};
+  const form = document.getElementById('sform'), input = document.getElementById('q');
+  const out = document.getElementById('results');
+  const esc = CONFO.esc;
+  let index = null;
 
-{% if q %}
-  <p class="result-count">{{ talks|length }} talk{{ talks|length|pluralize }}{% if abstracts %} · {{ abstracts|length }} other abstract{{ abstracts|length|pluralize }}{% endif %}{% if talks|length >= limit %} (first {{ limit }}){% endif %}</p>
-  {% for t in talks %}{% include "conference/_talk_item.html" with show_conf=conf|yesno:",1" show_place=True %}{% endfor %}
-  {% if abstracts %}
-    <h2 class="room-h">Abstracts not in the program</h2>
-    {% for a in abstracts %}{% include "conference/_abstract_item.html" with show_conf=conf|yesno:",1" show_session=True %}{% endfor %}
-  {% endif %}
-  {% if not talks and not abstracts %}<p class="empty">No matches.</p>{% endif %}
-{% endif %}
+  function dayLabel(date) {
+    return new Date(date + 'T00:00:00Z').toLocaleDateString('en-US',
+      { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
+  }
+  function talkCard(t) {
+    return `<div class="talk" data-id="${t.id}">
+      <div class="talk-time">${t.start}${t.end ? '–' + t.end : ''}</div>
+      <div class="talk-body">
+        <a class="talk-title" href="${t.url}">${esc(t.title)}</a>
+        <div class="talk-meta">
+          ${SHOW_CONF ? `<span class="conf-tag">${esc(t.conf_name)}</span>` : ''}
+          ${t.session ? `<span class="badge">${esc(t.session)}</span>` : ''}
+          ${t.author ? `<span class="author">${esc(t.author)}</span>` : ''}</div>
+        <div class="talk-place">📅 ${dayLabel(t.date)}${t.room ? ' · 📍 ' + esc(t.room) : ''}</div>
+      </div>
+      <button class="bm" data-id="${t.id}" aria-label="bookmark">☆</button>
+    </div>`;
+  }
+  function absCard(a) {
+    return `<div class="talk"><div class="talk-body">
+      <a class="talk-title" href="${a.url}">${esc(a.title)}</a>
+      <div class="talk-meta">
+        ${SHOW_CONF ? `<span class="conf-tag">${esc(a.conf_name)}</span>` : ''}
+        ${a.session ? `<span class="badge">${esc(a.session)}</span>` : ''}
+        <span class="author">${esc(a.authors.split(', ').slice(0, 3).join(', '))}${a.authors.split(', ').length > 3 ? ' …' : ''}</span>
+      </div></div></div>`;
+  }
+  // 낱말마다 다 들어 있어야 걸린다 — "trilobite cambrian" 은 둘 다 있는 것만
+  function matches(item, words) {
+    if (!item._h) item._h = CONFO.fold(item.title + ' ' + (item.author || '') + ' ' + (item.authors || '') + ' ' + (item.x || ''));
+    return words.every(w => item._h.includes(w));
+  }
+  function run(q) {
+    const words = CONFO.fold(q).split(/\s+/).filter(Boolean);
+    if (!words.length) { out.innerHTML = ''; return; }
+    const talks = index.talks.filter(t => matches(t, words));
+    const abs = index.abstracts.filter(a => matches(a, words));
+    let html = `<p class="result-count">${talks.length} talk${talks.length === 1 ? '' : 's'}`
+      + (abs.length ? ` · ${abs.length} other abstract${abs.length === 1 ? '' : 's'}` : '')
+      + (talks.length > LIMIT ? ` (first ${LIMIT})` : '') + '</p>';
+    html += talks.slice(0, LIMIT).map(talkCard).join('');
+    if (abs.length) html += '<h2 class="room-h">Abstracts not in the program</h2>' + abs.slice(0, LIMIT).map(absCard).join('');
+    if (!talks.length && !abs.length) html += '<p class="empty">No matches.</p>';
+    out.innerHTML = html;
+    CONFO.refresh();
+  }
+
+  const q0 = new URLSearchParams(location.search).get('q') || '';
+  input.value = q0;
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const q = input.value.trim();
+    history.replaceState(null, '', q ? '?q=' + encodeURIComponent(q) : location.pathname);
+    if (index) run(q);
+  });
+  if (q0) out.innerHTML = '<p class="empty">Searching…</p>';
+  try {
+    index = await (await fetch('{% if conf %}{% url "search_index" conf.slug %}{% else %}{% url "search_index_all" %}{% endif %}?v={{ version }}')).json();
+  } catch (e) { out.innerHTML = '<p class="empty">Could not load the search index.</p>'; return; }
+  let timer;
+  input.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => run(input.value.trim()), 200); });
+  run(q0);
+})();
+</script>
 {% endblock %}

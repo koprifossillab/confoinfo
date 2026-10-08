@@ -21,7 +21,7 @@
   {% endif %}
 
   {% if talk and talk.bookmarkable %}
-  <a class="cal-btn" href="{% url 'calendar_ics' %}?ids={{ talk.id }}">📅 Add to Calendar</a>
+  <a class="cal-btn" href="{% url 'talk_ics' conf.slug talk.id %}" download="talk-{{ talk.id }}.ics">📅 Add to Calendar</a>
   <p class="tz-note">Times are local to the venue ({{ conf.timezone }}).</p>
 
   <section class="note">

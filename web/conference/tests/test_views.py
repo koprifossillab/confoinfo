@@ -25,17 +25,15 @@ class ViewTests(TestCase):
                     start_date="2027-01-10", end_date="2027-01-11"))
         cls.t = {t.key: t for t in Talk.objects.filter(conference__slug="testconf")}
 
-    def test_home_groups_by_status(self):
-        with mock.patch.object(timezone, "now", return_value=at(2026, 5, 4)):
-            r = self.client.get("/")
-        self.assertEqual([s[0] for s in r.context["sections"]], ["ongoing", "upcoming"])
-        self.assertContains(r, "LIVE")
-        with mock.patch.object(timezone, "now", return_value=at(2026, 9, 1)):
-            r = self.client.get("/")
-        self.assertEqual([s[0] for s in r.context["sections"]], ["upcoming", "past"])
+    def test_home_lists_cards_with_dates(self):
+        r = self.client.get("/")
+        # 진행 중·지난 갈래는 JS 가 가른다 — 서버는 시작일 순으로 카드만
+        self.assertEqual([c.slug for c in r.context["confs"]], ["testconf", "later"])
+        self.assertContains(r, 'data-start="2026-05-04" data-end="2026-05-05"')
+        self.assertContains(r, 'data-tz="Asia/Seoul"')
 
     def test_program_days_rooms_breaks(self):
-        r = self.client.get("/testconf/?day=2026-05-04")
+        r = self.client.get("/testconf/day/2026-05-04/")
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.context["selected"], dt.date(2026, 5, 4))
         self.assertEqual([t.key for t in r.context["plenary"]], ["t5"])
@@ -45,14 +43,20 @@ class ViewTests(TestCase):
         self.assertEqual([(b["start"].strftime("%H:%M"), b["label"]) for b in breaks],
                          [("09:40", "Break"), ("12:10", "Lunch")])
 
-    def test_program_defaults_to_venue_today(self):
-        # 서울 5월 5일 00:30 = UTC 5월 4일 15:30
-        with mock.patch.object(timezone, "now", return_value=at(2026, 5, 4, 15) + dt.timedelta(minutes=30)):
+    def test_program_root_is_first_day_and_independent_of_now(self):
+        # 구운 사이트에서 같은 파일이 나와야 한다 — 오늘을 고르는 것은 JS 다
+        with mock.patch.object(timezone, "now", return_value=at(2026, 5, 5)):
             r = self.client.get("/testconf/")
-        self.assertEqual(r.context["selected"], dt.date(2026, 5, 5))
+        self.assertEqual(r.context["selected"], dt.date(2026, 5, 4))
+        self.assertContains(r, '"2026-05-05": "/testconf/day/2026-05-05/"')
+        self.assertContains(r, 'href="/testconf/day/2026-05-05/"')
+
+    def test_program_bad_day_404(self):
+        self.assertEqual(self.client.get("/testconf/day/2026-05-09/").status_code, 404)
+        self.assertEqual(self.client.get("/testconf/day/nope/").status_code, 404)
 
     def test_explicit_break_is_not_doubled(self):
-        r = self.client.get("/testconf/?day=2026-05-05")
+        r = self.client.get("/testconf/day/2026-05-05/")
         (room, items), = r.context["columns"]
         self.assertEqual([(k, i["label"] if k == "break" else i.key) for k, i in items],
                          [("talk", "t6"), ("break", "Coffee"), ("talk", "t8")])
@@ -82,42 +86,42 @@ class ViewTests(TestCase):
         r = self.client.get(f"/testconf/abstract/{a2.pk}/")
         self.assertContains(r, "A poster only abstract")
 
-    def test_search(self):
-        r = self.client.get("/testconf/search/", {"q": "montañez"})   # 공저자 · 비ASCII
-        self.assertEqual([t.key for t in r.context["talks"]], ["t1"])
-        r = self.client.get("/testconf/search/", {"q": "poster person"})
-        self.assertEqual([a.key for a in r.context["abstracts"]], ["a2"])
-        r = self.client.get("/search/", {"q": "Day two"})
-        self.assertEqual(len(r.context["talks"]), 2)                    # 두 학회
-        r = self.client.get("/testconf/search/", {"q": "Coffee"})
-        self.assertEqual([t.key for t in r.context["talks"]], ["t8"])     # 휴식(t7)은 안 찾는다
+    def test_search_index(self):
+        d = json.loads(self.client.get("/testconf/search.json").content)
+        by_title = {t["title"]: t for t in d["talks"]}
+        self.assertNotIn("Coffee", by_title)                        # 휴식은 안 찾는다
+        self.assertIn("Montañez", by_title["Trilobites of somewhere"]["x"])   # 공저자
+        self.assertIn("First", by_title["Trilobites of somewhere"]["x"])      # 세션 제목
+        self.assertEqual([a["title"] for a in d["abstracts"]], ["A poster only abstract"])
+        d = json.loads(self.client.get("/search.json").content)
+        self.assertEqual({t["conf"] for t in d["talks"]}, {"testconf", "later"})
 
-    def test_api_talks_and_breaks(self):
-        ids = f"{self.t['t1'].pk},{self.t['t4'].pk},999999"
-        d = json.loads(self.client.get("/api/talks/", {"ids": ids}).content)
-        self.assertEqual(sorted(t["title"] for t in d["talks"]), ["After lunch", "Trilobites of somewhere"])
+    def test_talks_json_and_breaks(self):
+        d = json.loads(self.client.get("/testconf/talks.json").content)
+        self.assertEqual(len(d["talks"]), 7)                        # 휴식(t7)은 북마크할 수 없다
         t1 = next(t for t in d["talks"] if t["title"].startswith("Tri"))
         self.assertEqual((t1["conf"], t1["tz"], t1["room"], t1["floor"], t1["session"]),
                          ("testconf", "Asia/Seoul", "Hall A", "1F", "S1"))
         self.assertEqual(t1["url"], f"/testconf/talk/{self.t['t1'].pk}/")
-        # t4 로 이어지는 점심만 (t1 앞에는 휴식이 없다)
-        self.assertEqual([(b["start"], b["end"], b["label"]) for b in d["breaks"]],
-                         [("12:10", "13:00", "Lunch")])
+        got = sorted((b["date"], b["start"], b["end"], b["label"]) for b in d["breaks"])
+        self.assertEqual(got, [("2026-05-04", "09:40", "11:50", "Break"),
+                               ("2026-05-04", "12:10", "13:00", "Lunch"),
+                               ("2026-05-05", "09:20", "09:40", "Coffee")])   # 적힌 휴식도
+        d = json.loads(self.client.get("/talks.json").content)
+        self.assertEqual(len(d["talks"]), 14)
 
-    def test_ics_uses_venue_timezone(self):
-        r = self.client.get("/calendar.ics", {"ids": f"{self.t['t1'].pk},{self.t['t7'].pk}"})
+    def test_talk_ics_uses_venue_timezone(self):
+        r = self.client.get(f"/testconf/talk/{self.t['t1'].pk}/talk.ics")
         body = r.content.decode()
         self.assertIn("DTSTART:20260504T000000Z", body)   # 서울 09:00 = UTC 00:00
-        self.assertEqual(body.count("BEGIN:VEVENT"), 1)    # 휴식은 빠진다
         self.assertIn("X-WR-CALNAME:TEST 2026", body)
+        self.assertEqual(self.client.get(f"/testconf/talk/{self.t['t7'].pk}/talk.ics").status_code, 404)
 
-    def test_plan_and_settings_render(self):
-        for url in ("/plan/", "/testconf/plan/", "/settings/"):
+    def test_pages_render(self):
+        for url in ("/search/", "/testconf/search/", "/plan/", "/testconf/plan/", "/settings/",
+                    "/testconf/sessions/"):
             self.assertEqual(self.client.get(url).status_code, 200, url)
-
-    def test_healthz(self):
-        d = json.loads(self.client.get("/healthz").content)
-        self.assertEqual((d["status"], d["conferences"], d["talks"]), ("ok", 2, 16))
+        self.assertEqual(self.client.get("/404.html").status_code, 404)
 
 
 class SubpathTests(TestCase):
