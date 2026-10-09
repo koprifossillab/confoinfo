@@ -15,25 +15,33 @@
     trUrl: "{% if conf %}{% url 'i18n' conf.slug 'LANG' %}{% else %}{% url 'i18n_all' 'LANG' %}{% endif %}" };</script>
 </head>
 <body>
+  {% comment %} 머리글 (008, 사용자가 고른 C안). 위의 도구 줄(.appbar)만 화면에 붙어 따라오고,
+     큰 제목 줄(.appbar-hero)은 스크롤하면 지나간다 — 지나가면 도구 줄 가운데에 학회 이름이 뜬다.
+     program.html 의 날짜·룸 띠가 .appbar 의 아래 끝을 잰다. {% endcomment %}
+  {% with u=request.resolver_match.url_name %}
   <header class="appbar">
-    <div class="appbar-inner">
-      {% if conf %}
+    <div class="appbar-row">
+      {% if u != "home" %}
       {# 학회 목록으로. ?all 이 있어야 "기본으로 볼 학회" 로 되돌려 보내지 않는다 (005) #}
-      <a href="{% url 'home' %}?all" class="appbar-back" aria-label="All conferences" title="All conferences">‹<span>All</span></a>
-      <a href="{% url 'program' conf.slug %}" class="brand">
-        <span class="brand-main" translate="no">{{ conf.short_name }} Program</span>
-        <span class="brand-sub"><span class="brand-unofficial">Unofficial</span> Planner
-          <span class="brand-ver">· confoinfo v{{ version }}</span></span></a>
-      <a href="{% url 'settings' %}" class="appbar-gear" aria-label="Settings" title="Settings">⚙️</a>
-      {% else %}
-      <a href="{% url 'home' %}?all" class="brand">
-        <span class="brand-main" translate="no">confoinfo</span>
-        <span class="brand-sub">Conference programs at a glance
-          <span class="brand-ver">v{{ version }}</span></span></a>
-      <a href="{% url 'settings' %}" class="appbar-gear" aria-label="Settings">⚙️</a>
-      {% endif %}
+      <a href="{% url 'home' %}?all" class="ab-btn" aria-label="All conferences" title="All conferences"><svg class="ab-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
+      {% else %}<span class="ab-btn" aria-hidden="true"></span>{% endif %}
+      <a href="{% if conf %}{% url 'program' conf.slug %}{% else %}{% url 'home' %}?all{% endif %}" class="ab-word">
+        <span class="ab-word-rest">{% if conf %}confoinfo · unofficial{% else %}unofficial planner{% endif %}</span>
+        <span class="ab-word-title" translate="no">{{ conf.short_name|default:"confoinfo" }}</span>
+      </a>
+      <a href="{% url 'settings' %}" class="ab-btn" aria-label="Settings" title="Settings"><svg class="ab-i" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></a>
     </div>
   </header>
+  <div class="appbar-hero"{% if conf %} data-start="{{ conf.start_date|date:'Y-m-d' }}" data-end="{{ conf.end_date|default:conf.start_date|date:'Y-m-d' }}" data-tz="{{ conf.timezone }}"{% endif %}>
+    {% if conf %}
+    <a href="{% url 'program' conf.slug %}" class="ab-title"><span translate="no">{{ conf.short_name }}</span><span class="ab-chip" hidden></span></a>
+    <div class="ab-meta">{% if conf.start_date %}{% if conf.end_date and conf.end_date != conf.start_date %}{{ conf.start_date|date:"M j" }} – {{ conf.end_date|date:"M j, Y" }}{% else %}{{ conf.start_date|date:"M j, Y" }}{% endif %}{% endif %}{% if conf.venue %} · <span translate="no">{{ conf.venue }}</span>{% endif %}</div>
+    {% else %}
+    <a href="{% url 'home' %}?all" class="ab-title"><span translate="no">confoinfo</span></a>
+    <div class="ab-meta">Conference programs at a glance</div>
+    {% endif %}
+  </div>
+  {% endwith %}
 
   <main class="content">
     {% block content %}{% endblock %}

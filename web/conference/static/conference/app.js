@@ -297,7 +297,28 @@
     document.dispatchEvent(new CustomEvent("bm:change", { detail: { id } }));
   });
 
+  // 머리글 (008): 학회 표시(D-n · LIVE)는 보는 날의 개최지 시각으로 — 구운 날로 굳으면 안 된다.
+  // 큰 제목 줄이 지나가면 도구 줄에 학회 이름을 띄운다
+  function initAppbar() {
+    const hero = document.querySelector(".appbar-hero"), bar = document.querySelector(".appbar");
+    if (!hero || !bar) return;
+    const chip = hero.querySelector(".ab-chip");
+    if (chip && hero.dataset.start) {
+      const today = zoneNow(hero.dataset.tz).date, s = hero.dataset.start, e = hero.dataset.end || s;
+      if (today >= s && today <= e) { chip.textContent = "LIVE"; chip.classList.add("live"); chip.hidden = false; }
+      else if (today < s) {
+        const days = Math.round((Date.parse(s) - Date.parse(today)) / 86400000);
+        chip.textContent = days === 1 ? "TOMORROW" : "D-" + days; chip.hidden = false;
+      }
+    }
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(([en]) => bar.classList.toggle("scrolled", !en.isIntersecting),
+        { rootMargin: `-${bar.offsetHeight}px 0px 0px 0px` }).observe(hero);
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    initAppbar();
     document.body.classList.toggle("hide-breaks", !getCfg().breaks);
     refresh();
     applyDetailTr();
