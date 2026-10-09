@@ -42,7 +42,9 @@ STRATI 2026 하나를 위해 만든 `jikhanjung/strati2026` 을 범용으로 옮
 
 ## 이름
 
-**`confoinfo` 하나다** — 저장소 `koprifossillab/confoinfo` 가 소문자라 그대로 따른다.
+**화면에 보이는 이름은 `Confoinfo`(첫 글자만 대문자, 사용자 2026-10-09), 기술 자리는 `confoinfo`** —
+저장소 `koprifossillab/confoinfo` 가 소문자라 그대로 따른다. 화면이란 머리글·`<title>`·설정 About·
+캘린더 이름처럼 사람이 읽는 자리다.
 경로(`~/venv/confoinfo`)·URL(`koprifossillab.github.io/confoinfo/`)·DB(`confoinfo.db`)·
 `localStorage` 키(`confoinfo_*`) 전부.
 환경변수는 `CONFOINFO_*`. 파이썬 패키지는 `confoinfoweb`(설정)·`conference`(앱).

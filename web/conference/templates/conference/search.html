@@ -1,7 +1,7 @@
 {% extends "conference/base.html" %}
 {% load static %}
 {# 찾는 일은 브라우저가 한다 — search.json 을 한 번 받아 둔다 (정적 사이트, 002) #}
-{% block title %}Search · {{ conf.short_name|default:"confoinfo" }}{% endblock %}
+{% block title %}Search · {{ conf.short_name|default:"Confoinfo" }}{% endblock %}
 {% block content %}
 <form class="searchbar" id="sform" autocomplete="off">
   <div class="ac-wrap">

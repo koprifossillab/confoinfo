@@ -123,7 +123,7 @@
   }
   function buildIcs(talks, calname) {
     const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//confoinfo//EN", "CALSCALE:GREGORIAN",
-               "METHOD:PUBLISH", "X-WR-CALNAME:" + icsEsc(calname || "confoinfo")];
+               "METHOD:PUBLISH", "X-WR-CALNAME:" + icsEsc(calname || "Confoinfo")];
     const stamp = icsStamp(new Date());
     talks.forEach(t => {
       const s = zonedToUtc(t.date, t.start, t.tz);

@@ -1,7 +1,7 @@
 {% extends "conference/base.html" %}
 {% comment %} 설정 (005). 칸의 꼴은 GSM 의 설정 시트를 따랐다 — 이름 · 단추 묶음 · 도움말.
    값은 전부 localStorage(confoinfo_cfg)에 있고 서버로 가지 않는다 {% endcomment %}
-{% block title %}Settings · confoinfo{% endblock %}
+{% block title %}Settings · Confoinfo{% endblock %}
 {% block content %}
 <h1 class="page-h">Settings</h1>
 
@@ -11,7 +11,7 @@
     <option value="">None — show the list</option>
     {% for c in confs %}<option value="{{ c.slug }}">{{ c.short_name }}</option>{% endfor %}
   </select>
-  <p class="hint">Open this conference directly when you visit confoinfo.
+  <p class="hint">Open this conference directly when you visit Confoinfo.
     <b>‹ All</b> at the top left of a conference takes you back to the list.</p>
 </div>
 
@@ -65,7 +65,7 @@
 
 <h2 class="set-h">About</h2>
 <div class="field about">
-  <p class="about-app"><b translate="no">confoinfo</b> v{{ version }} — conference programs at a glance.</p>
+  <p class="about-app"><b translate="no">Confoinfo</b> v{{ version }} — conference programs at a glance.</p>
   <span class="field-label">Made by</span>
   <ul class="makers" translate="no">
     <li><b>정직한</b> <span>극지연구소 (KOPRI)</span></li>

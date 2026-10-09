@@ -2,7 +2,7 @@
 {% comment %} strati2026 4972d35 congress/templates/congress/timetable.html 에서 왔다.
    학회를 주면 그 학회의 북마크만, 안 주면 모든 학회의 것을 날짜순으로 그린다.
    현재 시각 줄은 구간마다 그 학회의 시간대로 본다. {% endcomment %}
-{% block title %}My Plan · {{ conf.short_name|default:"confoinfo" }}{% endblock %}
+{% block title %}My Plan · {{ conf.short_name|default:"Confoinfo" }}{% endblock %}
 {% block content %}
 <h1 class="page-h">My Plan</h1>
 <p class="hint">Bookmarked talks{% if conf %} at {{ conf.short_name }}{% else %} across all conferences{% endif %}, with your notes.
@@ -175,7 +175,7 @@
   const calAll = document.getElementById('cal-all');
   calAll.addEventListener('click', e => {
     e.preventDefault();
-    CONFO.downloadIcs(mine, CONF ? mine[0].conf_name : 'confoinfo');
+    CONFO.downloadIcs(mine, CONF ? mine[0].conf_name : 'Confoinfo');
   });
   calAll.hidden = false;
 
