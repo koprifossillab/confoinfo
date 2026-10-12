@@ -1,6 +1,6 @@
 # HANDOFF
 
-**2026-10-08** · v0.2.0 · 정적 사이트(GitHub Pages)로 옮겼다([002](devlog/20261008_002_github-pages.md)) ·
+**2026-10-12** · v0.9.0 · 추계지질과학연합학술대회를 넣었다([009](devlog/20261012_009_gskfall2026.md)) · 정적 사이트(GitHub Pages)로 옮겼다([002](devlog/20261008_002_github-pages.md)) ·
 **`https://koprifossillab.github.io/confoinfo/` 에 떠 있다** (2026-10-08 Pages 켬).
 이어서 할 사람은 여기부터.
 
@@ -18,7 +18,7 @@
 | | 지금 |
 |---|---|
 | 사이트 | `tools/build_site.sh` → `site/` (1,568개 파일 · 17 MB) · 링크 검사 · CI 가 `main` 에서 굽는다 |
-| 학회 | `icamg2026`(icamg.org HTML · `sources/icamg2026/fetch.sh` 로 다시 받는다) · `strati2026`(지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
+| 학회 | `gskfall2026`(추계지질과학연합, 프로그램북 PDF · `sources/gskfall2026/to_confoinfo.py`, 원본은 gitignore 된 `data/`) · `icamg2026`(icamg.org HTML · `sources/icamg2026/fetch.sh` 로 다시 받는다) · `strati2026`(지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
 | 시험 | 28개 (`python web/manage.py test conference`) |
 | 남은 것 | `TODOs.md` |
 
