@@ -79,7 +79,7 @@ DiaRUGA·ForGIA 의 규칙을 그대로 물려받는다. 지난 devlog 는 그�
 
 | 무엇을 하려는가 | 읽을 것 |
 |---|---|
-| 새 학회를 넣는다 | `docs/data-format.md` · CSV 면 `tools/csv2conf.py` · PDF 면 `sources/strati2026/` 을 본보기로 |
+| 새 학회를 넣는다 | **스킬 `import-conference`**(`.claude/skills/`) — 원본 가져오기부터 점검(`tools/check_conf.py`)·배포까지. 형식은 `docs/data-format.md` |
 | 무엇을 옮겼고 무엇이 남았나 | `devlog/20261008_P01_generalize-strati2026.md` — 3절(자리마다) · 4절(단계) |
 | 화면이 왜 그런가 | strati2026 저장소의 `devlog/` — 북마크·내 계획·현재 시각 줄의 근거가 거기 있다 |
 | 스키마를 건드린다 | `web/conference/models.py` 머리말 · `loader.py` 머리말 |

@@ -115,6 +115,9 @@ python tools/csv2conf.py docs/examples/example-program.csv \
     --meta docs/examples/example-meta.json -o conferences/example2026.json
 ```
 
+반입 절차 전체(원본 → 변환기 → 점검 → 배포)는 스킬 `.claude/skills/import-conference/SKILL.md`.
+넣은 뒤 내용 점검은 `python tools/check_conf.py conferences/<slug>.json --sample 10`.
+
 `docs/examples/` 의 것은 가상의 학회라 `conferences/` 에 넣지 않는다.
 
 ## 덧붙임 자료 `enrich/` (006)
