@@ -210,8 +210,15 @@ def sessions(request, slug):
         n_talks=Count("talks", filter=~Q(talks__kind="break"), distinct=True),
         n_abs=Count("abstracts", distinct=True),
     )
+    # 세션마다 열리는 날 — 날짜 하나에 구두가 하나라도 있으면 구두 날, 포스터만 있으면 포스터 날
+    days = {}
+    for sid, d, kind in Talk.objects.filter(session__conference=conf).exclude(kind="break") \
+            .values_list("session_id", "date", "kind"):
+        poster_only = days.setdefault(sid, {}).get(d, True)
+        days[sid][d] = poster_only and kind == "poster"
     groups = []
     for s in items:
+        s.days = [{"date": d, "poster": p} for d, p in sorted(days.get(s.pk, {}).items())]
         if not groups or groups[-1][0] != s.group:
             groups.append((s.group, []))
         groups[-1][1].append(s)
