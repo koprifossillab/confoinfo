@@ -8,6 +8,14 @@
   {% comment %} 테마·글꼴을 그리기 전에 단다 — 안 그러면 다크 사용자가 밝은 화면을 한 번 본다 (005).
      값을 읽는 규칙은 app.js 의 getLook 과 같다 {% endcomment %}
   <script>(function(){try{var c=JSON.parse(localStorage.getItem("confoinfo_cfg")||"{}"),d=document.documentElement,t=c.theme;if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";d.setAttribute("data-theme",t);if(c.font==="serif"||c.font==="system")d.setAttribute("data-font",c.font);}catch(e){}})();</script>
+  {% comment %} 앱으로 설치 (010). iOS 는 manifest 의 아이콘을 안 읽어 apple-touch-icon 을 따로 단다 {% endcomment %}
+  <link rel="manifest" href="{% url 'manifest' %}">
+  <link rel="icon" href="{% static 'conference/icons/icon.svg' %}" type="image/svg+xml">
+  <link rel="icon" href="{% static 'conference/icons/favicon-32.png' %}" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{% static 'conference/icons/apple-touch-icon.png' %}">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Confoinfo">
   <link rel="stylesheet" href="{% static 'conference/style.css' %}">
   {% if conf.color %}<style>:root { --navy: {{ conf.color }}; }</style>{% endif %}
   <script>window.CONFO = { root: "{% url 'home' %}", version: "{{ version }}",
@@ -70,6 +78,7 @@
   </nav>
 
   <script src="{% static 'conference/app.js' %}"></script>
+  <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("{% url 'service_worker' %}").catch(function () {});</script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

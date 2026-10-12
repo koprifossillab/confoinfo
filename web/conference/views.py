@@ -16,7 +16,10 @@ from django.conf import settings
 from django.db.models import Count, Q
 from django.http import Http404, HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, render
+from django.templatetags.static import static
 from django.urls import reverse
+
+from confoinfoweb.version import VERSION
 
 from . import changelog, enrich, people
 from .models import Conference, Session, Talk
@@ -401,6 +404,42 @@ def i18n_json(request, lang, slug=None):
     if not (talks or abstracts or sess) and lang not in {l for c in _confs(slug) for l in enrich.languages(c.slug)}:
         raise Http404
     return _json({"talks": talks, "abstracts": abstracts, "sessions": sess})
+
+
+# ── 앱으로 설치 (010) ─────────────────────────────────────────────────────
+
+ICONS = [  # 사용자가 만든 것 그대로 — 원본 SVG 는 docs/brand/
+    {"src": "icon-192.png", "sizes": "192x192", "purpose": "any"},
+    {"src": "icon-512.png", "sizes": "512x512", "purpose": "any"},
+    {"src": "icon-512-maskable.png", "sizes": "512x512", "purpose": "maskable"},
+]
+
+
+def manifest(request):
+    """홈 화면에 설치할 때 브라우저가 읽는 것. 범위는 사이트 뿌리(`/confoinfo/`)다."""
+    root = reverse("home")
+    return _json({
+        "id": root, "name": "Confoinfo", "short_name": "Confoinfo",
+        "description": "Conference programs at a glance — browse, bookmark, plan.",
+        "lang": "en", "start_url": root, "scope": root, "display": "standalone",
+        "background_color": "#dbe9f5", "theme_color": "#0d3b66",
+        "icons": [{**i, "src": static("conference/icons/" + i["src"]), "type": "image/png"} for i in ICONS],
+    })
+
+
+def service_worker(request):
+    """서비스 워커는 범위의 뿌리에 있어야 한다 — static/ 아래에 두면 static/ 만 맡는다.
+
+    판 번호가 캐시 이름이라 판을 올리면 옛 캐시를 지운다. 미리 받는 것은 껍데기(첫 화면·설정·
+    CSS·JS·아이콘)뿐이고, 학회 화면은 한 번 연 것이 남는다 — 학회장 와이파이가 끊겨도 본 화면은 열린다.
+    """
+    shell = [reverse("home"), reverse("settings"), reverse("plan_all"), reverse("talks_all"),
+             static("conference/style.css"), static("conference/app.js"), static("conference/kname.js"),
+             static("conference/icons/icon-192.png")]
+    js = render(request, "conference/sw.js", {"cache": f"confoinfo-{VERSION}",
+                                              "shell": json.dumps(shell), "offline": reverse("home")})
+    js["Content-Type"] = "text/javascript; charset=utf-8"
+    return js
 
 
 def not_found(request):
