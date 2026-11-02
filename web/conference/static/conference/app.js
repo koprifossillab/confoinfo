@@ -269,7 +269,7 @@
     });
   }
 
-  // ── 사람 이름을 한글로 (011) ─────────────────────────────────────────
+  // ── 사람 이름을 한글로 (011) · 병기 (012) ────────────────────────────
   // 한글 표기는 enrich/<학회>.names.json 에 미리 적어 두었고 names.json 하나로 구워진다.
   // 이름이 놓인 칸(NAME_SEL)의 글에서 아는 이름을 찾아 바꾼다 — "A, B, C" 처럼 이어 쓴 칸,
   // 줄여 쓴 칸("…"), 좌장 "Dr. X (Convener: Y)" 도 이름 하나하나로 바뀐다. 원래 이름은 title 에.
@@ -283,7 +283,12 @@
     }
     return namesP;
   }
-  function koNamesOn() { return !!getCfg().koNames; }
+  // 이름 보기 — "orig" 원래 이름 · "ko" 한글 · "both" 한글 (원래 이름). 0.11.0 의 koNames(켜기)는 "ko" 로 본다
+  const NAME_MODES = ["orig", "ko", "both"];
+  function nameMode() {
+    const c = getCfg();
+    return NAME_MODES.includes(c.names) ? c.names : (c.koNames ? "ko" : "orig");
+  }
   function nameRegex(ko) {
     if (!nameRe) {
       const keys = Object.keys(ko).sort((a, b) => b.length - a.length)   // 긴 이름부터 — "Bo Li" 가 "Bo Lin" 을 안 먹게
@@ -298,7 +303,7 @@
     const re = s && nameRegex(ko);
     return re ? s.replace(re, m => ko[m]) : "";
   }
-  function swapNames(root, ko) {
+  function swapNames(root, ko, mode) {
     if (!nameRegex(ko)) return;
     const scopes = [...(root.matches && root.matches(NAME_SEL) ? [root] : []), ...root.querySelectorAll(NAME_SEL)];
     scopes.forEach(el => {
@@ -314,6 +319,12 @@
           if (i < hits.length) {
             const s = document.createElement("span");
             s.className = "ko-name"; s.title = hits[i]; s.textContent = ko[hits[i]];
+            s.dataset.mode = mode;
+            if (mode === "both") {           // 병기 — 원래 이름을 괄호에 작게
+              const o = document.createElement("span");
+              o.className = "ko-orig"; o.textContent = " (" + hits[i] + ")";
+              s.appendChild(o);
+            }
             frag.appendChild(s);
           }
         });
@@ -321,14 +332,16 @@
       });
     });
   }
-  function unswapNames(root) {
-    root.querySelectorAll(".ko-name").forEach(s => s.replaceWith(document.createTextNode(s.title)));
-    root.normalize();                          // 쪼개진 글 조각을 다시 잇는다 — 다시 켜면 이름이 한 조각이어야 찾는다
+  function unswapNames(root, keep) {         // keep 모양으로 바꿔 둔 것은 그대로 둔다
+    const old = [...root.querySelectorAll(".ko-name")].filter(s => s.dataset.mode !== keep);
+    old.forEach(s => s.replaceWith(document.createTextNode(s.title)));
+    if (old.length) root.normalize();          // 쪼개진 글 조각을 다시 잇는다 — 다시 바꾸려면 이름이 한 조각이어야 찾는다
   }
   async function applyNames(root) {
     root = root || document;
-    if (!koNamesOn()) { unswapNames(root); return; }
-    swapNames(root, await names());
+    const mode = nameMode();
+    unswapNames(root, mode);
+    if (mode !== "orig") swapNames(root, await names(), mode);
   }
 
   // ── 화면 도우미 ──────────────────────────────────────────────────────
@@ -352,7 +365,7 @@
 
   document.addEventListener("click", function (e) {
     const kn = e.target.closest(".ko-name");   // 한글 이름을 누르면 원래 이름과 오간다 (011)
-    if (kn && !kn.closest("a, .ac-item")) {
+    if (kn && kn.dataset.mode === "ko" && !kn.closest("a, .ac-item")) {
       kn.dataset.ko = kn.dataset.ko || kn.textContent;
       kn.textContent = kn.textContent === kn.dataset.ko ? kn.title : kn.dataset.ko;
       return;
@@ -398,6 +411,6 @@
     root: ROOT,
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
     getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
-    LANGS, xlateLang, chunks, getLook, setLook, trLang, names, applyNames, koText,
+    LANGS, xlateLang, chunks, getLook, setLook, trLang, names, applyNames, koText, nameMode,
   });
 })();

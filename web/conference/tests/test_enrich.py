@@ -66,6 +66,7 @@ class EnrichTests(TestCase):
         """사람 이름의 한글 표기 (011) — 학회를 가로질러 names.json 하나, 설정에 켜는 칸."""
         self.assertEqual(self.client.get("/names.json").json(), {"ko": {"Kim Ex": "김엑스"}})
         r = self.client.get("/settings/")
-        self.assertContains(r, 'id="cfg-koname"')
+        self.assertContains(r, 'id="cfg-names"')                         # 원래 이름 · 한글 · 병기 (012)
+        self.assertContains(r, 'data-v="both"')
         self.assertContains(r, '<b translate="no">TEST 2026</b>')          # 한글 표기가 있는 학회
         self.assertContains(r, 'namesUrl: "/names.json"')

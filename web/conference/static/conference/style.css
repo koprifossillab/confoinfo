@@ -81,6 +81,8 @@ a { color: inherit; text-decoration: none; }
 .talk-meta { margin-top: 4px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .author { color: var(--muted); font-size: 12.5px; }
 .ko-name { text-decoration: underline dotted var(--line); text-underline-offset: 3px; cursor: pointer; }   /* 원래 이름은 title 에 (011) */
+.ko-name[data-mode="both"] { text-decoration: none; cursor: auto; }
+.ko-orig { font-size: .88em; opacity: .75; }   /* 병기의 원래 이름 (012) */
 .talk-place { color: var(--muted); font-size: 12px; margin-top: 3px; }
 .talk.has-note .talk-title::after { content: " 📝"; font-size: 12px; }
 .talk-note { margin-top: 5px; font-size: 12.5px; color: var(--note-ink); white-space: pre-wrap;
