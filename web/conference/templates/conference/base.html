@@ -20,7 +20,8 @@
   {% if conf.color %}<style>:root { --navy: {{ conf.color }}; }</style>{% endif %}
   <script>window.CONFO = { root: "{% url 'home' %}", version: "{{ version }}",
     trLangs: [{% for l in tr_langs %}"{{ l }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
-    trUrl: "{% if conf %}{% url 'i18n' conf.slug 'LANG' %}{% else %}{% url 'i18n_all' 'LANG' %}{% endif %}" };</script>
+    trUrl: "{% if conf %}{% url 'i18n' conf.slug 'LANG' %}{% else %}{% url 'i18n_all' 'LANG' %}{% endif %}",
+    namesUrl: "{% url 'names' %}" };</script>
 </head>
 <body>
   {% comment %} 머리글 (008, 사용자가 고른 C안). 위의 도구 줄(.appbar)만 화면에 붙어 따라오고,

@@ -38,6 +38,7 @@ def _paths():
     yield reverse("not_found")
     yield reverse("manifest")
     yield reverse("service_worker")
+    yield reverse("names")
     all_langs = set()
     for c in Conference.objects.all():
         s = c.slug

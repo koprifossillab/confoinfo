@@ -28,6 +28,8 @@ class EnrichTests(TestCase):
                                        "works": [{"title": "Old trilobite paper", "year": 2001,
                                                   "venue": "J. Paleo", "cited": 12, "url": "https://doi.org/x"}]},
         }}), encoding="utf-8")
+        (d / "testconf.names.json").write_text(json.dumps({"ko": {"Kim Ex": "김엑스"}}, ensure_ascii=False),
+                                               encoding="utf-8")
         self.ov = override_settings(ENRICH_DIR=d)
         self.ov.enable()
         enrich._load.cache_clear()
@@ -40,7 +42,7 @@ class EnrichTests(TestCase):
         self.tmp.cleanup()
 
     def test_languages_and_translate(self):
-        self.assertEqual(enrich.languages("testconf"), ["ko"])          # openalex 는 언어가 아니다
+        self.assertEqual(enrich.languages("testconf"), ["ko"])          # openalex·names 는 언어가 아니다
         self.assertEqual(enrich.translate("testconf", "Trilobites of somewhere"), {"ko": "어딘가의 삼엽충"})
         self.assertEqual(enrich.translate("testconf", "Trilobites of somewhere, revised"), {})   # 원문이 바뀌면 안 나온다
 
@@ -59,3 +61,11 @@ class EnrichTests(TestCase):
         self.assertEqual(d["sessions"], {"S1": "첫째 세션"})
         self.assertEqual(self.client.get("/testconf/i18n/ja.json").status_code, 404)
         self.assertIn(str(self.t1.pk), self.client.get("/i18n/ko.json").json()["talks"])
+
+    def test_names_json_and_setting(self):
+        """사람 이름의 한글 표기 (011) — 학회를 가로질러 names.json 하나, 설정에 켜는 칸."""
+        self.assertEqual(self.client.get("/names.json").json(), {"ko": {"Kim Ex": "김엑스"}})
+        r = self.client.get("/settings/")
+        self.assertContains(r, 'id="cfg-koname"')
+        self.assertContains(r, '<b translate="no">TEST 2026</b>')          # 한글 표기가 있는 학회
+        self.assertContains(r, 'namesUrl: "/names.json"')

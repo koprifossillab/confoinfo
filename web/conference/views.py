@@ -262,8 +262,10 @@ def settings_page(request):
         notes = changelog.parse((settings.PROJECT_ROOT / "CHANGELOG.md").read_text(encoding="utf-8"))
     except OSError:
         notes = []
+    confs = Conference.objects.order_by("-start_date", "slug")
     return render(request, "conference/settings.html",
-                  {"confs": Conference.objects.order_by("-start_date", "slug"), "notes": notes})
+                  {"confs": confs, "notes": notes,
+                   "name_confs": [c for c in confs if enrich.names(c.slug, "ko")]})
 
 
 # ── 정적 JSON (build_site 가 파일로 굽는다) ──────────────────────────────
@@ -404,6 +406,15 @@ def i18n_json(request, lang, slug=None):
     if not (talks or abstracts or sess) and lang not in {l for c in _confs(slug) for l in enrich.languages(c.slug)}:
         raise Http404
     return _json({"talks": talks, "abstracts": abstracts, "sessions": sess})
+
+
+def names_json(request):
+    """사람 이름의 한글 표기 (011). 학회를 가로질러 하나 — 내 계획·검색이 여러 학회를 한 화면에 그린다.
+    이름이 같으면 같은 사람으로 본다. {ko: {자료의 이름: 한글}}"""
+    ko = {}
+    for conf in _confs(None):
+        ko.update(enrich.names(conf.slug, "ko"))
+    return _json({"ko": ko})
 
 
 # ── 앱으로 설치 (010) ─────────────────────────────────────────────────────

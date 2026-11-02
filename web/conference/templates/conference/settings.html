@@ -55,6 +55,15 @@
   <p class="hint">Language for the 🌐 Translate links on talks and sessions (Papago · Google).
     To translate whole pages, use your browser's Translate menu.</p>
 </div>
+<div class="field">
+  <label class="setting" style="padding: 0; border: none">
+    <span class="setting-t">Names in Korean
+      <small>Speakers, authors and conveners appear in Hangul — <span translate="no">Kyungsik Choi → 최경식</span>.
+        Tap a name to see the original. Spelled from the romanization, so a few may be off.
+        Available now: {% for c in name_confs %}<b translate="no">{{ c.short_name }}</b>{% if not forloop.last %}, {% endif %}{% empty %}none{% endfor %}.</small></span>
+    <input type="checkbox" id="cfg-koname">
+  </label>
+</div>
 
 <h2 class="set-h">This device</h2>
 <div class="field">
@@ -106,6 +115,9 @@
   const tr = document.getElementById('cfg-tr');
   tr.checked = CONFO.getCfg().tr !== false;
   tr.addEventListener('change', () => CONFO.setCfg({ tr: tr.checked }));
+  const kn = document.getElementById('cfg-koname');
+  kn.checked = !!CONFO.getCfg().koNames;
+  kn.addEventListener('change', () => CONFO.setCfg({ koNames: kn.checked }));
   const cb = document.getElementById('cfg-breaks');
   cb.checked = CONFO.getCfg().breaks;
   cb.addEventListener('change', () => CONFO.setCfg({ breaks: cb.checked }));

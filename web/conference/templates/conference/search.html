@@ -55,9 +55,13 @@
   }
 
   // 찾을 글: 제목 · 발표자 · 공저자·키워드·세션 · 미리 번역한 제목(한국어로 찾기, 007)
+  // · 이름의 한글 표기("이케하라" → Ken Ikehara, 011 — 설정과 무관하게 찾는다)
+  let KO = {};
   function hay(item) {
     if (!item._h) item._h = CONFO.fold([item.title, item.author, item.authors, item.x,
-                                        ...Object.values(item.tr || {})].filter(Boolean).join(' '));
+                                        ...Object.values(item.tr || {}),
+                                        ...[item.author, item.authors, ...(item.n || [])].map(n => CONFO.koText(n, KO))]
+                                        .filter(Boolean).join(' '));
     return item._h;
   }
   // 질의 하나 → 거르는 함수. 한글만으로 된 1~5자는 이름으로도 본다 ("최경식" → Kyungsik Choi)
@@ -93,7 +97,7 @@
       (it.n || []).forEach(n => pc.set(n, (pc.get(n) || 0) + 1));
       if (it.session && !sc.has(it.session)) sc.set(it.session, it.st || '');
     });
-    people = [...pc.entries()].map(([name, count]) => ({ name, count, f: CONFO.fold(name) }));
+    people = [...pc.entries()].map(([name, count]) => ({ name, count, f: CONFO.fold(name + ' ' + CONFO.koText(name, KO)) }));
     sessions = [...sc.entries()].map(([code, title]) => ({ code, title, f: CONFO.fold(code + ' ' + title) }));
   }
   function suggest(q) {
@@ -111,7 +115,7 @@
     const ss = sessions.filter(s => words.length && words.every(w => s.f.includes(w))).slice(0, 3)
       .map(s => ({ kind: 'session', label: s.code, sub: s.title, q: s.code }));
     const ts = index.talks.filter(t => words.length && words.every(w => hay(t).includes(w))).slice(0, 3)
-      .map(t => ({ kind: 'talk', label: t.title, sub: (t.tr && t.tr.ko) || t.author || '', url: t.url }));
+      .map(t => ({ kind: 'talk', label: t.title, sub: (t.tr && t.tr.ko) || t.author || '', subName: !(t.tr && t.tr.ko), url: t.url }));
     return [...ps, ...ss, ...ts].slice(0, 9);
   }
   const ICON = { person: '👤', session: '📚', talk: '📄' };
@@ -120,8 +124,9 @@
     ac.innerHTML = items.map((it, i) => `<li role="option" id="ac-${i}" data-i="${i}"
         class="ac-item${i === sel ? ' on' : ''}" aria-selected="${i === sel}">
         <span class="ac-ic">${ICON[it.kind]}</span>
-        <span class="ac-t"><span class="ac-label"${it.kind !== 'talk' ? ' translate="no"' : ''}>${esc(it.label)}</span>
-        ${it.sub ? `<span class="ac-sub">${esc(it.sub)}</span>` : ''}</span></li>`).join('');
+        <span class="ac-t"><span class="ac-label${it.kind === 'person' ? ' pn' : ''}"${it.kind !== 'talk' ? ' translate="no"' : ''}>${esc(it.label)}</span>
+        ${it.sub ? `<span class="ac-sub${it.subName ? ' pn' : ''}">${esc(it.sub)}</span>` : ''}</span></li>`).join('');
+    CONFO.applyNames(ac);
     ac.hidden = false;
     input.setAttribute('aria-expanded', 'true');
     input.setAttribute('aria-activedescendant', sel >= 0 ? 'ac-' + sel : '');
@@ -155,7 +160,9 @@
   input.value = q0;
   if (q0) out.innerHTML = '<p class="empty">Searching…</p>';
   try {
-    index = await (await fetch('{% if conf %}{% url "search_index" conf.slug %}{% else %}{% url "search_index_all" %}{% endif %}?v={{ version }}')).json();
+    [index, KO] = await Promise.all([
+      fetch('{% if conf %}{% url "search_index" conf.slug %}{% else %}{% url "search_index_all" %}{% endif %}?v={{ version }}').then(r => r.json()),
+      CONFO.names()]);
   } catch (e) { out.innerHTML = '<p class="empty">Could not load the search index.</p>'; return; }
   buildLists();
   let timer;

@@ -269,6 +269,68 @@
     });
   }
 
+  // ── 사람 이름을 한글로 (011) ─────────────────────────────────────────
+  // 한글 표기는 enrich/<학회>.names.json 에 미리 적어 두었고 names.json 하나로 구워진다.
+  // 이름이 놓인 칸(NAME_SEL)의 글에서 아는 이름을 찾아 바꾼다 — "A, B, C" 처럼 이어 쓴 칸,
+  // 줄여 쓴 칸("…"), 좌장 "Dr. X (Convener: Y)" 도 이름 하나하나로 바뀐다. 원래 이름은 title 에.
+  const NAME_SEL = ".author, .detail-authors, .detail-corr, .sconv, .session-conveners, .scholar-name, .pn";
+  let namesP = null, nameRe = null;
+  function names() {                         // {자료의 이름: 한글} — 설정과 무관하게 받는다(검색이 쓴다)
+    if (!namesP) {
+      namesP = !window.CONFO.namesUrl ? Promise.resolve({}) :
+        fetch(window.CONFO.namesUrl + "?v=" + (window.CONFO.version || ""))
+          .then(r => r.ok ? r.json() : {}).then(d => d.ko || {}).catch(() => ({}));
+    }
+    return namesP;
+  }
+  function koNamesOn() { return !!getCfg().koNames; }
+  function nameRegex(ko) {
+    if (!nameRe) {
+      const keys = Object.keys(ko).sort((a, b) => b.length - a.length)   // 긴 이름부터 — "Bo Li" 가 "Bo Lin" 을 안 먹게
+        .map(k => k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+      if (!keys.length) return null;
+      nameRe = new RegExp("(?<![\\p{L}\\p{M}])(?:" + keys.join("|") + ")(?![\\p{L}\\p{M}])", "gu");
+    }
+    return nameRe;
+  }
+  // 글 속의 아는 이름을 한글로 — 검색이 찾을 글에 쓴다
+  function koText(s, ko) {
+    const re = s && nameRegex(ko);
+    return re ? s.replace(re, m => ko[m]) : "";
+  }
+  function swapNames(root, ko) {
+    if (!nameRegex(ko)) return;
+    const scopes = [...(root.matches && root.matches(NAME_SEL) ? [root] : []), ...root.querySelectorAll(NAME_SEL)];
+    scopes.forEach(el => {
+      const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+        acceptNode: n => n.parentElement.closest(".ko-name") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+      const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+      nodes.forEach(n => {
+        nameRe.lastIndex = 0;
+        if (!nameRe.test(n.data)) return;
+        const frag = document.createDocumentFragment(), parts = n.data.split(nameRe), hits = n.data.match(nameRe);
+        parts.forEach((p, i) => {
+          if (p) frag.appendChild(document.createTextNode(p));
+          if (i < hits.length) {
+            const s = document.createElement("span");
+            s.className = "ko-name"; s.title = hits[i]; s.textContent = ko[hits[i]];
+            frag.appendChild(s);
+          }
+        });
+        n.replaceWith(frag);
+      });
+    });
+  }
+  function unswapNames(root) {
+    root.querySelectorAll(".ko-name").forEach(s => s.replaceWith(document.createTextNode(s.title)));
+    root.normalize();                          // 쪼개진 글 조각을 다시 잇는다 — 다시 켜면 이름이 한 조각이어야 찾는다
+  }
+  async function applyNames(root) {
+    root = root || document;
+    if (!koNamesOn()) { unswapNames(root); return; }
+    swapNames(root, await names());
+  }
+
   // ── 화면 도우미 ──────────────────────────────────────────────────────
   function esc(s) {
     return (s || "").replace(/[&<>"']/g, c => (
@@ -281,6 +343,7 @@
   }
   function refresh() {
     applyListTr();                           // JS 가 그린 목록(검색·내 계획)도 refresh 를 부른다
+    applyNames();
     document.querySelectorAll(".bm").forEach(paint);
     document.querySelectorAll(".talk[data-id]").forEach(el => {
       el.classList.toggle("has-note", hasNote(parseInt(el.dataset.id, 10)));
@@ -288,6 +351,12 @@
   }
 
   document.addEventListener("click", function (e) {
+    const kn = e.target.closest(".ko-name");   // 한글 이름을 누르면 원래 이름과 오간다 (011)
+    if (kn && !kn.closest("a, .ac-item")) {
+      kn.dataset.ko = kn.dataset.ko || kn.textContent;
+      kn.textContent = kn.textContent === kn.dataset.ko ? kn.title : kn.dataset.ko;
+      return;
+    }
     const btn = e.target.closest(".bm");
     if (!btn) return;
     e.preventDefault();
@@ -329,6 +398,6 @@
     root: ROOT,
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
     getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
-    LANGS, xlateLang, chunks, getLook, setLook, trLang,
+    LANGS, xlateLang, chunks, getLook, setLook, trLang, names, applyNames, koText,
   });
 })();

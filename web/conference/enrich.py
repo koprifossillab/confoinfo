@@ -1,6 +1,8 @@
 """미리 받아 둔 덧붙임 자료 (`enrich/`, 006). 화면이 읽기만 한다 — 받는 것은 tools/ 의 스크립트다.
 
     enrich/<slug>.openalex.json     사람마다 OpenAlex 저자 짝과 대표 논문 셋 (tools/fetch_openalex.py)
+    enrich/<slug>.<lang>.json       미리 번역한 제목·세션 소개 (006)
+    enrich/<slug>.names.json        사람 이름의 한글 표기 {ko: {자료의 이름: 한글}} (011)
 
 **사이트를 굽는 동안 바깥을 부르지 않는다.** 그러면 굽기가 네트워크와 한도에 따라 흔들리고,
 사용자 브라우저가 부르면 학회장 와이파이 한 IP 의 하루 한도를 여럿이 나눠 쓴다. 그래서 이
@@ -31,14 +33,22 @@ def text_key(text):
     return hashlib.sha1((text or "").strip().encode()).hexdigest()[:16]
 
 
+NOT_LANGS = {"openalex", "names"}
+
+
 def languages(slug):
-    """미리 번역해 둔 언어들 — enrich/<slug>.<lang>.json (openalex 제외)."""
+    """미리 번역해 둔 언어들 — enrich/<slug>.<lang>.json (openalex·names 제외)."""
     out = []
     for p in sorted(settings.ENRICH_DIR.glob(f"{slug}.*.json")):
         lang = p.name[len(slug) + 1:-len(".json")]
-        if lang != "openalex":
+        if lang not in NOT_LANGS:
             out.append(lang)
     return out
+
+
+def names(slug, lang="ko"):
+    """{자료에 적힌 이름: 그 언어의 표기} (011)"""
+    return _load(f"{slug}.names.json").get(lang, {})
 
 
 def translations(slug, lang):

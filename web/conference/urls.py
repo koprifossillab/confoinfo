@@ -15,6 +15,7 @@ urlpatterns = [
     path("manifest.webmanifest", views.manifest, name="manifest"),
     path("sw.js", views.service_worker, name="service_worker"),
     path("i18n/<str:lang>.json", views.i18n_json, name="i18n_all"),
+    path("names.json", views.names_json, name="names"),
     # 학회 하나. 위의 이름과 겹치는 slug 는 위가 먼저 잡는다 — loader 가 막는다 (RESERVED)
     path("<slug:slug>/", views.program, name="program"),
     path("<slug:slug>/day/<str:day>/", views.program, name="program_day"),
@@ -32,4 +33,4 @@ urlpatterns = [
 
 # 학회 slug 로 쓰면 그 학회 화면이 위의 경로에 가려 안 열린다 (static 은 정적 파일 자리)
 RESERVED = {"search", "plan", "settings", "static", "talks.json", "search.json", "404.html", "i18n",
-            "manifest.webmanifest", "sw.js"}
+            "manifest.webmanifest", "sw.js", "names.json"}
