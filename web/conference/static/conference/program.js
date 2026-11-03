@@ -139,6 +139,12 @@
     window.addEventListener('scroll', () => { updateBtn(); updateCtx(); }, { passive: true });
     window.addEventListener('resize', () => { placeNow(); updateCtx(); });
     setInterval(placeNow, 60000);        // 1분마다 갱신
+    // 카드 높이가 그린 뒤에 바뀌면(이름 한글·병기는 names.json 을 받은 뒤에 바뀐다) 줄을 다시 잡는다 (014)
+    if ('ResizeObserver' in window) {
+      let raf = 0;
+      const ro = new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(placeNow); });
+      panels.forEach(p => ro.observe(p));
+    }
 
     // ── 좌우 스와이프로 룸 전환 (모바일) ───────────────────────────────
     let sx = 0, sy = 0, swiping = false;

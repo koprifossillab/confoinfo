@@ -85,8 +85,14 @@ a { color: inherit; text-decoration: none; }
 .ko-orig { font-size: .88em; opacity: .75; }   /* 병기의 원래 이름 (012) */
 .talk-place { color: var(--muted); font-size: 12px; margin-top: 3px; }
 .talk.has-note .talk-title::after { content: " 📝"; font-size: 12px; }
-.talk-note { margin-top: 5px; font-size: 12.5px; color: var(--note-ink); white-space: pre-wrap;
+.talk-note { margin-top: 5px; font-size: 12.5px; color: var(--note-ink);
   background: var(--note-bg); border: 1px solid var(--note-line); border-radius: 8px; padding: 4px 8px; }
+/* 접힌 메모는 첫 줄만, 넘치면 … (014) */
+.talk-note summary { cursor: pointer; list-style: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.talk-note summary::-webkit-details-marker { display: none; }
+.talk-note[open] .note-peek { display: none; }
+.talk-note[open] summary::after { content: "Hide note"; font-size: 11.5px; opacity: .7; }
+.note-full { white-space: pre-wrap; margin-top: 2px; }
 
 /* Settings */
 .settings { margin: 6px 0 16px; }

@@ -63,10 +63,12 @@
     let cls = 'talk', style = '';
     if (opts.top != null) { cls = 'talk gtalk'; style = ` style="top:${opts.top}px;height:${opts.height}px"`; }
     else if (opts.minHeight) { style = ` style="min-height:${opts.minHeight}px"`; }
-    // 메모: 전체폭(단독) 카드에만 내용 표시(겹침 그리드 카드는 잘리므로 제외 — 📝 표시만)
+    // 메모: 전체폭(단독) 카드에만 내용 표시(겹침 그리드 카드는 잘리므로 제외 — 📝 표시만).
+    // 평소에는 접어 첫 줄만 — 긴 메모가 카드를 늘려 일정이 안 보였다 (014). 누르면 펼친다
     const note = CONFO.getNote(t.id);
     const noteHtml = (opts.top == null && note)
-      ? `<div class="talk-note">📝 ${CONFO.esc(note)}</div>` : '';
+      ? `<details class="talk-note"><summary>📝 <span class="note-peek">${CONFO.esc(note.split('\n')[0])}</span></summary>`
+        + `<div class="note-full">${CONFO.esc(note)}</div></details>` : '';
     return `<div class="${cls}" data-id="${t.id}" data-start="${t.start}" data-end="${t.end||''}"${style}>
       <div class="talk-time" translate="no">${t.start}${t.end?'–'+t.end:''}</div>
       <div class="talk-body">
@@ -251,6 +253,12 @@
   window.addEventListener('resize', placeNow);
   setInterval(placeNow, 60000);
   placeNow();
+  // 카드 높이가 그린 뒤에 바뀌면(메모 펼치기, 이름 한글·병기는 받은 뒤에 바뀐다) 줄을 다시 잡는다 (014).
+  // 줄은 높이 0 의 absolute 라 다시 그어도 크기가 안 바뀐다 — 돌고 돌지 않는다
+  if ('ResizeObserver' in window) {
+    let raf = 0;
+    new ResizeObserver(() => { cancelAnimationFrame(raf); raf = requestAnimationFrame(placeNow); }).observe(box);
+  }
 })();
 </script>
 {% endblock %}
