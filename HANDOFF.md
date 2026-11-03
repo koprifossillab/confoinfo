@@ -1,6 +1,6 @@
 # HANDOFF
 
-**2026-10-12** · v0.9.0 · 추계지질과학연합학술대회를 넣었다([009](devlog/20261012_009_gskfall2026.md)) · 정적 사이트(GitHub Pages)로 옮겼다([002](devlog/20261008_002_github-pages.md)) ·
+**2026-11-03** · v0.14.1 · ICAMG 2026 에 E-abstract Book 을 얹었다(초록 본문·바뀐 일정, [016](devlog/20261103_016_icamg-abstract-book.md)) · 추계지질과학연합학술대회를 넣었다([009](devlog/20261012_009_gskfall2026.md)) · 정적 사이트(GitHub Pages)로 옮겼다([002](devlog/20261008_002_github-pages.md)) ·
 **`https://koprifossillab.github.io/confoinfo/` 에 떠 있다** (2026-10-08 Pages 켬).
 이어서 할 사람은 여기부터.
 
@@ -12,13 +12,13 @@
 
 `conferences/<slug>.json` 하나를 넣고 `main` 에 밀면 그 학회의 프로그램·세션·검색·내 계획이
 공개 주소에 열린다. 폰에서 VPN·Tailscale 없이 연다. STRATI 2026(발표 457 · 초록 607, 본문 포함)이
-들어 있다. ICAMG 2026(부산, 11-02~04 · 구두 108 · 포스터 75, 초록 본문은 아직 미공개)도.
+들어 있다. ICAMG 2026(부산, 11-02~04 · 구두 104 · 포스터 75, 초록 본문 포함 — 11-03 E-abstract Book 판)도.
 북마크·메모는 그 브라우저에만 있다 — 서버가 없어 기기 간 동기화는 없다.
 
 | | 지금 |
 |---|---|
 | 사이트 | `tools/build_site.sh` → `site/` (1,568개 파일 · 17 MB) · 링크 검사 · CI 가 `main` 에서 굽는다 |
-| 학회 | `gskfall2026`(추계지질과학연합, 프로그램북 PDF · `sources/gskfall2026/to_confoinfo.py`, 원본은 gitignore 된 `data/`) · `icamg2026`(icamg.org HTML · `sources/icamg2026/fetch.sh` 로 다시 받는다) · `strati2026`(지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
+| 학회 | `gskfall2026`(추계지질과학연합, 프로그램북 PDF · `sources/gskfall2026/to_confoinfo.py`, 원본은 gitignore 된 `data/`) · `icamg2026`(icamg.org HTML · `sources/icamg2026/fetch.sh` 로 다시 받는다 + E-abstract Book PDF · `abstract_book.py` → `output/` → `merge_book.py`) · `strati2026`(지난 학회). `docs/examples/` 의 가상 학회는 본보기 — 안 넣는다 |
 | 시험 | 28개 (`python web/manage.py test conference`) |
 | 남은 것 | `TODOs.md` |
 

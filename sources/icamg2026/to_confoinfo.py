@@ -18,7 +18,11 @@
 **받은 날 사이트에 없던 것**: 초록 본문(E-abstract Book 이 "Coming Soon"), 층, 답사 일정의
 시간. 발표마다 저자 목록은 있어 초록 행을 만들어 저자만 채운다 — 검색이 공저자로 걸리고
 상세 화면이 저자를 보여 준다.
+
+**E-abstract Book(2026-11-03 받음)을 위에 얹는다** — `merge_book.py` 가 `output/abstract_book.json`
+(abstract_book.py 가 PDF 에서 뽑은 것)으로 바뀐 일정·취소·포스터 번호와 초록 본문·소속을 넣는다. key 는 그대로.
 """
+import merge_book
 import difflib
 import html
 import json
@@ -266,6 +270,8 @@ def main():
         "abstracts": abstracts,
         "talks": talks,
     }
+    data = merge_book.apply(data)
+    sessions, talks, abstracts = data["sessions"], data["talks"], data["abstracts"]
     OUT.write_text(json.dumps(data, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
     kinds = {}
     for t in talks:
