@@ -120,6 +120,16 @@ python tools/csv2conf.py docs/examples/example-program.csv \
 
 `docs/examples/` 의 것은 가상의 학회라 `conferences/` 에 넣지 않는다.
 
+## 사이트 이용자가 반입하는 길 (P02 · 013)
+
+같은 형식의 파일을 **사이트 이용자가 브라우저에서 바로** 열 수도 있다 — 화면 `/import/`. 이용자는 자기 AI 에게
+학회 프로그램을 주고 **`docs/ai-guide.md`**(영어, 사이트의 `format.txt`)대로 JSON 을 만들게 한 뒤 그 파일을 넣는다.
+반입한 것은 그 기기의 IndexedDB 에만 남고 `/local/?c=<slug>` 에 보인다.
+
+**형식이나 검사를 고치면 넷을 같이 고친다** — 이 문서 · `docs/ai-guide.md` · `docs/confoinfo-1.schema.json` ·
+`loader.validate` 와 그것을 옮긴 `static/conference/local.js` 의 `validate`. 시험(`test_local`)이 지침의 예시와
+예약된 slug 가 맞는지 본다.
+
 ## 덧붙임 자료 `enrich/` (006)
 
 학회 자료와 따로, **이 서버에서 미리 만들어 저장소에 넣는** 것들. 사이트를 구울 때 그대로

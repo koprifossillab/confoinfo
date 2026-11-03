@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://koprifossillab.github.io/confoinfo/confoinfo-1.schema.json",
+  "title": "Confoinfo conference file (confoinfo/1)",
+  "description": "One conference program. Instructions: https://koprifossillab.github.io/confoinfo/format.txt . Cross-references (talk.room, talk.session, talk.abstract) and unique keys are checked by the site, not by this schema.",
+  "type": "object",
+  "required": ["format", "conference"],
+  "properties": {
+    "format": {"const": "confoinfo/1"},
+    "conference": {
+      "type": "object",
+      "required": ["slug", "short_name", "name", "timezone"],
+      "properties": {
+        "slug": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,39}$"},
+        "short_name": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "timezone": {"type": "string", "description": "IANA time zone of the venue, e.g. Asia/Seoul"},
+        "start_date": {"$ref": "#/$defs/date"},
+        "end_date": {"$ref": "#/$defs/date"},
+        "venue": {"type": "string"},
+        "url": {"type": "string"},
+        "language": {"type": "string", "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]{2,8})*$"},
+        "color": {"type": "string", "pattern": "^#[0-9a-fA-F]{6}$"},
+        "lunch_at": {"$ref": "#/$defs/time"},
+        "source": {"type": "string"}
+      }
+    },
+    "rooms": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["name"],
+        "properties": {"name": {"type": "string", "minLength": 1}, "short": {"type": "string"}, "floor": {"type": "string"}}
+      }
+    },
+    "sessions": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["code"],
+        "properties": {
+          "code": {"type": "string", "minLength": 1}, "group": {"type": "string"}, "title": {"type": "string"},
+          "conveners": {"type": "string"}, "description": {"type": "string"},
+          "poster_count": {"type": "integer", "minimum": 0}
+        }
+      }
+    },
+    "abstracts": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["key", "title"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1}, "session": {"type": ["string", "null"]},
+          "title": {"type": "string", "minLength": 1}, "text": {"type": "string"},
+          "keywords": {"type": "array", "items": {"type": "string"}}, "page": {"type": ["integer", "null"]},
+          "authors": {
+            "type": "array",
+            "items": {
+              "type": "object", "required": ["name"],
+              "properties": {"name": {"type": "string"}, "affiliations": {"type": "array", "items": {"type": "integer", "minimum": 1}},
+                             "corresponding": {"type": "boolean"}}
+            }
+          },
+          "affiliations": {"type": "array", "items": {"type": "string"}}
+        }
+      }
+    },
+    "talks": {
+      "type": "array",
+      "items": {
+        "type": "object", "required": ["key", "date", "start", "title"],
+        "properties": {
+          "key": {"type": "string", "minLength": 1},
+          "date": {"$ref": "#/$defs/date"}, "start": {"$ref": "#/$defs/time"}, "end": {"$ref": "#/$defs/time"},
+          "room": {"type": ["string", "null"]}, "session": {"type": ["string", "null"]},
+          "title": {"type": "string", "minLength": 1}, "speaker": {"type": "string"},
+          "kind": {"enum": ["talk", "plenary", "keynote", "poster", "break", "event"]},
+          "abstract": {"type": ["string", "null"]}, "code": {"type": "string"}, "page": {"type": ["integer", "null"]}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "time": {"type": "string", "pattern": "^\\d{1,2}:\\d{2}$"}
+  }
+}

@@ -39,6 +39,10 @@ def _paths():
     yield reverse("manifest")
     yield reverse("service_worker")
     yield reverse("names")
+    yield reverse("import_conf")                  # 이 기기에 반입 (P02)
+    yield reverse("local")
+    yield reverse("ai_guide")
+    yield reverse("schema")
     all_langs = set()
     for c in Conference.objects.all():
         s = c.slug

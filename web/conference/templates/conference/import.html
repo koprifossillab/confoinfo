@@ -1,0 +1,156 @@
+{% extends "conference/base.html" %}
+{% comment %} 이 기기에 학회를 반입한다 (P02). GSM 개인 레이어의 관리 화면(118·130)을 따랐다 —
+   저장하기 전에 읽은 것과 오류·경고를 보이고, 저장한 것은 열기·내려받기·지우기.
+   읽고 검사하고 넣는 것은 local.js 다. 파일은 서버로 가지 않는다. {% endcomment %}
+{% block title %}Add a conference · Confoinfo{% endblock %}
+{% block content %}
+<h1 class="page-h">Add a conference</h1>
+<p class="hint">Open a conference that is not on Confoinfo yet, from a JSON file.
+  <b>It stays on this device only</b> — nothing is uploaded.</p>
+
+<h2 class="set-h">1. Make the file</h2>
+<div class="field">
+  <p class="hint" style="margin-top:0">Ask your AI assistant (ChatGPT, Claude, Gemini…) to convert the program.
+    Copy this request and attach the program — a PDF, a web page or a spreadsheet.</p>
+  <textarea id="ai-ask" class="imp-ask" rows="5" readonly></textarea>
+  <div class="imp-row">
+    <button type="button" class="imp-btn" id="ai-copy">Copy request</button>
+    <a class="imp-link" href="{% url 'ai_guide' %}" target="_blank" rel="noopener">Format guide</a>
+    <a class="imp-link" href="{% url 'schema' %}" target="_blank" rel="noopener">JSON Schema</a>
+  </div>
+</div>
+
+<h2 class="set-h">2. Load it</h2>
+<div class="field">
+  <label class="imp-drop" id="drop">
+    <input type="file" id="file" accept=".json,application/json" hidden>
+    <span class="imp-drop-t">Choose a <b>.json</b> file</span>
+    <span class="imp-drop-s">or drop it here</span>
+  </label>
+  <div id="preview" hidden></div>
+</div>
+
+<h2 class="set-h">On this device</h2>
+<div class="field">
+  <div id="saved"><p class="hint" style="margin:0">Loading…</p></div>
+  <p class="hint" id="usage"></p>
+  <button type="button" class="imp-btn" id="persist" hidden>Keep this data</button>
+  <p class="hint">Some browsers clear site data that is not used for a while — iPhone Safari after 7 days.
+    Installing Confoinfo to the home screen, or <b>Keep this data</b>, avoids it. You can always load the file again.</p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const L = CONFO.local, esc = CONFO.esc;
+  const PUBLISHED = {{ published|safe }};
+  const abs = p => new URL(p, location.href).href;
+
+  // ── 1. AI 에게 줄 부탁 ──────────────────────────────────────────────
+  const ask = document.getElementById('ai-ask');
+  ask.value = `Convert the attached conference program into one JSON file for Confoinfo.\n`
+    + `Follow these instructions exactly: ${abs('{% url "ai_guide" %}')}\n`
+    + `JSON Schema: ${abs('{% url "schema" %}')}\n`
+    + `Copy titles, names, times and rooms as written — do not invent or translate anything. `
+    + `Include every day and every room. Give me the file as <slug>.json.`;
+  document.getElementById('ai-copy').addEventListener('click', async e => {
+    try { await navigator.clipboard.writeText(ask.value); } catch (err) { ask.select(); document.execCommand('copy'); }
+    e.target.textContent = 'Copied'; setTimeout(() => { e.target.textContent = 'Copy request'; }, 1500);
+  });
+
+  // ── 2. 읽기 → 미리 보기 → 저장 ──────────────────────────────────────
+  const drop = document.getElementById('drop'), input = document.getElementById('file');
+  const preview = document.getElementById('preview');
+  function fmtBytes(n) { return n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB'; }
+  function fmtDates(c) {
+    if (!c.start_date) return '';
+    return c.end_date && c.end_date !== c.start_date ? `${c.start_date} – ${c.end_date}` : c.start_date;
+  }
+  async function read(file) {
+    preview.hidden = false;
+    preview.innerHTML = '<p class="hint">Reading…</p>';
+    let text = '', data = null;
+    try { text = await file.text(); data = JSON.parse(text.replace(/^﻿/, '')); }
+    catch (err) {
+      preview.innerHTML = `<div class="imp-card imp-bad"><b>${esc(file.name)}</b> is not valid JSON.
+        <div class="imp-msg">${esc(String(err.message || err))}</div>
+        <p class="hint">Ask your AI to give the file again as plain JSON, without comments or text around it.</p></div>`;
+      return;
+    }
+    const { errors, warnings } = L.validate(data, PUBLISHED);
+    const c = (data && data.conference) || {};
+    const talks = (data.talks || []).filter(t => t && t.kind !== 'break');
+    const days = new Set((data.talks || []).map(t => t && t.date).filter(Boolean));
+    const old = c.slug ? await L.get(c.slug) : null;
+    const list = (arr, cls) => arr.length ? `<ul class="imp-list ${cls}">${arr.slice(0, 30).map(m => `<li>${esc(m)}</li>`).join('')}`
+      + (arr.length > 30 ? `<li>…and ${arr.length - 30} more</li>` : '') + '</ul>' : '';
+    preview.innerHTML = `<div class="imp-card${errors.length ? ' imp-bad' : ''}">
+      <div class="imp-name" translate="no">${esc(c.short_name || '(no name)')}</div>
+      <div class="hint" style="margin:2px 0 8px">${esc(c.name || '')}${c.venue ? ' · ' + esc(c.venue) : ''}${fmtDates(c) ? ' · ' + esc(fmtDates(c)) : ''}${c.timezone ? ' · ' + esc(c.timezone) : ''}</div>
+      <div class="imp-stats">${[[days.size, 'day'], [(data.rooms || []).length, 'room'], [(data.sessions || []).length, 'session'],
+        [talks.length, 'talk'], [(data.abstracts || []).length, 'abstract']].map(([n, w]) => `${n} ${w}${n === 1 ? '' : 's'}`).join(' · ')} · ${fmtBytes(file.size)}</div>
+      ${errors.length ? `<p class="imp-h">${errors.length} error${errors.length === 1 ? '' : 's'} — fix these and load the file again</p>` + list(errors, 'imp-err') : ''}
+      ${warnings.length ? `<p class="imp-h">${warnings.length} warning${warnings.length === 1 ? '' : 's'}</p>` + list(warnings, 'imp-warn') : ''}
+      ${errors.length ? '' : `${old ? `<p class="hint">Replaces the copy saved ${esc(old.saved.slice(0, 10))}. Bookmarks stay for talks whose key did not change.</p>` : ''}
+        <button type="button" class="imp-btn imp-primary" id="save">${old ? 'Replace' : 'Save'} and open</button>`}
+    </div>`;
+    const btn = document.getElementById('save');
+    if (btn) btn.addEventListener('click', async () => {
+      btn.disabled = true; btn.textContent = 'Saving…';
+      try { await L.save(data, file.name, file.size); location.href = L.url(c.slug); }
+      catch (err) { btn.disabled = false; btn.textContent = 'Save and open';
+        preview.insertAdjacentHTML('beforeend', `<p class="imp-msg">Could not save: ${esc(String(err.message || err))}</p>`); }
+    });
+  }
+  input.addEventListener('change', () => { if (input.files[0]) read(input.files[0]); input.value = ''; });
+  ['dragenter', 'dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('on'); }));
+  ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('on'); }));
+  drop.addEventListener('drop', e => { const f = e.dataTransfer.files[0]; if (f) read(f); });
+
+  // ── 저장한 것 ──────────────────────────────────────────────────────
+  const saved = document.getElementById('saved');
+  async function renderSaved() {
+    const recs = await L.all();
+    if (!recs.length) { saved.innerHTML = '<p class="hint" style="margin:0">Nothing loaded yet.</p>'; }
+    else {
+      recs.sort((a, b) => (a.data.conference.start_date || '').localeCompare(b.data.conference.start_date || ''));
+      saved.innerHTML = recs.map(r => {
+        const c = r.data.conference, n = r.data.talks.filter(t => t.kind !== 'break').length;
+        return `<div class="imp-saved" data-slug="${esc(r.slug)}">
+          <a class="imp-name" href="${esc(L.url(r.slug))}" translate="no">${esc(c.short_name)}</a>
+          <div class="hint" style="margin:2px 0 6px">${esc(fmtDates(c))} · ${n} talks · ${fmtBytes(r.bytes)} · saved ${esc(r.saved.slice(0, 10))}</div>
+          <div class="imp-row"><a class="imp-link" href="${esc(L.url(r.slug))}">Open</a>
+            <button type="button" class="imp-link" data-act="download">Download JSON</button>
+            <button type="button" class="imp-link imp-danger" data-act="remove">Remove</button></div>
+        </div>`;
+      }).join('');
+    }
+    const u = await L.usage();
+    document.getElementById('usage').textContent = u.quota
+      ? `This site uses ${fmtBytes(u.used)} of the browser's storage (limit about ${fmtBytes(u.quota)}).` : '';
+    const p = document.getElementById('persist');
+    if (navigator.storage && navigator.storage.persisted) {
+      const yes = await navigator.storage.persisted();
+      p.hidden = yes || !recs.length;
+    }
+  }
+  saved.addEventListener('click', async e => {
+    const b = e.target.closest('button[data-act]'); if (!b) return;
+    const slug = b.closest('.imp-saved').dataset.slug, rec = await L.get(slug);
+    if (!rec) return;
+    if (b.dataset.act === 'download') {
+      const blob = new Blob([JSON.stringify(rec.orig || rec.data, null, 1)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = slug + '.json';
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 10000);
+    } else if (confirm(`Remove ${rec.data.conference.short_name} from this device? Bookmarks of its talks stay, but are hidden until you load it again.`)) {
+      await L.remove(slug); renderSaved();
+    }
+  });
+  document.getElementById('persist').addEventListener('click', async () => { await L.persist(); renderSaved(); });
+  renderSaved();
+})();
+</script>
+{% endblock %}

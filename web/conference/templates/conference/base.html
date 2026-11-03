@@ -79,6 +79,7 @@
   </nav>
 
   <script src="{% static 'conference/app.js' %}"></script>
+  <script src="{% static 'conference/local.js' %}"></script>
   <script>if ("serviceWorker" in navigator) navigator.serviceWorker.register("{% url 'service_worker' %}").catch(function () {});</script>
   {% block scripts %}{% endblock %}
 </body>

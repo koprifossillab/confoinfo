@@ -408,6 +408,37 @@ def i18n_json(request, lang, slug=None):
     return _json({"talks": talks, "abstracts": abstracts, "sessions": sess})
 
 
+# ── 이 기기에 반입한 학회 (P02) ─────────────────────────────────────────
+
+def import_page(request):
+    """반입 화면. 읽고 검사하고 IndexedDB 에 넣는 것은 local.js 가 한다 — 서버로 가지 않는다."""
+    return render(request, "conference/import.html",
+                  {"published": json.dumps(list(Conference.objects.values_list("slug", flat=True)))})
+
+
+def local_page(request):
+    """반입한 학회 화면 하나 — 무엇을 그릴지는 쿼리(?c=…&talk=…)를 보고 브라우저가 정한다."""
+    return render(request, "conference/local.html", {})
+
+
+def _doc(name, content_type):
+    try:
+        body = (settings.PROJECT_ROOT / "docs" / name).read_text(encoding="utf-8")
+    except OSError:
+        raise Http404
+    return HttpResponse(body, content_type=content_type)
+
+
+def ai_guide(request):
+    """사용자의 AI 가 읽을 형식 지침 (docs/ai-guide.md) — 주소 하나로 읽게 글 그대로 낸다.
+    .md 로 내면 GitHub Pages 가 HTML 로 바꿀 수 있어 .txt 로 굽는다."""
+    return _doc("ai-guide.md", "text/plain; charset=utf-8")
+
+
+def schema(request):
+    return _doc("confoinfo-1.schema.json", "application/json; charset=utf-8")
+
+
 def names_json(request):
     """사람 이름의 한글 표기 (011). 학회를 가로질러 하나 — 내 계획·검색이 여러 학회를 한 화면에 그린다.
     이름이 같으면 같은 사람으로 본다. {ko: {자료의 이름: 한글}}"""
@@ -444,8 +475,11 @@ def service_worker(request):
     판 번호가 캐시 이름이라 판을 올리면 옛 캐시를 지운다. 미리 받는 것은 껍데기(첫 화면·설정·
     CSS·JS·아이콘)뿐이고, 학회 화면은 한 번 연 것이 남는다 — 학회장 와이파이가 끊겨도 본 화면은 열린다.
     """
+    # 반입한 학회(P02)는 자료가 IndexedDB 에 있으니 화면 껍데기만 있으면 끊긴 곳에서도 열린다
     shell = [reverse("home"), reverse("settings"), reverse("plan_all"), reverse("talks_all"),
+             reverse("import_conf"), reverse("local"),
              static("conference/style.css"), static("conference/app.js"), static("conference/kname.js"),
+             static("conference/local.js"), static("conference/program.js"),
              static("conference/icons/icon-192.png")]
     js = render(request, "conference/sw.js", {"cache": f"confoinfo-{VERSION}",
                                               "shell": json.dumps(shell), "offline": reverse("home")})

@@ -412,5 +412,6 @@
     getBM, isBM, toggle, esc, refresh, getNote, hasNote, setNote,
     getCfg, setCfg, resetLocal, zoneNow, parseMin, fold, zonedToUtc, buildIcs, downloadIcs,
     LANGS, xlateLang, chunks, getLook, setLook, trLang, names, applyNames, koText, nameMode,
+    initXlate, initAppbar,                   // 반입한 학회 화면(P02)이 다 그린 뒤 다시 부른다
   });
 })();

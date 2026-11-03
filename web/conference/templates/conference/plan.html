@@ -22,8 +22,10 @@
   // 정적 사이트라 북마크만 골라 받을 수 없다 — 통째로 받고 여기서 고른다 (views.talks_json)
   const res = await fetch('{% if conf %}{% url "talks" conf.slug %}{% else %}{% url "talks_all" %}{% endif %}?v={{ version }}');
   const payload = await res.json();
-  const all = payload.talks.filter(t => !CONF || t.conf === CONF);
-  const allBreaks = payload.breaks || [];
+  // 이 기기에 반입한 학회 (P02) — 같은 꼴로 받아 합친다. 학회 하나의 내 계획이면 구운 학회라 반입분은 없다
+  const local = CONF ? { talks: [], breaks: [] } : await CONFO.local.talksPayload();
+  const all = payload.talks.concat(local.talks).filter(t => !CONF || t.conf === CONF);
+  const allBreaks = (payload.breaks || []).concat(local.breaks);
   const set = new Set(ids);
   const mine = all.filter(t => set.has(t.id));
   if (!mine.length) { box.innerHTML = '<p class="empty">' + (CONF ? 'No bookmarks at this conference yet.' : 'No bookmarks found.') + '</p>'; return; }

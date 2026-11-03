@@ -1,7 +1,7 @@
 {% extends "conference/base.html" %}
 {% block content %}
 {% if not confs %}
-  <p class="empty">No conferences loaded yet.</p>
+  <p class="empty" id="no-confs">No conferences loaded yet.</p>
 {% endif %}
 {# 진행 중·다가올·지난 갈래는 아래 JS 가 개최지의 오늘을 보고 가른다 — 구운 날이 아니라 여는 날 기준이어야 한다 #}
 <div id="conf-sections">
@@ -18,10 +18,12 @@
 </a>
 {% endfor %}
 </div>
+{# 이 기기에 반입한 학회 (P02) — 카드는 아래 JS 가 IndexedDB 에서 읽어 같은 갈래에 끼운다 #}
+<a class="imp-add" href="{% url 'import_conf' %}">＋ Add a conference from a file</a>
 {% endblock %}
 {% block scripts %}
 <script>
-(function () {
+(async function () {
   // 기본으로 볼 학회가 정해져 있으면 그리로 (005). "‹ All"·탭바는 ?all 을 달고 와서 목록을 본다
   const home = CONFO.getCfg().home;
   if (home && !new URLSearchParams(location.search).has('all')) {
@@ -30,7 +32,23 @@
   }
 
   const box = document.getElementById('conf-sections');
-  const cards = [...box.querySelectorAll('.conf-card')];
+  // 반입한 학회 (P02) — 구운 카드와 같은 꼴에 "on this device" 를 단다
+  const md = s => new Date(s + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+  for (const r of await CONFO.local.all()) {
+    const c = r.data.conference, esc = CONFO.esc;
+    const n = r.data.talks.filter(t => t.kind !== 'break').length;
+    const when = c.start_date ? `📅 ${md(c.start_date)}${c.end_date && c.end_date !== c.start_date ? ' – ' + md(c.end_date) : ''}, ${c.start_date.slice(0, 4)}` : '';
+    box.insertAdjacentHTML('beforeend', `<a class="conf-card" href="${esc(CONFO.local.url(c.slug))}" data-slug="${esc(c.slug)}"
+      data-tz="${esc(c.timezone)}" data-start="${esc(c.start_date || '')}" data-end="${esc(c.end_date || c.start_date || '')}"
+      ${/^#[0-9a-fA-F]{6}$/.test(c.color || '') ? `style="--cc: ${c.color}"` : ''}>
+      <div class="conf-short">${esc(c.short_name)}<span class="conf-local">ON THIS DEVICE</span></div>
+      <div class="conf-name">${esc(c.name)}</div>
+      <div class="conf-meta">${when ? `<span>${when}</span>` : ''}${c.venue ? `<span>📍 ${esc(c.venue)}</span>` : ''}
+        <span>${n} talks · ${r.data.sessions.length} sessions${r.data.abstracts.length ? ` · ${r.data.abstracts.length} abstracts` : ''}</span></div></a>`);
+    const empty = document.getElementById('no-confs'); if (empty) empty.remove();
+  }
+  const cards = [...box.querySelectorAll('.conf-card')]
+    .sort((a, b) => (a.dataset.start || '').localeCompare(b.dataset.start || ''));   // 반입한 것이 끝에 붙었다
   const groups = { ongoing: [], upcoming: [], past: [] };
   cards.forEach(c => {
     const today = CONFO.zoneNow(c.dataset.tz).date, s = c.dataset.start, e = c.dataset.end || s;

@@ -1,0 +1,242 @@
+{% extends "conference/base.html" %}
+{% load static %}
+{% comment %} 이 기기에 반입한 학회 (P02). 서버는 껍데기만 굽고, 자료는 IndexedDB 에서 local.js 로 읽어
+   여기서 그린다 — 구운 화면(program · talk_detail · sessions · session_detail)과 같은 HTML 꼴로 그려
+   CSS·program.js·북마크·메모를 그대로 쓴다. 무엇을 그릴지는 쿼리가 정한다:
+     ?c=<slug>            프로그램 (학회 기간이면 오늘)      &d=<날짜>   그 날
+     &talk=<key>          발표 상세                          &abstract=<key>  초록 상세
+     &sessions=1          세션 목록                          &session=<code>  세션 상세
+   구운 화면을 고치면 여기도 같이 본다. 검색·캘린더·번역·대표 논문은 아직 없다 (P02 "뒤로 미룬 것"). {% endcomment %}
+{% block title %}Confoinfo — on this device{% endblock %}
+{% block content %}
+<div id="local-root"><p class="empty">Loading…</p></div>
+{% endblock %}
+
+{% block scripts %}
+<button id="nowbtn" class="nowbtn" hidden>● Now</button>
+<script src="{% static 'conference/program.js' %}"></script>
+<script>
+(async function () {
+  const L = CONFO.local, esc = CONFO.esc;
+  const root = document.getElementById('local-root');
+  const q = new URLSearchParams(location.search);
+  const slug = q.get('c') || '';
+  const rec = slug ? await L.get(slug) : null;
+  if (!rec) {
+    root.innerHTML = `<p class="empty">${slug ? `<b translate="no">${esc(slug)}</b> is not on this device.` : 'No conference chosen.'}
+      <a href="{% url 'import_conf' %}"><b>Add a conference</b></a> from a JSON file.</p>`;
+    return;
+  }
+  const D = rec.data, C = D.conference;
+  const U = extra => L.url(slug, extra);
+  const roomOf = new Map(D.rooms.map((r, i) => [r.name, Object.assign({ order: i }, r)]));
+  const sessOf = new Map(D.sessions.map(s => [s.code, s]));
+  const absOf = new Map(D.abstracts.map(a => [a.key, a]));
+
+  // ── 머리글·탭바 — 구운 화면의 conf 자리를 채운다 ──────────────────────
+  function fmtDay(s) {                       // "Mon Nov 2" (Django "D M j")
+    const d = new Date(s + 'T00:00:00Z');
+    return d.toLocaleDateString('en-US', { weekday: 'short', timeZone: 'UTC' }) + ' '
+      + d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+  }
+  function fmtRange() {
+    const md = s => new Date(s + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+    if (!C.start_date) return '';
+    const y = C.start_date.slice(0, 4);
+    return C.end_date && C.end_date !== C.start_date ? `${md(C.start_date)} – ${md(C.end_date)}, ${C.end_date.slice(0, 4)}` : `${md(C.start_date)}, ${y}`;
+  }
+  if (C.color && /^#[0-9a-fA-F]{6}$/.test(C.color)) document.documentElement.style.setProperty('--navy', C.color);
+  document.documentElement.lang = C.language || 'en';
+  const word = document.querySelector('.ab-word');
+  if (word) {
+    word.href = U();
+    word.querySelector('.ab-word-rest').textContent = 'Confoinfo · on this device';
+    word.querySelector('.ab-word-title').textContent = C.short_name;
+  }
+  const hero = document.querySelector('.appbar-hero');
+  if (hero) {
+    hero.dataset.start = C.start_date || ''; hero.dataset.end = C.end_date || C.start_date || ''; hero.dataset.tz = C.timezone;
+    hero.innerHTML = `<a href="${esc(U())}" class="ab-title"><span translate="no">${esc(C.short_name)}</span><span class="ab-chip" hidden></span></a>
+      <div class="ab-meta">${esc(fmtRange())}${C.venue ? ` · <span translate="no">${esc(C.venue)}</span>` : ''} · <a href="{% url 'import_conf' %}">on this device</a></div>`;
+  }
+  const view = q.has('talk') ? 'talk' : q.has('abstract') ? 'abstract' : q.has('session') ? 'session'
+    : q.has('sessions') ? 'sessions' : 'program';
+  const tabbar = document.querySelector('.tabbar');
+  if (tabbar) tabbar.innerHTML = `
+    <a href="${esc(U())}" class="tab ${view === 'program' ? 'on' : ''}"><span class="ic">🗓️</span><span>Program</span></a>
+    <a href="${esc(U({ sessions: 1 }))}" class="tab ${view.startsWith('session') ? 'on' : ''}"><span class="ic">📚</span><span>Sessions</span></a>
+    <a href="{% url 'plan_all' %}" class="tab"><span class="ic">⭐</span><span>My Plan</span></a>
+    <a href="{% url 'home' %}?all" class="tab"><span class="ic">🗂️</span><span>Conferences</span></a>`;
+
+  // ── 조각 (_talk_item · _break_item · _abstract_item) ───────────────
+  const paras = s => (s || '').split(/\n\s*\n/).filter(p => p.trim())
+    .map(p => `<p>${esc(p.trim()).replace(/\n/g, '<br>')}</p>`).join('');
+  function talkItem(t, showPlace) {
+    const s = t.session ? sessOf.get(t.session) : null;
+    return `<div class="talk" data-id="${t.id}" data-start="${esc(t.start)}" data-end="${esc(t.end || '')}">
+      <div class="talk-time" translate="no">${esc(t.start)}${t.end ? '–' + esc(t.end) : ''}</div>
+      <div class="talk-body">
+        <a class="talk-title" href="${esc(U({ talk: t.key }))}">${esc(t.title)}</a>
+        <div class="talk-meta">
+          ${t.code ? `<span class="code-tag" translate="no">${esc(t.code)}</span>` : ''}
+          ${s ? `<span class="badge" translate="no" title="${esc(s.title || '')}">${esc(s.code)}</span>` : ''}
+          ${t.speaker ? `<span class="author" translate="no">${esc(t.speaker)}</span>` : ''}
+        </div>
+        ${showPlace ? `<div class="talk-place">📅 ${fmtDay(t.date)}${t.room ? ' · 📍 ' + esc(t.room) : ''}</div>` : ''}
+      </div>
+      ${L.UNBOOKMARKABLE.has(t.kind) ? '' : `<button class="bm" data-id="${t.id}" aria-label="bookmark" title="Bookmark">☆</button>`}
+    </div>`;
+  }
+  function breakItem(b) {
+    return `<div class="brk" data-start="${esc(b.start)}" data-end="${esc(b.end)}">
+      <div class="talk-time" translate="no">${esc(b.start)}–${esc(b.end)}</div>
+      <div class="brk-label">${/lunch/i.test(b.label) ? '🍽️' : '☕'} ${esc(b.label)}</div></div>`;
+  }
+  function absItem(a) {
+    const names = (a.authors || []).map(x => x.name).join(', ');
+    const short = names.split(/\s+/).length > 6 ? names.split(/\s+/).slice(0, 6).join(' ') + ' …' : names;
+    return `<div class="talk"><div class="talk-body">
+      <a class="talk-title" href="${esc(U({ abstract: a.key }))}">${esc(a.title)}</a>
+      <div class="talk-meta"><span class="author" translate="no">${esc(short)}</span></div></div></div>`;
+  }
+  const byTime = (a, b) => (a.date || '').localeCompare(b.date || '') || CONFO.parseMin(a.start) - CONFO.parseMin(b.start);
+
+  // ── 프로그램 (program.html) ────────────────────────────────────────
+  function renderProgram() {
+    const days = [...new Set(D.talks.map(t => t.date))].sort();
+    if (!days.length) {
+      root.innerHTML = `<p class="empty">No timetable for this conference.${D.sessions.length ? ` See <a href="${esc(U({ sessions: 1 }))}"><b>Sessions</b></a>.` : ''}</p>`;
+      return;
+    }
+    const sel = days.includes(q.get('d')) ? q.get('d') : days[0];
+    const talks = D.talks.filter(t => t.date === sel);
+    const plenary = talks.filter(t => !t.room).sort(byTime);
+    const rooms = [...new Set(talks.filter(t => t.room).map(t => t.room))]
+      .sort((a, b) => roomOf.get(a).order - roomOf.get(b).order);
+    let html = `<div class="daybar">${days.map(d => {
+      const dd = fmtDay(d).split(' ');
+      return `<a href="${esc(U({ d }))}" class="daychip ${d === sel ? 'on' : ''}">${dd[0]}<b>${dd[1]} ${dd[2]}</b></a>`;
+    }).join('')}</div>
+      <div id="nowbanner" class="nowbanner" hidden></div>
+      <div class="roomtabs" role="tablist">
+        ${plenary.length ? '<button class="roomtab on" data-panel="plenary" data-room="Plenary">Plenary</button>' : ''}
+        ${rooms.map((r, i) => `<button class="roomtab ${!plenary.length && !i ? 'on' : ''}" data-panel="r${i + 1}" data-room="${esc(r)}">${esc(roomOf.get(r).short || r)}</button>`).join('')}
+      </div>
+      <div id="ctxbar" class="ctxbar" hidden><b>${fmtDay(sel)}</b><span class="ctxsep">·</span><span id="ctxroom"></span></div>`;
+    if (plenary.length) html += `<section class="room panel on" data-panel="plenary"><h2 class="room-h">Plenary &amp; all rooms</h2>${plenary.map(t => talkItem(t)).join('')}</section>`;
+    rooms.forEach((r, i) => {
+      const its = talks.filter(t => t.room === r);
+      const items = its.map(t => t.kind === 'break'
+        ? { s: t.start, html: breakItem({ start: t.start, end: t.end || t.start, label: t.title }) }
+        : { s: t.start, html: talkItem(t) })
+        .concat(L.deriveBreaks(its, C.lunch_at).map(b => ({ s: b.start, html: breakItem(b) })))
+        .sort((a, b) => CONFO.parseMin(a.s) - CONFO.parseMin(b.s));
+      const room = roomOf.get(r);
+      html += `<section class="room panel ${!plenary.length && !i ? 'on' : ''}" data-panel="r${i + 1}">
+        <h2 class="room-h">${esc(r)}${room.floor ? ' · ' + esc(room.floor) : ''}</h2>${items.map(x => x.html).join('')}</section>`;
+    });
+    root.innerHTML = html;
+    document.title = `Program · ${C.short_name}`;
+    CONFO.initProgram({ slug, tz: C.timezone, isRoot: !q.has('d'), selected: sel, days,
+      start: C.start_date || days[0], end: C.end_date || C.start_date || days[days.length - 1],
+      dayUrls: Object.fromEntries(days.map(d => [d, U({ d })])) });
+  }
+
+  // ── 발표·초록 상세 (talk_detail.html) ──────────────────────────────
+  function renderDetail(t, a) {
+    const s = (t && t.session && sessOf.get(t.session)) || (a && a.session && sessOf.get(a.session)) || null;
+    const room = t && t.room ? roomOf.get(t.room) : null;
+    const title = (a && !t) ? a.title : t.title;
+    const bm = t && !L.UNBOOKMARKABLE.has(t.kind);
+    let html = '<article class="detail" data-xlate-scope>';
+    if (t) html += `<div class="detail-when">
+      ${t.code ? `<span class="code-tag" translate="no">${esc(t.code)}</span>` : ''}
+      ${s ? `<span class="badge" translate="no">${esc(s.code)}</span>` : ''}
+      ${fmtDay(t.date)} · ${esc(t.start)}${t.end ? '–' + esc(t.end) : ''}
+      ${room ? ` · ${esc(room.name)}${room.floor ? ` (${esc(room.floor)})` : ''}` : ''}
+      ${bm ? `<button class="bm big" data-id="${t.id}" aria-label="bookmark">☆</button>` : ''}</div>`;
+    html += `<h1 class="detail-title" data-xlate>${esc(title)}</h1>`;
+    if (s) html += `<a class="detail-session" href="${esc(U({ session: s.code }))}"><span class="badge" translate="no">${esc(s.code)}</span> ${esc(s.title || '(title TBD)')}</a>`;
+    if (bm) html += `<p class="tz-note">Times are local to the venue (${esc(C.timezone)}).</p>
+      <section class="note"><label class="note-h" for="note">📝 My note <span class="note-status" id="note-status"></span></label>
+      <textarea id="note" data-id="${t.id}" rows="2" placeholder="Add a note — saved on this device…"></textarea></section>`;
+    if (a) {
+      const authors = a.authors || [];
+      if (authors.length) html += `<p class="detail-authors" translate="no">${esc(authors.map(x => x.name).join(', '))}</p>`;
+      const corr = authors.filter(x => x.corresponding).map(x => x.name);
+      if (corr.length) html += `<p class="detail-corr" translate="no">✉ Corresponding: ${esc(corr.join(', '))}</p>`;
+      if (a.text) html += `<div class="detail-abstract" data-xlate>${paras(a.text)}</div>`;
+      if ((a.keywords || []).length) html += `<div class="kw">${a.keywords.map(k => `<span class="kwchip">${esc(k)}</span>`).join('')}</div>`;
+      if ((a.affiliations || []).length) html += `<details class="affil"><summary>Affiliations</summary><ol translate="no">${a.affiliations.map(x => `<li>${esc(x)}</li>`).join('')}</ol></details>`;
+    } else if (t && t.kind !== 'break') {
+      if (t.speaker) html += `<p class="detail-authors" translate="no">${esc(t.speaker)}</p>`;
+      if (t.kind === 'talk') html += '<p class="empty">No abstract linked for this talk.</p>';
+    }
+    html += '<div class="xlate"></div></article>';
+    root.innerHTML = html;
+    document.title = `${title} · ${C.short_name}`;
+    const ta = document.getElementById('note');
+    if (ta) {                                 // 메모 (talk_detail.html 과 같다)
+      const id = t.id, status = document.getElementById('note-status');
+      ta.value = CONFO.getNote(id);
+      const autoSize = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; };
+      autoSize();
+      let timer;
+      ta.addEventListener('input', () => {
+        autoSize(); status.textContent = '…'; clearTimeout(timer);
+        timer = setTimeout(() => { CONFO.setNote(id, ta.value); status.textContent = 'Saved';
+          setTimeout(() => { if (status.textContent === 'Saved') status.textContent = ''; }, 1500); }, 400);
+      });
+    }
+  }
+
+  // ── 세션 목록·상세 (sessions.html · session_detail.html) ───────────
+  function renderSessions() {
+    if (!D.sessions.length) { root.innerHTML = '<h1 class="page-h">Sessions</h1><p class="empty">No sessions in this program.</p>'; return; }
+    let html = '<h1 class="page-h">Sessions</h1>', group = null;
+    D.sessions.forEach((s, i) => {
+      if (i === 0 || s.group !== group) {
+        if (i) html += '</ul>';
+        group = s.group;
+        html += (group ? `<h2 class="group-h">${esc(group)}</h2>` : '') + '<ul class="slist">';
+      }
+      const ts = D.talks.filter(t => t.session === s.code && t.kind !== 'break');
+      const nAbs = D.abstracts.filter(a => a.session === s.code).length;
+      const days = {};                        // 날짜 → 포스터뿐인가
+      ts.forEach(t => { days[t.date] = (days[t.date] ?? true) && t.kind === 'poster'; });
+      const chips = Object.keys(days).sort().map(d => `<span class="sday${days[d] ? ' sday-poster' : ''}">${days[d] ? 'Poster · ' : ''}${fmtDay(d)}</span>`).join('');
+      html += `<li data-code="${esc(s.code)}"><a href="${esc(U({ session: s.code }))}">
+        <span class="badge" translate="no">${esc(s.code)}</span>
+        <span class="stitle">${esc(s.title || '(title TBD)')}${s.conveners ? `<small class="sconv">${esc(s.conveners)}</small>` : ''}${chips ? `<small class="sdays">${chips}</small>` : ''}</span>
+        <span class="scount">${ts.length ? `${ts.length} talk${ts.length === 1 ? '' : 's'}` : nAbs ? `${nAbs} abstract${nAbs === 1 ? '' : 's'}` : ''}</span></a></li>`;
+    });
+    root.innerHTML = html + '</ul>';
+    document.title = `Sessions · ${C.short_name}`;
+  }
+  function renderSession(s) {
+    const talks = D.talks.filter(t => t.session === s.code && t.kind !== 'break').sort(byTime);
+    const linked = new Set(talks.map(t => t.abstract).filter(Boolean));
+    const extra = D.abstracts.filter(a => a.session === s.code && !linked.has(a.key));
+    let html = `<h1 class="page-h"><span class="badge" translate="no">${esc(s.code)}</span></h1>
+      <p class="session-title">${esc(s.title || '(title TBD)')}</p>
+      ${s.conveners ? `<p class="session-conveners">Conveners: ${esc(s.conveners)}</p>` : ''}
+      ${s.description ? `<details class="session-desc" data-xlate-scope><summary>About this session</summary><div data-xlate>${paras(s.description)}</div><div class="xlate"></div></details>` : ''}`;
+    if (talks.length) html += '<h2 class="room-h">Oral program</h2>' + talks.map(t => talkItem(t, true)).join('');
+    if (extra.length) html += '<h2 class="room-h">Other abstracts</h2>' + extra.map(absItem).join('');
+    root.innerHTML = html;
+    document.title = `${s.code} · ${C.short_name}`;
+  }
+
+  const notFound = what => { root.innerHTML = `<p class="empty">${what} is not in this conference. <a href="${esc(U())}"><b>Program</b></a></p>`; };
+  if (view === 'program') renderProgram();
+  else if (view === 'talk') { const t = D.talks.find(x => x.key === q.get('talk')); t ? renderDetail(t, t.abstract ? absOf.get(t.abstract) : null) : notFound('This talk'); }
+  else if (view === 'abstract') { const a = absOf.get(q.get('abstract')); a ? renderDetail(D.talks.find(x => x.abstract === a.key) || null, a) : notFound('This abstract'); }
+  else if (view === 'sessions') renderSessions();
+  else { const s = sessOf.get(q.get('session')); s ? renderSession(s) : notFound('This session'); }
+
+  CONFO.initAppbar();
+  CONFO.refresh();
+  CONFO.initXlate();
+})();
+</script>
+{% endblock %}
