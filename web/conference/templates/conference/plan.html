@@ -7,7 +7,10 @@
 <h1 class="page-h">My Plan</h1>
 <p class="hint">Bookmarked talks{% if conf %} at {{ conf.short_name }}{% else %} across all conferences{% endif %}, with your notes.
   {% if conf %}<a href="{% url 'plan_all' %}"><b>All conferences →</b></a>{% endif %}</p>
-<a id="cal-all" class="cal-btn" href="#" hidden>📅 Add all to Calendar</a>
+<div class="plan-actions">
+  <button type="button" id="free-btn" class="cal-btn free-btn" hidden>🕒 Talks in my free time</button>
+  <a id="cal-all" class="cal-btn" href="#" hidden>📅 Add all to Calendar</a>
+</div>
 <div id="tt"><p class="empty">Loading…</p></div>
 <button id="nowbtn" class="nowbtn" hidden>● Now</button>
 {% endblock %}
@@ -26,8 +29,7 @@
   const local = CONF ? { talks: [], breaks: [] } : await CONFO.local.talksPayload();
   const all = payload.talks.concat(local.talks).filter(t => !CONF || t.conf === CONF);
   const allBreaks = (payload.breaks || []).concat(local.breaks);
-  const set = new Set(ids);
-  const mine = all.filter(t => set.has(t.id));
+  let mine = all.filter(t => new Set(ids).has(t.id));
   if (!mine.length) { box.innerHTML = '<p class="empty">' + (CONF ? 'No bookmarks at this conference yet.' : 'No bookmarks found.') + '</p>'; return; }
 
   // 절대 시간 기반: 발표/겹침은 시간 비례, 빈 시간은 압축
@@ -47,9 +49,7 @@
   }
 
   // 구간 = (날짜, 학회). 학회 둘이 같은 날 열리면 구간이 둘이다 — 시간대가 다를 수 있다
-  mine.sort((a,b)=>a.date.localeCompare(b.date)||a.conf.localeCompare(b.conf)||a.start.localeCompare(b.start));
-  const days = [...new Set(mine.map(t => t.date + '|' + t.conf))];
-  const multiConf = new Set(mine.map(t => t.conf)).size > 1;
+  let multiConf = false;
   function dayTitle(t) {
     const d = new Date(t.date + 'T00:00:00Z');
     const s = d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
@@ -140,6 +140,72 @@
     return `<div class="cluster" style="height:${H + BAR}px">${cols}</div>`;
   }
 
+  // ── 빈 시간에 들을 발표 (015) ──────────────────────────────────────
+  // 그날 그 학회의 프로그램 시간(구두 발표의 처음~끝) 안에서 북마크가 없는 시간 — 북마크 사이와
+  // 첫 북마크 앞·마지막 북마크 뒤. 그 시간에 걸치는 구두·기조·총회를 접힌 목록으로 그 자리에 띄운다.
+  // 북마크와 시간이 겹치는 것(일부만 빈 시간)은 "overlaps" 를 단다. 목록의 발표는 data-start 가 없다 —
+  // 현재 시각 줄은 내 일정 카드만 보고 잡는다
+  const ORAL = new Set(['talk', 'keynote', 'plenary']);
+  let showFree = !!CONFO.getCfg().planFree;
+  function freeGaps(day, blocks, tz) {
+    const [date, conf] = day.split('|');
+    // 이미 지나간 것은 뺀다 — 지난 날은 통째로, 오늘은 끝난 발표와 지나간 빈 시간을 (개최지 시각)
+    const z = CONFO.zoneNow(tz);
+    if (date < z.date) return [];
+    const cut = date === z.date ? z.min : -1;
+    const oral = all.filter(t => t.conf === conf && t.date === date && ORAL.has(t.kind) && parseMin(t.start) != null);
+    if (!oral.length) return [];
+    const ds = Math.min(...oral.map(t => parseMin(t.start))), de = Math.max(...oral.map(endMin));
+    const gaps = [];
+    let cur = ds;
+    blocks.forEach((b, i) => { gaps.push({ s: cur, e: b.s, at: i }); cur = Math.max(cur, b.e); });
+    gaps.push({ s: cur, e: de, at: blocks.length });         // at: 이 블록 앞에 놓인다 (끝이면 맨 뒤)
+    const mineSet = new Set(mine.map(t => t.id));
+    const busy = blocks.map(b => [b.s, b.e]);
+    const out = gaps.map(g => ({ ...g, s: Math.max(g.s, cut) })).filter(g => g.e > g.s).map(g => ({ ...g, talks: [] }));
+    oral.forEach(t => {
+      if (mineSet.has(t.id) || endMin(t) <= cut) return;
+      const s = parseMin(t.start), e = endMin(t);
+      // 가장 많이 걸치는 빈 시간 하나에 넣는다
+      let best = null, bestOv = 0;
+      out.forEach(g => { const ov = Math.min(e, g.e) - Math.max(s, g.s); if (ov > bestOv) { bestOv = ov; best = g; } });
+      if (!best) return;
+      best.talks.push({ t, partial: busy.some(([bs, be]) => s < be && bs < e) });
+    });
+    out.forEach(g => g.talks.sort((a, b) => a.t.start.localeCompare(b.t.start) || (a.t.room || '').localeCompare(b.t.room || '')));
+    return out.filter(g => g.talks.length);
+  }
+  const hm = m => String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  function freeEl(g) {
+    const n = g.talks.length;
+    // 시작·끝이 똑같은 발표(다른 룸의 같은 칸)는 박스 하나로 묶고 시각은 박스 머리에 한 번만 적는다
+    const slots = [];
+    g.talks.forEach(x => {
+      const k = x.t.start + '–' + (x.t.end || '');
+      const last = slots[slots.length - 1];
+      if (last && last.k === k) last.items.push(x); else slots.push({ k, items: [x] });
+    });
+    const rows = slots.map(sl => sl.items.length === 1 ? freeRow(sl.items[0], true)
+      : `<div class="free-slot"><div class="free-slot-h" translate="no">${sl.k.replace(/–$/, '')} · ${sl.items.length} at the same time</div>`
+        + sl.items.map(x => freeRow(x, false)).join('') + '</div>').join('');
+    return `<details class="free"><summary>🕒 ${n} talk${n === 1 ? '' : 's'} in your free time · ${hm(g.s)}–${hm(g.e)}</summary>${rows}</details>`;
+  }
+  function freeRow({ t, partial }, withTime) {
+    return `<div class="free-talk${partial ? ' free-partial' : ''}">
+      ${withTime ? `<div class="talk-time" translate="no">${t.start}${t.end ? '–' + t.end : ''}</div>` : ''}
+      <div class="talk-body">
+        <a class="talk-title" href="${t.url}">${CONFO.esc(t.title)}</a>
+        <div class="talk-meta">${partial ? '<span class="free-ov">overlaps your plan</span>' : ''}${t.session ? `<span class="badge" translate="no">${CONFO.esc(t.session)}</span>` : ''}
+          ${t.author ? `<span class="author" translate="no">${CONFO.esc(t.author)}</span>` : ''}</div>
+        ${t.room ? `<div class="talk-place">📍 ${CONFO.esc([t.room, t.floor].filter(Boolean).join(' · '))}</div>` : ''}
+      </div>
+      <button class="bm" data-id="${t.id}" aria-label="bookmark" title="Add to my plan">☆</button></div>`;
+  }
+
+  function draw() {
+  mine.sort((a,b)=>a.date.localeCompare(b.date)||a.conf.localeCompare(b.conf)||a.start.localeCompare(b.start));
+  const days = [...new Set(mine.map(t => t.date + '|' + t.conf))];
+  multiConf = new Set(mine.map(t => t.conf)).size > 1;
   let html = '';
   days.forEach(day => {
     const items = mine.filter(t => t.date + '|' + t.conf === day)
@@ -164,17 +230,40 @@
       c, s: Math.min(...c.map(t=>parseMin(t.start))), e: Math.max(...c.map(endMin)),
     }));
 
+    const free = showFree ? freeGaps(day, blocks, items[0].tz) : [];
+    const freeAt = i => free.filter(g => g.at === i).map(freeEl).join('');
+
     html += `<section class="room" data-date="${items[0].date}" data-tz="${CONFO.esc(items[0].tz)}"><h2 class="room-h">${dayTitle(items[0])}</h2>`;
     blocks.forEach((blk, i) => {
       const brk = breaksByEnd[blk.s];
-      if (i === 0) { if (brk) html += gapEl(parseMin(brk.start), blk.s, brk); }
-      else html += gapEl(blocks[i-1].e, blk.s, brk);
+      if (i === 0) { html += freeAt(0); if (brk) html += gapEl(parseMin(brk.start), blk.s, brk); }
+      else { html += gapEl(blocks[i-1].e, blk.s, brk); html += freeAt(i); }
       html += renderBlock(blk);
     });
+    html += freeAt(blocks.length);
     html += `</section>`;
   });
+  const open = new Set([...box.querySelectorAll('details.free[open] summary')].map(x => x.textContent));
   box.innerHTML = html;
+  box.querySelectorAll('details.free').forEach(d => { if (open.has(d.querySelector('summary').textContent)) d.open = true; });
   CONFO.refresh();
+  }
+  draw();
+
+  // 빈 시간 단추 — 켜 둔 것은 기억한다. 목록에서 ☆ 로 담으면 일정에 바로 들어간다
+  const freeBtn = document.getElementById('free-btn');
+  const paintFree = () => { freeBtn.classList.toggle('on', showFree);
+    freeBtn.textContent = showFree ? '🕒 Hide free-time talks' : '🕒 Talks in my free time'; };
+  freeBtn.addEventListener('click', () => { showFree = !showFree; CONFO.setCfg({ planFree: showFree }); paintFree(); draw(); });
+  paintFree();
+  freeBtn.hidden = false;
+  document.addEventListener('bm:change', e => {
+    const id = e.detail && e.detail.id;
+    if (CONFO.isBM(id) && !mine.some(t => t.id === id)) {        // 빈 시간 목록에서 담았다
+      const t = all.find(x => x.id === id);
+      if (t) { mine.push(t); draw(); }
+    }
+  });
 
   const calAll = document.getElementById('cal-all');
   calAll.addEventListener('click', e => {

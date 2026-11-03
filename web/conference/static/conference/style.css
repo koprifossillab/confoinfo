@@ -87,6 +87,24 @@ a { color: inherit; text-decoration: none; }
 .talk.has-note .talk-title::after { content: " 📝"; font-size: 12px; }
 .talk-note { margin-top: 5px; font-size: 12.5px; color: var(--note-ink);
   background: var(--note-bg); border: 1px solid var(--note-line); border-radius: 8px; padding: 4px 8px; }
+/* 빈 시간에 들을 발표 (015) — 내 계획의 빈 자리에 접힌 목록 */
+.plan-actions { display: flex; flex-wrap: wrap; gap: 0 8px; }
+.free-btn { border: 1px solid var(--navy); font: inherit; font-size: 13.5px; font-weight: 600; cursor: pointer;
+  background: var(--card); color: var(--link); }
+.free-btn.on { background: var(--navy); color: var(--on-navy); }
+.free { margin: 4px 0 10px; border: 1px dashed var(--line); border-radius: 12px; background: var(--brk-bg); }
+.free summary { cursor: pointer; padding: 8px 12px; font-size: 12.5px; font-weight: 600; color: var(--muted); }
+.free[open] summary { border-bottom: 1px dashed var(--line); }
+.free-talk { display: flex; gap: 10px; align-items: flex-start; padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.free-talk:last-child { border-bottom: none; }
+.free-slot { margin: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--card); overflow: hidden; }
+.free-slot-h { padding: 5px 10px; font-size: 12px; font-weight: 700; color: var(--link); background: var(--soft);
+  font-variant-numeric: tabular-nums; }
+.free-slot .free-talk { padding: 8px 10px; }
+.free-talk .talk-title { font-size: 13.5px; }
+.free-partial { opacity: .7; }
+.free-ov { display: inline-block; font-size: 10.5px; font-weight: 700; color: var(--warn-ink); background: var(--warn-bg);
+  border: 1px solid var(--warn-line); border-radius: 6px; padding: 0 5px; margin-right: 4px; }
 /* 접힌 메모는 첫 줄만, 넘치면 … (014) */
 .talk-note summary { cursor: pointer; list-style: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .talk-note summary::-webkit-details-marker { display: none; }
